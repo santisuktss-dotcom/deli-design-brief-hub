@@ -61,7 +61,7 @@ a:hover{color:var(--accent);opacity:.82}
             <div style="font-family: Archivo,sans-serif; font-variant-numeric: tabular-nums; font-size: clamp(42px,7vw,80px); font-weight: 700; letter-spacing: -0.03em; color: #fff; line-height: 1.05">{{ deptPct }}</div>
             <div style="font-size: clamp(15px,2.2vw,25px); font-weight: 700; color: #fff; line-height: 1.35; white-space: pre-line">{{ loginStatusLabel }}</div>
           </div>
-          <div style="flex:none;width:clamp(92px,18vw,160px);aspect-ratio:1;position:relative">
+          <div style="flex:none;width:clamp(115px,24vw,210px);aspect-ratio:1;position:relative">
             <sc-if value="{{ loginIsOpen }}" hint-placeholder-val="{{ false }}"><img src="assets/level-open.gif" alt="{{ loginStatus.en }}" style="width:100%;height:100%;object-fit:contain;transform:scale(1.25)"></sc-if>
             <sc-if value="{{ loginIsBusy }}" hint-placeholder-val="{{ false }}"><img src="assets/level-busy.gif" alt="{{ loginStatus.en }}" style="width:100%;height:100%;object-fit:contain;transform:scale(1.25)"></sc-if>
             <sc-if value="{{ loginIsOver }}" hint-placeholder-val="{{ false }}"><img src="assets/level-over.gif" alt="{{ loginStatus.en }}" style="width:100%;height:100%;object-fit:contain;transform:scale(1.15)"></sc-if>
@@ -132,8 +132,8 @@ a:hover{color:var(--accent);opacity:.82}
             <input type="email" value="{{ emailOwner }}" onChange="{{ onEmailOwner }}" placeholder="name@gmail.com" style="width:100%;border:0;background:transparent;outline:none;font-family:inherit;font-size:13.5px;color:#fff;padding:0">
           </div>
           <div style="padding:12px 14px;border:1px solid rgba(255,255,255,.28);border-radius:14px;background:rgba(255,255,255,.1);display:flex;align-items:flex-end;gap:10px">
-            <div style="flex:1"><div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:3px">Password</div><input type="password" value="{{ pwOwner }}" onChange="{{ onPwOwner }}" placeholder="••••••••••" style="width:100%;border:0;background:transparent;outline:none;font-family:inherit;font-size:13.5px;letter-spacing:0;color:#fff;padding:0"></div>
-            <div style="font-size:11.5px;color:rgba(255,255,255,.7);padding-bottom:1px">แสดง</div>
+            <div style="flex:1"><div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:3px">Password</div><input type="{{ pwOwnerType }}" value="{{ pwOwner }}" onChange="{{ onPwOwner }}" placeholder="••••••••••" style="width:100%;border:0;background:transparent;outline:none;font-family:inherit;font-size:13.5px;letter-spacing:0;color:#fff;padding:0"></div>
+            <button onClick="{{ toggleShowPwOwner }}" type="button" style="font-size:11.5px;color:rgba(255,255,255,.7);padding-bottom:1px;background:none;border:0;cursor:pointer;font-family:inherit" style-hover="color:#fff">{{ showPwLabel }}</button>
           </div>
         </div>
         <sc-if value="{{ showOwnerErr }}" hint-placeholder-val="{{ false }}">
@@ -159,11 +159,11 @@ a:hover{color:var(--accent);opacity:.82}
 </sc-if>
 
 <sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
-<div data-theme="{{ theme }}" style="display:flex;flex-direction:column;min-height:100vh;min-width:1240px;background:var(--bg);color:var(--ink)">
+<div data-theme="{{ theme }}" style="display:flex;flex-direction:column;min-height:100vh;background:var(--bg);color:var(--ink)">
 
   <header style="position:sticky;top:0;z-index:20;display:flex;flex-direction:column">
 
-    <div style="background:var(--sidebar);color:#fff"><div style="width:100%;max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:14px 40px">
+    <div style="background:var(--sidebar);color:#fff"><div style="width:100%;max-width:1360px;margin:0 auto;display:flex;align-items:center;flex-wrap:wrap;row-gap:10px;gap:24px;padding:14px clamp(16px,4vw,40px)">
       <div style="display:flex;align-items:center;gap:12px;flex:none">
         <div style="width:40px;height:40px;flex:none;background:#C4142F;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px"><img src="assets/deli-logo-white.png" alt="deli" style="width: 115%; height: 115%; object-fit: contain"></div>
         <div style="display:flex;flex-direction:column;gap:1px">
@@ -172,7 +172,7 @@ a:hover{color:var(--accent);opacity:.82}
         </div>
       </div>
 
-      <nav style="flex:1;display:flex;justify-content:center;gap:4px">
+      <nav style="flex:1 1 auto;min-width:0;display:flex;justify-content:flex-start;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch">
         <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navHomeBg }};color:{{ navHomeFg }}" style-hover="background:rgba(196,20,47,.12)">
           <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.overview }}
         </button>
@@ -192,7 +192,7 @@ a:hover{color:var(--accent);opacity:.82}
         </button>
       </nav>
 
-      <div style="flex:none;display:flex;align-items:center;gap:10px">
+      <div style="flex:1 1 auto;min-width:0;display:flex;align-items:center;flex-wrap:wrap;row-gap:8px;justify-content:flex-end;gap:10px">
         <div style="position:relative">
           <button onClick="{{ toggleNotif }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.24);border-radius:14px;background:transparent;color:#fff;cursor:pointer" style-hover="background:rgba(255,255,255,.1)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -246,7 +246,7 @@ a:hover{color:var(--accent);opacity:.82}
       </div>
     </div></div>
 
-    <div style="background:var(--headerBg);border-bottom:1px solid var(--line)"><div style="width:100%;max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:11px 40px">
+    <div style="background:var(--headerBg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)"><div style="width:100%;max-width:1360px;margin:0 auto;display:flex;align-items:center;flex-wrap:wrap;row-gap:8px;gap:20px;padding:11px clamp(16px,4vw,40px)">
       <div style="flex: none; font-family: Anuphan; font-weight: 500; font-size: 11px; letter-spacing: 0.18em; color: var(--muted); white-space: nowrap">DELI / {{ crumb }}</div>
       <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap">
         <span style="font-family: Anuphan; font-weight: 500; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted2); white-space: nowrap">{{ t.category }}</span>
@@ -268,7 +268,7 @@ a:hover{color:var(--accent);opacity:.82}
   </header><main style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center">
 
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;display:flex;flex-direction:column;gap:26px;animation:dliftIn .3s ease both">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 56px;display:flex;flex-direction:column;gap:26px;animation:dliftIn .3s ease both">
 
       <section style="position:relative;overflow:hidden;border-radius:20px;background:#C4142F;color:#fff;padding:46px 48px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
         <div style="position:absolute;right:-70px;top:-70px;width:300px;height:300px;border:34px solid rgba(255,255,255,.08);border-radius:50%;pointer-events:none"></div>
@@ -279,7 +279,7 @@ a:hover{color:var(--accent);opacity:.82}
           <button onClick="{{ goWorks }}" style="padding:13px 22px;border:0;border-radius:20px;background:#fff;color:#C4142F;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap">{{ t.ctaAll }}</button>
           <button onClick="{{ goFlow }}" style="padding:13px 22px;border:1px solid rgba(255,255,255,.4);border-radius:20px;background:transparent;color:#fff;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap">{{ t.ctaFlow }}</button>
         </div>
-        <div style="flex:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:relative;width:100%;margin-top:6px">
+        <div style="flex:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));position:relative;width:100%;margin-top:6px">
           <div style="padding:0 22px;border-left:1px solid rgba(255,255,255,.28);display:flex;flex-direction:column;align-items:center;gap:6px">
             <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:44px;font-weight:600;letter-spacing:-0.03em;line-height:1">{{ totalJobsCount }}</div>
             <div style="font-size:12px;color:rgba(255,255,255,.8)">{{ t.statAll }}</div>
@@ -305,7 +305,7 @@ a:hover{color:var(--accent);opacity:.82}
           <h2 style="margin:0;font-family:Archivo,Anuphan,sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.02em">{{ t.wfTitle }}</h2>
           <span style="font-size:12.5px;color:var(--muted)">{{ t.wfSub }}</span>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px">
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(170px,1fr));gap:20px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px">
           <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
             <div style="position:relative;padding:16px 12px 14px;border-radius:16px;background:{{ s.bg }};color:{{ s.fg }};display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px">
               <div style="position: absolute; top: 10px; right: 12px; font-family: Anuphan,sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; opacity: .55">0{{ s.n }}</div>
@@ -320,7 +320,7 @@ a:hover{color:var(--accent);opacity:.82}
         </div>
       </section>
 
-      <section style="display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);gap:22px;align-items:stretch">
+      <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;align-items:stretch">
         <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 28px;display:flex;flex-direction:column">
           <h2 style="margin:0 0 4px;font-family:Archivo,Anuphan,sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.02em;text-align:center">{{ t.wlTitle }}</h2>
           <div style="font-size:12.5px;color:var(--muted);margin-bottom:22px;text-align:center">{{ t.wlSub }}</div>
@@ -400,7 +400,7 @@ a:hover{color:var(--accent);opacity:.82}
         <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px;justify-content:center">
           <h2 style="margin:0;font-family:Archivo,Anuphan,sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.02em">{{ t.worksTitle }}</h2>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px">
           <sc-for list="{{ featured }}" as="p" hint-placeholder-count="3">
             <div onClick="{{ p.open }}" style="cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:transform .16s ease,box-shadow .16s ease" style-hover="transform:translateY(-3px);box-shadow:0 18px 44px rgba(26,22,20,.13)">
               <div style="height:158px;position:relative;background:{{ p.cover }};display:flex;align-items:flex-end;justify-content:center;padding:14px">
@@ -424,7 +424,7 @@ a:hover{color:var(--accent);opacity:.82}
     </sc-if>
 
     <sc-if value="{{ isWorks }}" hint-placeholder-val="{{ false }}">
-    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;animation:dliftIn .3s ease both">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 56px;animation:dliftIn .3s ease both">
       <div style="display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:28px;text-align:center">
         <div>
           <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05">{{ worksLabel }}</h1>
@@ -478,12 +478,12 @@ a:hover{color:var(--accent);opacity:.82}
     </sc-if>
 
     <sc-if value="{{ isFlow }}" hint-placeholder-val="{{ false }}">
-    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;animation:dliftIn .3s ease both">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 56px;animation:dliftIn .3s ease both">
       <div style="margin-bottom:28px;text-align:center">
         <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05">{{ t.flow }}</h1>
         <p style="margin:0;font-size:14px;color:var(--muted)">Brief → Review → Design → Revision → Approved → Completed</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;align-items:start">
+      <div style="display:grid;grid-template-columns:repeat(6,minmax(200px,1fr));gap:14px;align-items:start;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px">
         <sc-for list="{{ columns }}" as="col" hint-placeholder-count="6">
           <div style="background:var(--surfaceSoft);border:1px solid var(--line);border-radius:20px;padding:12px">
             <div style="display:flex;align-items:center;gap:8px;padding:4px 4px 12px">
@@ -514,7 +514,7 @@ a:hover{color:var(--accent);opacity:.82}
     </sc-if>
 
     <sc-if value="{{ isLoad }}" hint-placeholder-val="{{ false }}">
-    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;animation:dliftIn .3s ease both">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 56px;animation:dliftIn .3s ease both">
       <div style="margin-bottom:28px;text-align:center">
         <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05">{{ t.load }}</h1>
         <p style="margin:0 0 18px;font-size:14px;color:var(--muted)">{{ t.loadSub }}</p>
@@ -524,7 +524,7 @@ a:hover{color:var(--accent);opacity:.82}
           <button onClick="{{ nextMonth }}" style="width:30px;height:30px;border:0;border-radius:50%;background:transparent;color:var(--ink2);font-family:inherit;font-size:15px;cursor:pointer" style-hover="background:var(--wash2)">›</button>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px">
         <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 32px;display:flex;flex-direction:column;align-items:center">
           <div style="align-self:center;font-size:15px;font-weight:600;margin-bottom:24px">{{ t.byCat }}</div>
           <div style="width:290px;height:290px;border-radius:50%;position:relative;background:conic-gradient(oklch(0.72 0.13 22) 0deg 120deg,oklch(0.71 0.11 252) 120deg 210deg,oklch(0.78 0.13 76) 210deg 270deg,oklch(0.72 0.11 311) 270deg 310deg,oklch(0.74 0.11 157) 310deg 360deg)">
@@ -534,7 +534,7 @@ a:hover{color:var(--accent);opacity:.82}
               <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:10px;color:var(--muted);margin-top:2px">{{ totalAssets }} artworks</div>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin-top:30px;width:100%">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px 22px;margin-top:30px;width:100%">
             <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
               <div style="display:flex;align-items:baseline;gap:9px">
                 <span style="width:10px;height:10px;border-radius:50%;flex:none;background:{{ c.soft }}"></span>
@@ -575,7 +575,7 @@ a:hover{color:var(--accent);opacity:.82}
           <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ false }}">
             <div style="margin-top:30px;padding:18px 20px;border-radius:20px;background:rgba(196,20,47,.06);border:1px solid rgba(196,20,47,.16)">
               <div style="font-size:13px;font-weight:600;color:#8E0E22;margin-bottom:5px">{{ t.alertTitle }}</div>
-              <div style="font-size:12.5px;line-height:normal;color:var(--ink3)">บอส (E-Comm) รับงานเกิน 90% ของกำลัง — แนะนำย้าย 1 งานไปที่หมิงหรือเลื่อน deadline ของ TikTok Live Overlay</div>
+              <div style="font-size:12.5px;line-height:normal;color:var(--ink3)">Designer2 (E-Comm) รับงานเกิน 90% ของกำลัง — แนะนำย้าย 1 งานไปที่ Designer1 หรือเลื่อน deadline ของ TikTok Live Overlay</div>
             </div>
           </sc-if>
         </div>
@@ -583,7 +583,7 @@ a:hover{color:var(--accent);opacity:.82}
 
       <div style="margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 30px">
         <div style="font-size:15px;font-weight:600;margin-bottom:18px">{{ t.deliveryTitle }}</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:16px">
           <div style="padding:18px 16px;border-radius:16px;background:oklch(0.94 0.05 157 / 0.5);text-align:center">
             <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:34px;font-weight:600;letter-spacing:-0.03em;color:oklch(0.4 0.11 158)">{{ deliveryEarly }}</div>
             <div style="font-size:12px;font-weight:600;color:oklch(0.4 0.11 158);margin-top:4px">{{ t.deliveryEarlyLabel }}</div>
@@ -602,7 +602,7 @@ a:hover{color:var(--accent);opacity:.82}
     </sc-if>
 
     <sc-if value="{{ isCal }}" hint-placeholder-val="{{ false }}">
-    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;animation:dliftIn .3s ease both">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 56px;animation:dliftIn .3s ease both">
       <div style="display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:28px;text-align:center">
         <div>
           <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05">{{ t.calendar }}</h1>
@@ -627,7 +627,7 @@ a:hover{color:var(--accent);opacity:.82}
         </div>
         <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px">
           <sc-for list="{{ monthCells }}" as="c" hint-placeholder-count="25">
-            <div style="min-height:118px;border-radius:20px;padding:9px;background:{{ c.bg }};border:1px solid {{ c.bd }};display:flex;flex-direction:column;gap:6px;position:relative;box-shadow:inset 0 0 0 999px color-mix(in srgb, {{ c.spanColor }} 12%, transparent)">
+            <div style="min-height:clamp(70px,16vw,118px);border-radius:20px;padding:9px;background:{{ c.bg }};border:1px solid {{ c.bd }};display:flex;flex-direction:column;gap:6px;position:relative;box-shadow:inset 0 0 0 999px color-mix(in srgb, {{ c.spanColor }} 12%, transparent)">
               <div style="display:flex;align-items:center;gap:6px">
                 <span style="font-family:Anuphan,sans-serif;font-size:12px;font-weight:{{ c.weight }};color:{{ c.fg }}">{{ c.label }}</span>
                 <div style="flex:1"></div>
@@ -650,7 +650,7 @@ a:hover{color:var(--accent);opacity:.82}
     </sc-if>
 
     <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
-    <div style="width:100%;max-width:1360px;margin:0 auto;padding:26px 40px 56px;animation:dliftIn .3s ease both">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:26px clamp(16px,4vw,40px) 56px;animation:dliftIn .3s ease both">
       <button onClick="{{ goWorks }}" style="margin-bottom:20px;padding:8px 14px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink2);cursor:pointer">{{ t.back }}</button>
 
       <div style="position:relative;height:250px;border-radius:20px;overflow:hidden;background:{{ cur.cover }};display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:36px;margin-bottom:26px">
@@ -680,7 +680,7 @@ a:hover{color:var(--accent);opacity:.82}
         </sc-for>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;align-items:start">
         <div style="display:flex;flex-direction:column;gap:22px">
           <sc-if value="{{ cur.gated }}" hint-placeholder-val="{{ false }}">
           <section style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px 28px">
@@ -690,7 +690,7 @@ a:hover{color:var(--accent);opacity:.82}
               <span style="padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;background:{{ cur.gateChipBg }};color:{{ cur.gateChipFg }}">{{ cur.gateChip }}</span>
             </div>
             <div style="font-size:12.5px;color:var(--muted);margin-bottom:18px;text-wrap:pretty">{{ t.gateSub }}</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px">
               <div style="display:flex;align-items:center;gap:11px;padding:14px 16px;border-radius:20px;background:{{ cur.step1Bg }}">
                 <span style="width:24px;height:24px;flex:none;border-radius:50%;background:var(--surface);color:{{ cur.step1Fg }};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">{{ cur.acceptedMark }}</span>
                 <span style="flex:1;font-size:13px;font-weight:600;color:{{ cur.step1Fg }}">{{ cur.acceptedTxt }}</span>
@@ -1098,7 +1098,7 @@ a:hover{color:var(--accent);opacity:.82}
         <button onClick="{{ closeReport }}" style="width:30px;height:30px;flex:none;border:0;border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.22)">✕</button>
       </div>
       <div style="padding:24px 30px;display:flex;flex-direction:column;gap:14px">
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px">
           <div style="padding:14px;border-radius:12px;background:var(--wash);text-align:center"><div style="font-family:Archivo,sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em">{{ reportProjects }}</div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">{{ t.reportProjects }}</div></div>
           <div style="padding:14px;border-radius:12px;background:var(--wash);text-align:center"><div style="font-family:Archivo,sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em">{{ reportAssets }}</div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">{{ t.reportAssets }}</div></div>
           <div style="padding:14px;border-radius:12px;background:var(--wash);text-align:center"><div style="font-family:Archivo,sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em">{{ deptPct }}</div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">{{ t.reportLoad }}</div></div>
@@ -1289,14 +1289,14 @@ const COVER = {
 const PROJECTS = [];
 
 const TEAM = [
-  { name: 'พรทิพย์ ส.', initials: 'พร', role: 'Design Manager · 20%', share: 20, cap: 4, load: 4, color: P.violet },
-  { name: 'พลอย ศ.', initials: 'พล', role: 'Designer A · 40%', share: 40, cap: 8, load: 8, color: P.red },
-  { name: 'บอส ก.', initials: 'บส', role: 'Designer B · 40%', share: 40, cap: 8, load: 7, color: P.blue }
+  { name: 'Design Manager', initials: 'DM', role: 'Design Manager · 20%', share: 20, cap: 4, load: 4, color: P.violet },
+  { name: 'Designer1', initials: 'D1', role: 'Designer A · 40%', share: 40, cap: 8, load: 8, color: P.red },
+  { name: 'Designer2', initials: 'D2', role: 'Designer B · 40%', share: 40, cap: 8, load: 7, color: P.blue }
 ];
-const INVITED_DESIGNERS = ['ploy@deli.co.th', 'boss@deli.co.th', 'delithaidesigner3@gmail.com', 'delithaidesigner2@gmail.com'];
+const INVITED_DESIGNERS = ['delithaidesigner2@gmail.com', 'delithaidesigner3@gmail.com'];
 const DESIGNER_BY_EMAIL = {
-  'ploy@deli.co.th': { name: 'พลอย ศ.', nameEn: 'Ploy S.', initials: 'พล' },
-  'boss@deli.co.th': { name: 'บอส ก.', nameEn: 'Boss K.', initials: 'บส' }
+  'delithaidesigner2@gmail.com': { name: 'Designer1', nameEn: 'Designer1', initials: 'D1' },
+  'delithaidesigner3@gmail.com': { name: 'Designer2', nameEn: 'Designer2', initials: 'D2' }
 };
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -1465,19 +1465,19 @@ const STAGE_COUNT = { Brief: 0, Review: 0, Design: 0, Revision: 0, Approved: 0, 
 
 class Component extends DCLogic {
   state = {
-    role: 'owner', view: 'home', cat: 'All', pid: 1, statMonthOffset: 0, weekOffset: 0,
+    role: null, view: 'home', cat: 'All', pid: 1, statMonthOffset: 0, weekOffset: 0,
     reportOpen: false, resetConfirming: false, resetMonthAt: null,
     form: false, err: false, toast: null, sentBrief: null, mail: null, added: [], nextId: 100, dueOverrides: {},
     notifications: [], notifOpen: false,
     links: {}, comments: {}, newLink: '', newComment: '',
     revisionOpen: null, revisionText: '', revisionImage: null,
     submitWorkOpen: null, submitWorkLink: '', submitWorkImage: null,
-    emailGuest: '', emailOwner: '', pwOwner: '', ownerErr: false, emailDesigner: '', designerErr: false,
+    emailGuest: '', emailOwner: '', pwOwner: '', ownerErr: false, emailDesigner: '', designerErr: false, showPwOwner: false,
     guestNickname: '', guestDept: '', guestErr: false, deptErr: false, nicknamePromptOpen: false, designerNickname: '',
     cal: null, calM: 8, calY: 2026, statusOverrides: {},
-    assigns: { 4: ['พลอย ศ.'] }, assignPid: null, assignWarn: false,
+    assigns: { 4: ['Designer1'] }, assignPid: null, assignWarn: false,
     accepted: { 4: true }, lang: 'th', dark: false,
-    f: { title: '', cat: 'Product', designer: 'พลอย ศ.', status: 'Brief', requester: '', email: '', start: '', due: '', assets: '', deliverable: '', brief: '', link: '' }
+    f: { title: '', cat: 'Product', designer: 'Designer1', status: 'Brief', requester: '', email: '', start: '', due: '', assets: '', deliverable: '', brief: '', link: '' }
   };
 
   toggleCal = (field) => () => this.setState(s => ({ cal: s.cal === field ? null : field }));
@@ -1565,7 +1565,7 @@ class Component extends DCLogic {
       accepted: Object.assign({}, s.accepted, seedAccepted),
       added: [proj].concat(s.added), nextId: s.nextId + 1, form: false, err: false,
       toast: { code, msg }, sentBrief: { code, title: proj.title }, sentMail: this.buildMail(proj, 'sent', lang), view: 'detail', pid: id, cat: 'All',
-      f: { title: '', cat: 'Product', designer: 'พลอย ศ.', status: 'Brief', requester: '', email: '', start: '', due: '', assets: '', deliverable: '', brief: '', link: '' }
+      f: { title: '', cat: 'Product', designer: 'Designer1', status: 'Brief', requester: '', email: '', start: '', due: '', assets: '', deliverable: '', brief: '', link: '' }
     }));
   };
 
@@ -1755,6 +1755,7 @@ class Component extends DCLogic {
     if (email === 'delithaidesigner@gmail.com' && pw === 'delithai1') this.setState({ role: 'owner', view: 'home', ownerErr: false });
     else this.setState({ ownerErr: true });
   };
+  toggleShowPwOwner = () => this.setState(s => ({ showPwOwner: !s.showPwOwner }));
   loginGuest = () => { if (this.isEmail(this.state.emailGuest)) this.setState({ role: 'guest', view: 'home' }); };
   loginGmail = () => {
     const v = (this.state.emailGuest || '').trim().toLowerCase();
@@ -1985,19 +1986,20 @@ class Component extends DCLogic {
     this.setState({ assignPid: pid, assignWarn: false });
   };
   closeAssign = () => this.setState({ assignPid: null, assignWarn: false });
-  toggleAssign = (pid, name) => () => this.setState(s => {
+  toggleAssign = (pid, name) => () => {
+    const s = this.state;
     const base = s.assigns[pid] || (this.namesOf(pid));
     let next, added = false;
     if (base.indexOf(name) > -1) next = base.filter(n => n !== name);
-    else if (base.length >= 2) return { assignWarn: true };
+    else if (base.length >= 2) { this.setState({ assignWarn: true }); return; }
     else { next = base.concat([name]); added = true; }
+    this.setState(s2 => ({ assigns: Object.assign({}, s2.assigns, { [pid]: next }), assignWarn: false }));
     if (added) {
       const all = s.added.concat(PROJECTS);
       const p = all.find(x => x.id === pid);
-      if (p) setTimeout(() => this.pushNotif(p, 'assigned', name), 0);
+      if (p) this.pushNotif(p, 'assigned', name);
     }
-    return { assigns: Object.assign({}, s.assigns, { [pid]: next }), assignWarn: false };
-  });
+  };
 
   namesOf(pid) {
     const all = this.state.added.concat(PROJECTS);
@@ -2306,6 +2308,9 @@ class Component extends DCLogic {
       onEmailOwner: this.setEmail('emailOwner'), onEmailGuest: this.setEmail('emailGuest'), onPwOwner: this.setEmail('pwOwner'),
       emailDesigner: this.state.emailDesigner, onEmailDesigner: this.setEmail('emailDesigner'), loginDesigner: this.loginDesigner, showDesignerErr: this.state.designerErr,
       showOwnerErr: this.state.ownerErr, showGuestErr: this.state.guestErr,
+      pwOwnerType: this.state.showPwOwner ? 'text' : 'password',
+      showPwLabel: this.state.showPwOwner ? (lang === 'th' ? 'ซ่อน' : 'Hide') : (lang === 'th' ? 'แสดง' : 'Show'),
+      toggleShowPwOwner: this.toggleShowPwOwner,
       guestNickname: designer ? this.state.designerNickname : this.state.guestNickname,
       onGuestNickname: this.setEmail(designer ? 'designerNickname' : 'guestNickname'),
       guestDept: this.state.guestDept, onGuestDept: this.setEmail('guestDept'),
@@ -2343,7 +2348,7 @@ class Component extends DCLogic {
       prevMonth: this.prevMonth, nextMonth: this.nextMonth,
       ...this.deliveryVals(ALL, t),
       countLabel: filtered.length + ' ' + t.projUnit + ' / ' + filtered.reduce((a, x) => a + (x.assets || 0), 0) + ' ' + t.assets,
-      gridCss: 'repeat(' + cols + ',minmax(0,1fr))',
+      gridCss: 'repeat(auto-fit,minmax(240px,1fr))',
       filters: ['All'].concat(CATS.map(c => c.name)).map(name => ({
         name, pick: this.pickCat(name),
         bg: cat === name ? 'var(--ink)' : 'var(--surface)',

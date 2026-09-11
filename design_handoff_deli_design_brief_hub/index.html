@@ -163,7 +163,7 @@ a:hover{color:var(--accent);opacity:.82}
 
   <header style="position:sticky;top:0;z-index:20;display:flex;flex-direction:column">
 
-    <div style="background:var(--sidebar);color:#fff"><div style="width:100%;max-width:1360px;margin:0 auto;display:flex;align-items:center;flex-wrap:wrap;row-gap:10px;gap:24px;padding:14px clamp(16px,4vw,40px)">
+    <div style="background:var(--sidebar);color:#fff"><div style="width:100%;max-width:1360px;margin:0 auto;display:flex;align-items:center;flex-wrap:wrap;row-gap:10px;gap:16px;padding:14px clamp(16px,4vw,40px)">
       <div style="display:flex;align-items:center;gap:12px;flex:none">
         <div style="width:40px;height:40px;flex:none;background:#C4142F;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px"><img src="assets/deli-logo-white.png" alt="deli" style="width: 115%; height: 115%; object-fit: contain"></div>
         <div style="display:flex;flex-direction:column;gap:1px">
@@ -172,27 +172,27 @@ a:hover{color:var(--accent);opacity:.82}
         </div>
       </div>
 
-      <nav style="flex:1 1 auto;min-width:0;display:flex;justify-content:flex-start;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch">
-        <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navHomeBg }};color:{{ navHomeFg }}" style-hover="background:rgba(196,20,47,.12)">
+      <nav style="flex:1 1 auto;min-width:0;display:flex;justify-content:flex-start;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch">
+        <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navHomeBg }};color:{{ navHomeFg }}" style-hover="background:rgba(196,20,47,.12)">
           <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.overview }}
         </button>
-        <button onClick="{{ goWorks }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navWorksBg }};color:{{ navWorksFg }}" style-hover="background:rgba(196,20,47,.12)">
+        <button onClick="{{ goWorks }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navWorksBg }};color:{{ navWorksFg }}" style-hover="background:rgba(196,20,47,.12)">
           <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ worksLabel }}
         </button>
-        <button onClick="{{ goFlow }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navFlowBg }};color:{{ navFlowFg }}" style-hover="background:rgba(196,20,47,.12)">
+        <button onClick="{{ goFlow }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navFlowBg }};color:{{ navFlowFg }}" style-hover="background:rgba(196,20,47,.12)">
           <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.flow }}
         </button>
         <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ true }}">
-        <button onClick="{{ goLoad }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navLoadBg }};color:{{ navLoadFg }}" style-hover="background:rgba(196,20,47,.12)">
+        <button onClick="{{ goLoad }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navLoadBg }};color:{{ navLoadFg }}" style-hover="background:rgba(196,20,47,.12)">
           <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.load }}
         </button>
         </sc-if>
-        <button onClick="{{ goCal }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navCalBg }};color:{{ navCalFg }}" style-hover="background:rgba(196,20,47,.12)">
+        <button onClick="{{ goCal }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navCalBg }};color:{{ navCalFg }}" style-hover="background:rgba(196,20,47,.12)">
           <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.calendar }}
         </button>
       </nav>
 
-      <div style="flex:1 1 auto;min-width:0;display:flex;align-items:center;flex-wrap:wrap;row-gap:8px;justify-content:flex-end;gap:10px">
+      <div style="flex:1 1 auto;min-width:0;display:flex;align-items:center;flex-wrap:wrap;row-gap:8px;justify-content:flex-end;gap:7px">
         <div style="position:relative">
           <button onClick="{{ toggleNotif }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.24);border-radius:14px;background:transparent;color:#fff;cursor:pointer" style-hover="background:rgba(255,255,255,.1)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -225,7 +225,7 @@ a:hover{color:var(--accent);opacity:.82}
             <button onClick="{{ g.pick }}" style="padding:6px 11px;border:0;border-radius:10px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;background:{{ g.bg }};color:{{ g.fg }}">{{ g.label }}</button>
           </sc-for>
         </div>
-        <button onClick="{{ toggleDark }}" style="display:flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid rgba(255,255,255,.24);border-radius:14px;background:transparent;color:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer" style-hover="background:rgba(255,255,255,.1)"><span style="font-size:13px">{{ themeIcon }}</span>{{ themeLabel }}</button>
+        <button onClick="{{ toggleDark }}" title="{{ themeLabel }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border:1px solid rgba(255,255,255,.24);border-radius:14px;background:transparent;color:#fff;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer" style-hover="background:rgba(255,255,255,.1)">{{ themeIcon }}</button>
         <div style="display:flex;align-items:center;gap:9px;padding:5px 6px 5px 5px;border-radius:20px;background:rgba(255,255,255,.08)">
           <div style="width:30px;height:30px;flex:none;border-radius:50%;background:{{ userAvatarBg }};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff">{{ userInitials }}</div>
           <div style="line-height:normal">
@@ -235,13 +235,13 @@ a:hover{color:var(--accent);opacity:.82}
           <button onClick="{{ logout }}" style="margin-left:2px;padding:7px 11px;border:0;border-radius:20px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-family:inherit;font-size:11.5px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:rgba(255,255,255,.2);color:#fff">{{ t.logout }}</button>
         </div>
         <sc-if value="{{ canCreate }}" hint-placeholder-val="{{ true }}">
-          <button onClick="{{ openForm }}" style="position:relative;overflow:hidden;padding:13px 22px;border:0;border-radius:20px;background:#C4142F;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 4px 14px rgba(196,20,47,.32)" style-hover="background:#8E0E22">
+          <button onClick="{{ openForm }}" style="position:relative;overflow:hidden;padding:11px 17px;border:0;border-radius:20px;background:#C4142F;color:#fff;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 4px 14px rgba(196,20,47,.32)" style-hover="background:#8E0E22">
             {{ t.newBrief }}
             <span style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);animation:sweepShine 3s ease-in-out infinite"></span>
           </button>
         </sc-if>
         <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ true }}">
-          <button onClick="{{ openReport }}" style="padding:13px 20px;border:1px solid var(--line2);border-radius:20px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="background:var(--wash)">{{ t.reportBtn }}</button>
+          <button onClick="{{ openReport }}" style="padding:11px 16px;border:1px solid var(--line2);border-radius:20px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="background:var(--wash)">{{ t.reportBtn }}</button>
         </sc-if>
       </div>
     </div></div>
@@ -781,7 +781,12 @@ a:hover{color:var(--accent);opacity:.82}
               </div>
             </sc-if>
             <sc-if value="{{ isOther }}" hint-placeholder-val="{{ false }}">
-              
+              <sc-if value="{{ cur.canCancelHold }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:9px;margin-top:20px">
+                  <button onClick="{{ cur.requestHoldJob }}" style="flex:1;padding:12px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="border-color:var(--line3)">{{ t.requestHold }}</button>
+                  <button onClick="{{ cur.requestCancelJob }}" style="flex:1;padding:12px;border:1px solid rgba(142,14,34,.3);border-radius:14px;background:var(--surface);color:#8E0E22;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:rgba(142,14,34,.06)">{{ t.requestCancel }}</button>
+                </div>
+              </sc-if>
             </sc-if>
           </section>
 
@@ -1238,7 +1243,9 @@ const STATUS = {
   Design:    { bg: 'oklch(0.72 0.13 22)', fg: '#8E0E22', dot: 'oklch(0.72 0.13 22)', th: 'ลงมือออกแบบ' },
   Revision:  { bg: 'oklch(0.78 0.13 76)', fg: 'oklch(0.44 0.11 62)', dot: 'oklch(0.78 0.13 76)', th: 'แก้ไขตามคอมเมนต์' },
   Approved:  { bg: 'oklch(0.74 0.11 157)', fg: 'oklch(0.4 0.11 158)', dot: 'oklch(0.74 0.11 157)', th: 'อนุมัติแล้ว' },
-  Completed: { bg: 'oklch(0.84 0.006 60)', fg: 'rgba(26,22,20,.58)', dot: 'rgba(26,22,20,.3)', th: 'ส่งมอบเรียบร้อย' }
+  Completed: { bg: 'oklch(0.84 0.006 60)', fg: 'rgba(26,22,20,.58)', dot: 'rgba(26,22,20,.3)', th: 'ส่งมอบเรียบร้อย' },
+  Cancelled: { bg: 'oklch(0.9 0.02 20)', fg: '#8E0E22', dot: '#8E0E22', th: 'ยกเลิกงาน' },
+  OnHold:    { bg: 'oklch(0.92 0.045 70)', fg: 'oklch(0.45 0.1 60)', dot: 'oklch(0.62 0.1 60)', th: 'พักงานชั่วคราว' }
 };
 
 const VIOLET = 'oklch(0.52 0.14 310)';
@@ -1336,8 +1343,8 @@ function dayGap(a, b) {
 }
 
 const STATUS_NAME = {
-  th: { Brief: 'รับบรีฟ', Review: 'ตรวจบรีฟ', Design: 'ออกแบบ', Revision: 'แก้ไข', Approved: 'อนุมัติ', Completed: 'เสร็จสิ้น' },
-  en: { Brief: 'Brief', Review: 'Review', Design: 'Design', Revision: 'Revision', Approved: 'Approved', Completed: 'Completed' }
+  th: { Brief: 'รับบรีฟ', Review: 'ตรวจบรีฟ', Design: 'ออกแบบ', Revision: 'แก้ไข', Approved: 'อนุมัติ', Completed: 'เสร็จสิ้น', Cancelled: 'ยกเลิก', OnHold: 'พักงาน' },
+  en: { Brief: 'Brief', Review: 'Review', Design: 'Design', Revision: 'Revision', Approved: 'Approved', Completed: 'Completed', Cancelled: 'Cancelled', OnHold: 'On Hold' }
 };
 
 const STAGE_TXT = {
@@ -1363,7 +1370,7 @@ const L = {
     commentsLabel: 'คอมเมนต์', commentPh: 'แสดงความคิดเห็น…', postComment: 'ส่ง', noComments: 'ยังไม่มีคอมเมนต์',
     revisionTitle: 'ขอแก้ไขงาน', revisionSub: 'อธิบายสิ่งที่ต้องแก้ พร้อมแนบภาพประกอบได้', revisionPh: 'พิมพ์รายละเอียดที่ต้องการแก้ไข…', revisionImgLabel: 'แนบภาพ (ไม่บังคับ)', revisionSubmit: 'ส่งคำขอแก้ไข', removeImg: 'ลบภาพ',
     submitWorkTitle: 'ส่งงาน', submitWorkSub: 'แนบลิงก์ไฟล์งานและ/หรือรูปตัวอย่างก่อนส่งให้ Design Manager ตรวจ', submitWorkLinkPh: 'https://drive.google.com/… หรือลิงก์ไฟล์งาน', submitWorkImgLabel: 'แนบรูปตัวอย่างงาน (ไม่บังคับ)', submitWorkConfirm: 'ยืนยันส่งงาน',
-    approve: 'อนุมัติงาน', requestRev: 'ขอแก้ไข', submitWorkBtn: 'ส่งงาน · Submit work', noFiles: 'ยังไม่มีไฟล์แนบ — อัปโหลดไฟล์งานเพื่อเริ่มรอบแรก',
+    approve: 'อนุมัติงาน', requestRev: 'ขอแก้ไข', requestCancel: 'ขอยกเลิกงาน', requestHold: 'ขอพักงาน', submitWorkBtn: 'ส่งงาน · Submit work', noFiles: 'ยังไม่มีไฟล์แนบ — อัปโหลดไฟล์งานเพื่อเริ่มรอบแรก',
     assignOnlyOwner: 'มอบหมายดีไซเนอร์ได้เฉพาะเจ้าของงาน — แจ้ง Design Lead เพื่อเปลี่ยนผู้รับงาน',
     formTitle: 'สร้างบรีฟงานใหม่', fName: 'ชื่องาน', fCat: 'ประเภทงาน', fAssign: 'มอบหมายให้',
     fStatus: 'สถานะเริ่มต้น', fStatusHint: 'งานตกหล่น ยังไม่ได้เข้าระบบ? เลือกสถานะจริงและวันที่ย้อนหลังได้ที่นี่',
@@ -1412,7 +1419,7 @@ const L = {
     commentsLabel: 'Comments', commentPh: 'Leave a comment…', postComment: 'Post', noComments: 'No comments yet',
     revisionTitle: 'Request revision', revisionSub: 'Describe what needs to change, and attach a reference image if useful', revisionPh: 'Describe the revision needed…', revisionImgLabel: 'Attach image (optional)', revisionSubmit: 'Send revision request', removeImg: 'Remove image',
     submitWorkTitle: 'Submit work', submitWorkSub: 'Attach a file link and/or preview image before sending it to the Design Manager', submitWorkLinkPh: 'https://drive.google.com/… or a file link', submitWorkImgLabel: 'Attach preview image (optional)', submitWorkConfirm: 'Confirm submit',
-    approve: 'Approve', requestRev: 'Request revision', submitWorkBtn: 'Submit work', noFiles: 'No files yet — upload artwork to start round one',
+    approve: 'Approve', requestRev: 'Request revision', requestCancel: 'Request cancel', requestHold: 'Request hold', submitWorkBtn: 'Submit work', noFiles: 'No files yet — upload artwork to start round one',
     assignOnlyOwner: 'Only the design manager can assign designers — ask the Design Lead to reassign',
     formTitle: 'Create a new brief', fName: 'Job title', fCat: 'Category', fAssign: 'Assign to',
     fStatus: 'Starting status', fStatusHint: "Job fell through the cracks and never got logged? Pick its real status and a backdated date here.",
@@ -1557,7 +1564,7 @@ class Component extends DCLogic {
     };
     clearTimeout(this._t);
     this._t = setTimeout(() => this.setState({ toast: null }), 5800);
-    const seedAssign = isOwner ? { [id]: [who.name] } : {};
+    const seedAssign = (isOwner && backdated) ? { [id]: [who.name] } : {};
     const seedAccepted = backdated ? { [id]: true } : {};
     const msg = (lang === 'th' ? 'ส่งอีเมลแจ้งเตือนไปที่ ' : 'Update emailed to ') + proj.requesterEmail + (lang === 'th' ? ' · บรีฟถูกส่งแล้ว รอ Design Manager กดรับ' : ' · Brief sent, waiting for the design manager to accept');
     this.setState(s => ({
@@ -1871,12 +1878,14 @@ class Component extends DCLogic {
   toggleNotif = () => this.setState(s => ({ notifOpen: !s.notifOpen }));
   pushNotif = (p, kind, designerName) => {
     const lang = this.state.lang;
-    const DOT = { final: 'oklch(0.5 0.13 156)', revision: 'oklch(0.62 0.14 68)', assigned: 'oklch(0.52 0.14 250)', submitted: 'oklch(0.52 0.14 250)' };
+    const DOT = { final: 'oklch(0.5 0.13 156)', revision: 'oklch(0.62 0.14 68)', assigned: 'oklch(0.52 0.14 250)', submitted: 'oklch(0.52 0.14 250)', cancelled: '#8E0E22', hold: 'oklch(0.62 0.1 60)' };
     const MSG = {
       final: lang === 'th' ? `งาน "${p.title}" ได้รับการอนุมัติแล้ว` : `"${p.title}" was approved`,
       revision: lang === 'th' ? `ขอแก้ไขงาน "${p.title}"` : `Revision requested for "${p.title}"`,
       assigned: lang === 'th' ? `Design Manager มอบหมายงาน "${p.title}" ให้คุณแล้ว` : `Design Manager assigned "${p.title}" to you`,
-      submitted: lang === 'th' ? `ดีไซเนอร์ส่งงาน "${p.title}" แล้ว รอ Design Manager ตรวจ` : `Designer submitted "${p.title}" — awaiting Design Manager review`
+      submitted: lang === 'th' ? `ดีไซเนอร์ส่งงาน "${p.title}" แล้ว รอ Design Manager ตรวจ` : `Designer submitted "${p.title}" — awaiting Design Manager review`,
+      cancelled: lang === 'th' ? `ผู้บรีฟขอยกเลิกงาน "${p.title}"` : `Requester asked to cancel "${p.title}"`,
+      hold: lang === 'th' ? `ผู้บรีฟขอพักงาน "${p.title}" ชั่วคราว` : `Requester asked to put "${p.title}" on hold`
     };
     const now = new Date();
     const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
@@ -1911,6 +1920,22 @@ class Component extends DCLogic {
   requestRevisionJob = (pid) => (e) => {
     if (e && e.stopPropagation) e.stopPropagation();
     this.setState({ revisionOpen: pid, revisionText: '', revisionImage: null });
+  };
+  requestCancelJob = (pid) => (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const ALL = this.state.added.concat(PROJECTS);
+    const p = ALL.find(x => x.id === pid);
+    if (!p) return;
+    this.setState(s => ({ statusOverrides: Object.assign({}, s.statusOverrides, { [pid]: 'Cancelled' }) }));
+    this.pushNotif(p, 'cancelled');
+  };
+  requestHoldJob = (pid) => (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const ALL = this.state.added.concat(PROJECTS);
+    const p = ALL.find(x => x.id === pid);
+    if (!p) return;
+    this.setState(s => ({ statusOverrides: Object.assign({}, s.statusOverrides, { [pid]: 'OnHold' }) }));
+    this.pushNotif(p, 'hold');
   };
   closeRevision = () => this.setState({ revisionOpen: null, revisionText: '', revisionImage: null });
   setRevisionText = (e) => this.setState({ revisionText: e.target.value });
@@ -2021,7 +2046,7 @@ class Component extends DCLogic {
     const st = STATUS[status];
     return Object.assign({}, p, {
       status, statusLabel: STATUS_NAME[this.state.lang][status],
-      stepBadge: '0' + (ORDER.indexOf(status) + 1) + '/0' + ORDER.length,
+      stepBadge: ORDER.indexOf(status) > -1 ? ('0' + (ORDER.indexOf(status) + 1) + '/0' + ORDER.length) : STATUS_NAME[this.state.lang][status],
       stepper: ORDER.map((name, i) => {
         const curIdx = ORDER.indexOf(status);
         const done = i < curIdx, activeStep = i === curIdx;
@@ -2059,7 +2084,9 @@ class Component extends DCLogic {
       designerNames: names,
       designerLabel: names.length ? names.join(' + ') : (this.state.lang === 'th' ? 'ยังไม่มอบหมาย' : 'Unassigned'),
       avatars: members.map((mm, i) => ({ initials: mm.initials, bg: mm.color, ml: i === 0 ? '0' : '-9px' })),
-      canAssign: this.state.role === 'owner',
+      canAssign: this.state.role === 'owner' && isAccepted,
+      isMine: this.state.role === 'guest' && p.requesterEmail === this.state.emailGuest,
+      canCancelHold: this.state.role === 'guest' && p.requesterEmail === this.state.emailGuest && gated && !isAccepted,
       isGuestCard: this.state.role !== 'owner',
       assign: this.openAssign(p.id),
       statusBg: st.bg, statusFg: st.fg,
@@ -2365,6 +2392,7 @@ class Component extends DCLogic {
       cur: Object.assign({}, this.deco(p), {
         reschedule: this.rescheduleDue(p.id),
         approveJob: this.approveJob(p.id), requestRevisionJob: this.requestRevisionJob(p.id),
+        requestCancelJob: this.requestCancelJob(p.id), requestHoldJob: this.requestHoldJob(p.id),
         meta: [
           { k: t.category, v: p.cat, c: 'var(--ink)' },
           { k: 'Artwork', v: (p.assetsDone || 0) + ' / ' + (p.assets || 1), c: 'var(--ink)' },

@@ -179,14 +179,6 @@ a:hover{color:var(--accent);opacity:.82}
         <button onClick="{{ goWorks }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navWorksBg }};color:{{ navWorksFg }}" style-hover="background:rgba(196,20,47,.12)">
           <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ worksLabel }}
         </button>
-        <button onClick="{{ goFlow }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navFlowBg }};color:{{ navFlowFg }}" style-hover="background:rgba(196,20,47,.12)">
-          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.flow }}
-        </button>
-        <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ true }}">
-        <button onClick="{{ goLoad }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navLoadBg }};color:{{ navLoadFg }}" style-hover="background:rgba(196,20,47,.12)">
-          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.load }}
-        </button>
-        </sc-if>
         <button onClick="{{ goCal }}" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border:0;border-radius:20px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navCalBg }};color:{{ navCalFg }}" style-hover="background:rgba(196,20,47,.12)">
           <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.calendar }}
         </button>
@@ -277,7 +269,6 @@ a:hover{color:var(--accent);opacity:.82}
         <p style="margin:0;position:relative;font-size:15px;line-height:1.55;color:rgba(255,255,255,.82);max-width:52ch">{{ t.heroBody }}</p>
         <div style="position:relative;display:flex;gap:10px">
           <button onClick="{{ goWorks }}" style="padding:13px 22px;border:0;border-radius:20px;background:#fff;color:#C4142F;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap">{{ t.ctaAll }}</button>
-          <button onClick="{{ goFlow }}" style="padding:13px 22px;border:1px solid rgba(255,255,255,.4);border-radius:20px;background:transparent;color:#fff;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap">{{ t.ctaFlow }}</button>
         </div>
         <div style="flex:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));position:relative;width:100%;margin-top:6px">
           <div style="padding:0 22px;border-left:1px solid rgba(255,255,255,.28);display:flex;flex-direction:column;align-items:center;gap:6px">
@@ -473,130 +464,6 @@ a:hover{color:var(--accent);opacity:.82}
             </div>
           </div>
         </sc-for>
-      </div>
-    </div>
-    </sc-if>
-
-    <sc-if value="{{ isFlow }}" hint-placeholder-val="{{ false }}">
-    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 56px;animation:dliftIn .3s ease both">
-      <div style="margin-bottom:28px;text-align:center">
-        <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05">{{ t.flow }}</h1>
-        <p style="margin:0;font-size:14px;color:var(--muted)">Brief → Review → Design → Revision → Approved → Completed</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(6,minmax(200px,1fr));gap:14px;align-items:start;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px">
-        <sc-for list="{{ columns }}" as="col" hint-placeholder-count="6">
-          <div style="background:var(--surfaceSoft);border:1px solid var(--line);border-radius:20px;padding:12px">
-            <div style="display:flex;align-items:center;gap:8px;padding:4px 4px 12px">
-              <span style="width:8px;height:8px;border-radius:2px;flex:none;background:{{ col.color }}"></span>
-              <span style="font-size:12.5px;font-weight:600;letter-spacing:0">{{ col.name }}</span>
-              <div style="flex:1"></div>
-              <span style="font-family:Anuphan,sans-serif;font-size:11px;color:var(--muted2)">{{ col.count }}</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:9px">
-              <sc-for list="{{ col.items }}" as="it" hint-placeholder-count="2">
-                <div onClick="{{ it.open }}" style="cursor:pointer;background:var(--surface);border:1px solid var(--line2);border-radius:14px;overflow:hidden" style-hover="border-color:rgba(196,20,47,.4)">
-                  <div style="height:48px;background:{{ it.cover }};position:relative"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.16) 0 1.5px,transparent 1.5px 10px)"></div></div>
-                  <div style="padding:10px 11px 11px">
-                    <div style="font-size:12.5px;font-weight:600;line-height:normal;letter-spacing:0;margin-bottom:7px;text-wrap:pretty">{{ it.title }}</div>
-                    <div style="display:flex;align-items:center;gap:6px">
-                      <span style="width:6px;height:6px;border-radius:50%;flex:none;background:{{ it.catColor }}"></span>
-                      <span style="font-size:10.5px;color:var(--muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ it.designerLabel }}</span>
-                      <span style="font-family:Anuphan,sans-serif;font-size:10px;color:{{ it.dueFg }}">{{ it.dueShort }}</span>
-                    </div>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-    </sc-if>
-
-    <sc-if value="{{ isLoad }}" hint-placeholder-val="{{ false }}">
-    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 56px;animation:dliftIn .3s ease both">
-      <div style="margin-bottom:28px;text-align:center">
-        <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05">{{ t.load }}</h1>
-        <p style="margin:0 0 18px;font-size:14px;color:var(--muted)">{{ t.loadSub }}</p>
-        <div style="display:inline-flex;align-items:center;gap:14px;padding:9px 12px;border-radius:20px;background:var(--wash);border:1px solid var(--line)">
-          <button onClick="{{ prevMonth }}" style="width:30px;height:30px;border:0;border-radius:50%;background:transparent;color:var(--ink2);font-family:inherit;font-size:15px;cursor:pointer" style-hover="background:var(--wash2)">‹</button>
-          <span style="font-family:Archivo,Anuphan,sans-serif;font-size:14.5px;font-weight:600;letter-spacing:-0.01em;min-width:11ch">{{ statMonthLabel }}</span>
-          <button onClick="{{ nextMonth }}" style="width:30px;height:30px;border:0;border-radius:50%;background:transparent;color:var(--ink2);font-family:inherit;font-size:15px;cursor:pointer" style-hover="background:var(--wash2)">›</button>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px">
-        <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 32px;display:flex;flex-direction:column;align-items:center">
-          <div style="align-self:center;font-size:15px;font-weight:600;margin-bottom:24px">{{ t.byCat }}</div>
-          <div style="width:290px;height:290px;border-radius:50%;position:relative;background:conic-gradient(oklch(0.72 0.13 22) 0deg 120deg,oklch(0.71 0.11 252) 120deg 210deg,oklch(0.78 0.13 76) 210deg 270deg,oklch(0.72 0.11 311) 270deg 310deg,oklch(0.74 0.11 157) 310deg 360deg)">
-            <div style="position:absolute;inset:52px;background:var(--surface);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center">
-              <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:44px;font-weight:600;letter-spacing:-0.035em;line-height:normal">{{ totalJobsCount }}</div>
-              <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.16em;color:var(--muted2);text-transform:uppercase;margin-top:3px">{{ t.jobs }}</div>
-              <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:10px;color:var(--muted);margin-top:2px">{{ totalAssets }} artworks</div>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px 22px;margin-top:30px;width:100%">
-            <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
-              <div style="display:flex;align-items:baseline;gap:9px">
-                <span style="width:10px;height:10px;border-radius:50%;flex:none;background:{{ c.soft }}"></span>
-                <div style="flex:1;min-width:0">
-                  <div style="font-size:12.5px;font-weight:500">{{ c.name }}</div>
-                  <div style="font-size:11px;color:var(--muted)">{{ c.count }} งาน · {{ c.artworks }} artworks</div>
-                </div>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-        <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 32px">
-          <div style="font-size:15px;font-weight:600;margin-bottom:6px">{{ t.deptWl }}</div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:18px">ภาระงานรวมทั้งแผนก · นับรวม 2 ดีไซเนอร์</div>
-          <div style="padding:20px 22px;border-radius:20px;background:var(--wash);margin-bottom:24px">
-            <div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:12px">
-              <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:40px;font-weight:600;letter-spacing:-0.035em;line-height:normal;color:{{ deptHeadFg }}">{{ deptPct }}</div>
-              <div style="font-family:Anuphan,sans-serif;font-size:12px;color:var(--muted);padding-bottom:6px">{{ deptLoad }} slots</div>
-              <div style="flex:1"></div>
-              <span style="padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:600;background:{{ deptBg }};color:{{ deptFg }}">{{ deptNow }}</span>
-            </div>
-            <div style="height:10px;border-radius:10px;background:var(--wash2);overflow:hidden"><div style="height:100%;border-radius:10px;width:{{ deptW }};background:{{ deptBarFg }}"></div></div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:20px">
-            <sc-for list="{{ deptTeam }}" as="d" hint-placeholder-count="2">
-              <div>
-                <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px">
-                  <div style="width:30px;height:30px;border-radius:50%;flex:none;background:{{ d.soft }};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--ink2)">{{ d.initials }}</div>
-                  <div style="flex:1"><div style="font-size:13.5px;font-weight:500">{{ d.name }}</div><div style="font-size:11px;color:var(--muted)">{{ d.role }}</div></div>
-                  <div style="text-align:right"><span style="font-family:Anuphan,sans-serif;font-size:13px;font-weight:500">{{ d.load }}</span></div>
-                </div>
-                <div style="height:7px;border-radius:4px;background:var(--wash2);overflow:hidden">
-                  <div style="height:100%;border-radius:4px;width:{{ d.w }};background:{{ d.soft }}"></div>
-                </div>
-              </div>
-            </sc-for>
-          </div>
-          <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:30px;padding:18px 20px;border-radius:20px;background:rgba(196,20,47,.06);border:1px solid rgba(196,20,47,.16)">
-              <div style="font-size:13px;font-weight:600;color:#8E0E22;margin-bottom:5px">{{ t.alertTitle }}</div>
-              <div style="font-size:12.5px;line-height:normal;color:var(--ink3)">Designer2 (E-Comm) รับงานเกิน 90% ของกำลัง — แนะนำย้าย 1 งานไปที่ Designer1 หรือเลื่อน deadline ของ TikTok Live Overlay</div>
-            </div>
-          </sc-if>
-        </div>
-      </div>
-
-      <div style="margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 30px">
-        <div style="font-size:15px;font-weight:600;margin-bottom:18px">{{ t.deliveryTitle }}</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:16px">
-          <div style="padding:18px 16px;border-radius:16px;background:oklch(0.94 0.05 157 / 0.5);text-align:center">
-            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:34px;font-weight:600;letter-spacing:-0.03em;color:oklch(0.4 0.11 158)">{{ deliveryEarly }}</div>
-            <div style="font-size:12px;font-weight:600;color:oklch(0.4 0.11 158);margin-top:4px">{{ t.deliveryEarlyLabel }}</div>
-          </div>
-          <div style="padding:18px 16px;border-radius:16px;background:oklch(0.92 0.05 252 / 0.5);text-align:center">
-            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:34px;font-weight:600;letter-spacing:-0.03em;color:oklch(0.42 0.12 258)">{{ deliveryOntime }}</div>
-            <div style="font-size:12px;font-weight:600;color:oklch(0.42 0.12 258);margin-top:4px">{{ t.deliveryOntimeLabel }}</div>
-          </div>
-          <div style="padding:18px 16px;border-radius:16px;background:oklch(0.9 0.06 22 / 0.5);text-align:center">
-            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:34px;font-weight:600;letter-spacing:-0.03em;color:oklch(0.42 0.14 25)">{{ deliveryLate }}</div>
-            <div style="font-size:12px;font-weight:600;color:oklch(0.42 0.14 25);margin-top:4px">{{ t.deliveryLateLabel }}</div>
-          </div>
-        </div>
       </div>
     </div>
     </sc-if>

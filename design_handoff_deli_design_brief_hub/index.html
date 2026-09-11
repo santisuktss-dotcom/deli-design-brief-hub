@@ -855,17 +855,6 @@ a:hover{color:var(--accent);opacity:.82}
 
         <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ false }}">
         <div>
-          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fAssign }}</div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px">
-            <sc-for list="{{ designerChoices }}" as="d" hint-placeholder-count="4">
-              <button onClick="{{ d.pick }}" style="display:flex;align-items:center;gap:8px;padding:7px 13px 7px 7px;border:1px solid {{ d.bd }};border-radius:20px;background:{{ d.bg }};color:{{ d.fg }};font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer">
-                <span style="width:22px;height:22px;border-radius:50%;background:{{ d.avatarBg }};color:{{ d.avatarFg }};display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700">{{ d.initials }}</span>{{ d.name }}
-              </button>
-            </sc-for>
-          </div>
-        </div>
-
-        <div>
           <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fStatus }}</div>
           <div style="display:flex;flex-wrap:wrap;gap:8px">
             <sc-for list="{{ statusChoices }}" as="s" hint-placeholder-count="6">
@@ -1780,7 +1769,7 @@ class Component extends DCLogic {
   };
   isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v || '').trim());
   setEmail = (k) => (e) => this.setState({ [k]: e.target.value });
-  logout = () => this.setState({ role: null, view: 'home', cat: 'All' });
+  logout = () => this.setState({ role: null, view: 'home', cat: 'All', reportOpen: false, resetConfirming: false });
 
   go = (view) => () => this.setState({ view });
   monthCells(ALL, lang) {
@@ -1876,6 +1865,17 @@ class Component extends DCLogic {
   doReset = () => this.setState({ resetConfirming: false, resetMonthAt: Date.now(), added: [], assigns: {}, notifications: [] });
 
   toggleNotif = () => this.setState(s => ({ notifOpen: !s.notifOpen }));
+  emailForName = (name) => {
+    const found = Object.keys(DESIGNER_BY_EMAIL).find(e => DESIGNER_BY_EMAIL[e].name === name);
+    return found || 'owner';
+  };
+  myIdentity = () => {
+    const { role, emailDesigner, emailGuest } = this.state;
+    if (role === 'owner') return 'owner';
+    if (role === 'designer') return emailDesigner;
+    if (role === 'guest') return emailGuest;
+    return null;
+  };
   pushNotif = (p, kind, designerName) => {
     const lang = this.state.lang;
     const DOT = { final: 'oklch(0.5 0.13 156)', revision: 'oklch(0.62 0.14 68)', assigned: 'oklch(0.52 0.14 250)', submitted: 'oklch(0.52 0.14 250)', cancelled: '#8E0E22', hold: 'oklch(0.62 0.1 60)' };
@@ -1887,9 +1887,18 @@ class Component extends DCLogic {
       cancelled: lang === 'th' ? `ผู้บรีฟขอยกเลิกงาน "${p.title}"` : `Requester asked to cancel "${p.title}"`,
       hold: lang === 'th' ? `ผู้บรีฟขอพักงาน "${p.title}" ชั่วคราว` : `Requester asked to put "${p.title}" on hold`
     };
+    const assignedName = (this.state.assigns[p.id] || [])[0] || p.designer;
+    const RECIPIENT = {
+      final: (p.requesterEmail && p.requesterEmail !== '—') ? p.requesterEmail : 'owner',
+      revision: this.emailForName(assignedName),
+      assigned: this.emailForName(designerName),
+      submitted: 'owner',
+      cancelled: 'owner',
+      hold: 'owner'
+    };
     const now = new Date();
     const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
-    const entry = { id: Date.now(), pid: p.id, code: p.code, msg: MSG[kind], dot: DOT[kind], time };
+    const entry = { id: Date.now(), pid: p.id, code: p.code, msg: MSG[kind], dot: DOT[kind], time, recipient: RECIPIENT[kind] };
     this.setState(s => ({ notifications: [entry].concat(s.notifications).slice(0, 20) }));
   };
 
@@ -2030,7 +2039,7 @@ class Component extends DCLogic {
     const all = this.state.added.concat(PROJECTS);
     const p = all.find(x => x.id === pid);
     if (!p) return [];
-    return this.state.assigns[pid] || p.designers || [p.designer];
+    return this.state.assigns[pid] || (p.status === 'Brief' ? [] : (p.designers || [p.designer]));
   }
 
   deco(p) {
@@ -2218,7 +2227,7 @@ class Component extends DCLogic {
       sentCode: this.state.sentBrief ? this.state.sentBrief.code : '',
       sentTitleTxt: this.state.sentBrief ? this.state.sentBrief.title : '',
       isMail: !!this.state.mail, closeMail: this.closeMail,
-      isReportOpen: this.state.reportOpen, openReport: this.openReport, closeReport: this.closeReport,
+      isReportOpen: owner && this.state.reportOpen, openReport: this.openReport, closeReport: this.closeReport,
       resetConfirming: this.state.resetConfirming, confirmReset: this.confirmReset, doReset: this.doReset,
       reportMonthLabel: MONTH_NAMES[lang][8] + (lang === 'th' ? ' 2569' : ' 2026'),
       reportProjects: ALL.length,
@@ -2248,7 +2257,7 @@ class Component extends DCLogic {
       setSubmitWorkImage: this.setSubmitWorkImage, clearSubmitWorkImage: this.clearSubmitWorkImage,
       confirmSubmitWork: this.confirmSubmitWork,
       isNotifOpen: this.state.notifOpen, toggleNotif: this.toggleNotif,
-      notifList: this.state.notifications.map(n => Object.assign({}, n, { open: () => this.setState({ view: 'detail', pid: n.pid, notifOpen: false }) })), hasNotif: this.state.notifications.length > 0, noNotif: this.state.notifications.length === 0,
+      notifList: this.state.notifications.filter(n => n.recipient === this.myIdentity()).map(n => Object.assign({}, n, { open: () => this.setState({ view: 'detail', pid: n.pid, notifOpen: false }) })), hasNotif: this.state.notifications.filter(n => n.recipient === this.myIdentity()).length > 0, noNotif: this.state.notifications.filter(n => n.recipient === this.myIdentity()).length === 0,
       notifCount: this.state.notifications.length,
       mailTo: this.state.mail ? this.state.mail.to : '',
       mailSubject: this.state.mail ? this.state.mail.subject : '',

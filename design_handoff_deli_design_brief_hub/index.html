@@ -1366,8 +1366,8 @@ const L = {
     fReq: 'ผู้บรีฟ · Requested by', fEmail: 'อีเมลผู้บรีฟ', fEmailHint: 'สร้างบรีฟแทนแผนกอื่น? กรอกอีเมลจริงของผู้ขอ เพื่อให้เขาเห็นงานนี้ในบัญชีของตัวเอง', fStart: 'วัน-เวลาที่บรีฟ', reschedule: 'Design Manager: เลื่อนวันส่งงาน', fDue: 'กำหนดส่ง', fDeliv: 'สิ่งที่ต้องส่ง', fBrief: 'รายละเอียดบรีฟ',
     cancel: 'ยกเลิก', submit: 'ส่งบรีฟ', pickDate: 'เลือกวันที่', errName: 'กรุณากรอกชื่องานและชื่อผู้บรีฟก่อนส่งบรีฟ',
     formFoot: 'บรีฟใหม่จะเข้าคิวรอ Design Manager กดรับบรีฟและมอบหมายงาน', toastSent: 'บรีฟถูกส่งเรียบร้อย โปรดรอ Design Manager กดรับ และดำเนินการ', workdays: 'วันทำงาน',
-    assignLabel: 'มอบหมายดีไซเนอร์ · เจ้าของงานเท่านั้น', assignMax: 'เลือกได้สูงสุด 2 คน · Manager 20% · Designer A/B คนละ 40%',
-    done: 'เสร็จสิ้น', assignWarnTxt: 'มอบหมายได้สูงสุด 2 คน — เอาคนเดิมออกก่อน',
+    assignLabel: 'มอบหมายดีไซเนอร์ · เจ้าของงานเท่านั้น', assignMax: 'เลือกได้พร้อมกันทั้ง 3 คน · Manager 20% · Designer A/B คนละ 40%',
+    done: 'เสร็จสิ้น', assignWarnTxt: 'มอบหมายครบทุกคนแล้ว',
     sentTitle: 'ส่งบรีฟเรียบร้อย', sentBody: 'โปรดรอ Design Manager กดรับบรีฟและมอบหมายงานให้\nDesigner', sentClose: 'ปิด',
     viewMail: 'ดูอีเมลที่ส่งไป', mailSent: 'อีเมลที่ส่งออก', mailFrom: 'จาก', mailTo: 'ถึง', mailSubj: 'หัวข้อ',sentClose: 'ปิด',
     gateTitle: 'สถานะการเริ่มงาน', gateSub: 'งานจะเริ่มได้เมื่อ Design Manager รับบรีฟและมอบหมายดีไซเนอร์แล้ว',
@@ -1415,8 +1415,8 @@ const L = {
     fReq: 'Requested by', fEmail: 'Requester email', fEmailHint: 'Briefing on behalf of another department? Enter their real email so they can see this job in their own account.', fStart: 'Briefed at', reschedule: 'Design manager: move deadline', fDue: 'Deadline', fDeliv: 'Deliverable', fBrief: 'Brief details',
     cancel: 'Cancel', submit: 'Send brief', pickDate: 'Pick a date', errName: 'Add a job title and requester name before sending',
     formFoot: 'New briefs queue up until the design manager accepts and assigns them', toastSent: 'Brief sent. Waiting for the design manager to accept and proceed.', workdays: 'working days',
-    assignLabel: 'Assign designers · owner only', assignMax: 'Up to 2 people · manager 20% · designers 40% each',
-    done: 'Done', assignWarnTxt: 'Two designers max — remove one first',
+    assignLabel: 'Assign designers · owner only', assignMax: 'All 3 can be assigned together · manager 20% · designers 40% each',
+    done: 'Done', assignWarnTxt: 'Everyone is already assigned',
     sentTitle: 'Brief sent', sentBody: 'Please wait for the design manager to accept the brief and assign a designer.', sentClose: 'Close',
     viewMail: 'View sent email', mailSent: 'Sent email', mailFrom: 'From', mailTo: 'To', mailSubj: 'Subject',
     gateTitle: 'Start conditions', gateSub: 'Work starts only once the design manager accepts the brief and assigns a designer',
@@ -1469,7 +1469,7 @@ class Component extends DCLogic {
     revisionOpen: null, revisionText: '', revisionImage: null,
     submitWorkOpen: null, submitWorkLink: '', submitWorkImage: null,
     emailGuest: '', emailOwner: '', pwOwner: '', ownerErr: false, emailDesigner: '', designerErr: false, showPwOwner: false,
-    guestNickname: '', guestDept: '', guestErr: false, deptErr: false, nicknamePromptOpen: false, designerNickname: '',
+    guestNickname: '', guestDept: '', guestErr: false, deptErr: false, nicknamePromptOpen: false, designerNicknames: {},
     cal: null, calM: 8, calY: 2026, statusOverrides: {},
     assigns: { 4: ['Designer1'] }, assignPid: null, assignWarn: false,
     accepted: { 4: true }, lang: 'th', dark: false,
@@ -1636,7 +1636,7 @@ class Component extends DCLogic {
         shadow: on ? def.shadow : 'transparent',
         count: on ? pct + '%' : '—',
         textFg: on ? def.faceFg : 'var(--ink3)',
-        members: on ? loads.map(d => ({ name: d.name, initials: d.initials, load: d.load + '/' + d.cap, color: d.color })) : []
+        members: on ? loads.map(d => ({ name: this.nicknameFor(d.name), initials: d.initials, load: d.load + '/' + d.cap, color: d.color })) : []
       });
     }).sort((a, b) => (b.active ? 1 : 0) - (a.active ? 1 : 0));
     const badge = (this.state.lang === 'th' ? [
@@ -1654,7 +1654,7 @@ class Component extends DCLogic {
       levels, deptNow: badge.t, deptBg: badge.bg, deptFg: badge.fg,
       deptLoad: totalLoad + '/' + cap, deptPct: pct + '%', deptW: pct + '%',
       deptBarFg: badge.bg, deptHeadFg: headFg,
-      deptTeam: loads.map(d => ({ name: d.name, initials: d.initials, role: d.role, load: d.load + '/' + d.cap, share: d.share + '%', color: d.color, soft: d.color, w: Math.round(d.load / d.cap * 100) + '%' })),
+      deptTeam: loads.map(d => ({ name: this.nicknameFor(d.name), initials: d.initials, role: d.role, load: d.load + '/' + d.cap, share: d.share + '%', color: d.color, soft: d.color, w: Math.round(d.load / d.cap * 100) + '%' })),
       deptClash: clashes,
       actTh: levels[worst].th, actEn: levels[worst].en, actNote: levels[worst].note,
       actColor: levels[worst].color, actFaceFg: levels[worst].faceFg,
@@ -1761,7 +1761,22 @@ class Component extends DCLogic {
     else this.setState({ guestErr: !validEmail, deptErr: !validDept });
   };
   closeNicknamePrompt = () => this.setState({ nicknamePromptOpen: false });
-  skipNickname = () => this.setState(s => ({ [s.role === 'designer' ? 'designerNickname' : 'guestNickname']: '', nicknamePromptOpen: false }));
+  nicknameFor = (name) => this.state.designerNicknames[name] || name;
+  currentDesignerTeamName = () => (DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).name;
+  setDesignerNickname = (e) => {
+    const teamName = this.currentDesignerTeamName();
+    if (!teamName) return;
+    const v = e.target.value;
+    this.setState(s => ({ designerNicknames: Object.assign({}, s.designerNicknames, { [teamName]: v }) }));
+  };
+  skipNickname = () => {
+    if (this.state.role === 'designer') {
+      const teamName = this.currentDesignerTeamName();
+      this.setState(s => ({ designerNicknames: Object.assign({}, s.designerNicknames, { [teamName]: '' }), nicknamePromptOpen: false }));
+    } else {
+      this.setState({ guestNickname: '', nicknamePromptOpen: false });
+    }
+  };
   loginDesigner = () => {
     const v = (this.state.emailDesigner || '').trim().toLowerCase();
     if (INVITED_DESIGNERS.indexOf(v) > -1) this.setState({ role: 'designer', view: 'home', designerErr: false, nicknamePromptOpen: true });
@@ -2025,7 +2040,7 @@ class Component extends DCLogic {
     const base = s.assigns[pid] || (this.namesOf(pid));
     let next, added = false;
     if (base.indexOf(name) > -1) next = base.filter(n => n !== name);
-    else if (base.length >= 2) { this.setState({ assignWarn: true }); return; }
+    else if (base.length >= TEAM.length) { this.setState({ assignWarn: true }); return; }
     else { next = base.concat([name]); added = true; }
     this.setState(s2 => ({ assigns: Object.assign({}, s2.assigns, { [pid]: next }), assignWarn: false }));
     if (added) {
@@ -2091,7 +2106,7 @@ class Component extends DCLogic {
       catInk: cat ? (this.state.dark ? cat.inkLight : cat.ink) : 'var(--ink)',
       history: (p.history || []).map(h => Object.assign({}, h, { dot: PASTEL_OF[h.dot] || h.dot })),
       designerNames: names,
-      designerLabel: names.length ? names.join(' + ') : (this.state.lang === 'th' ? 'ยังไม่มอบหมาย' : 'Unassigned'),
+      designerLabel: names.length ? names.map(n => this.nicknameFor(n)).join(' + ') : (this.state.lang === 'th' ? 'ยังไม่มอบหมาย' : 'Unassigned'),
       avatars: members.map((mm, i) => ({ initials: mm.initials, bg: mm.color, ml: i === 0 ? '0' : '-9px' })),
       canAssign: this.state.role === 'owner' && isAccepted,
       isMine: this.state.role === 'guest' && p.requesterEmail === this.state.emailGuest,
@@ -2186,9 +2201,9 @@ class Component extends DCLogic {
       quickOwner: () => this.setState({ role: 'owner', view: 'home' }),
       quickDesigner: () => this.setState({ role: 'designer', view: 'home' }),
       quickGuest: () => this.setState({ role: 'guest', view: 'home' }),
-      userName: owner ? (lang === 'th' ? 'ผู้จัดการฝ่ายออกแบบ' : 'Design Manager') : (designer ? (this.state.designerNickname || (lang === 'th' ? (DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).name || 'ดีไซเนอร์' : (DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).nameEn || 'Designer')) : (this.state.guestNickname || this.state.emailGuest || (lang === 'th' ? 'แผนกอื่น' : 'Others Dept.'))),
+      userName: owner ? (lang === 'th' ? 'ผู้จัดการฝ่ายออกแบบ' : 'Design Manager') : (designer ? (this.state.designerNicknames[this.currentDesignerTeamName()] || (lang === 'th' ? (DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).name || 'ดีไซเนอร์' : (DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).nameEn || 'Designer')) : (this.state.guestNickname || this.state.emailGuest || (lang === 'th' ? 'แผนกอื่น' : 'Others Dept.'))),
       userRole: owner ? 'Design Manager' : (designer ? 'Designer' : 'Others Department'),
-      userInitials: owner ? 'DM' : (designer ? (this.state.designerNickname ? this.state.designerNickname.slice(0, 2).toUpperCase() : ((DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).initials || 'DS')) : (this.state.guestNickname ? this.state.guestNickname.slice(0, 2).toUpperCase() : 'OD')),
+      userInitials: owner ? 'DM' : (designer ? ((this.state.designerNicknames[this.currentDesignerTeamName()]) ? this.state.designerNicknames[this.currentDesignerTeamName()].slice(0, 2).toUpperCase() : ((DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).initials || 'DS')) : (this.state.guestNickname ? this.state.guestNickname.slice(0, 2).toUpperCase() : 'OD')),
       userAvatarBg: owner ? '#C4142F' : '#3A322E',
       roleChip: owner ? 'Owner' : (designer ? 'Designer' : (this.state.guestDept || 'Others')),
       roleChipBg: owner ? 'rgba(255,255,255,.16)' : 'rgba(255,255,255,.08)',
@@ -2323,7 +2338,7 @@ class Component extends DCLogic {
       assignRows: TEAM.map(d => {
         const picked = this.state.assignPid ? this.namesOf(this.state.assignPid).indexOf(d.name) > -1 : false;
         return {
-          name: d.name, initials: d.initials, role: d.role, load: d.load, cap: d.cap, w: Math.round(d.load / d.cap * 100) + '%',
+          name: this.nicknameFor(d.name), initials: d.initials, role: d.role, load: d.load, cap: d.cap, w: Math.round(d.load / d.cap * 100) + '%',
           color: d.color, toggle: this.toggleAssign(this.state.assignPid, d.name),
           bg: picked ? 'rgba(196,20,47,.05)' : '#fff',
           bd: picked ? RED : 'rgba(26,22,20,.11)',
@@ -2347,8 +2362,8 @@ class Component extends DCLogic {
       pwOwnerType: this.state.showPwOwner ? 'text' : 'password',
       showPwLabel: this.state.showPwOwner ? (lang === 'th' ? 'ซ่อน' : 'Hide') : (lang === 'th' ? 'แสดง' : 'Show'),
       toggleShowPwOwner: this.toggleShowPwOwner,
-      guestNickname: designer ? this.state.designerNickname : this.state.guestNickname,
-      onGuestNickname: this.setEmail(designer ? 'designerNickname' : 'guestNickname'),
+      guestNickname: designer ? (this.state.designerNicknames[this.currentDesignerTeamName()] || '') : this.state.guestNickname,
+      onGuestNickname: designer ? this.setDesignerNickname : this.setEmail('guestNickname'),
       guestDept: this.state.guestDept, onGuestDept: this.setEmail('guestDept'),
       showDeptErr: this.state.deptErr,
       isNicknamePrompt: (guest || designer) && this.state.nicknamePromptOpen,

@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#C4142F"/><text x="30" y="115" font-family="Arial" font-size="60" font-weight="700" fill="#fff">deli</text></svg></template>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics=""><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"><style>
+:root{
+  --bg:#EFEBE6; --surface:#ffffff; --surfaceSoft:rgba(255,255,255,.55); --headerBg:rgba(255,255,255,.72);
+  --sidebar:#1A1614; --ink:#1A1614; --ink2:rgba(26,22,20,.74); --ink3:rgba(26,22,20,.62);
+  --muted:rgba(26,22,20,.5); --muted2:rgba(26,22,20,.4);
+  --line:rgba(26,22,20,.08); --line2:rgba(26,22,20,.11); --line3:rgba(26,22,20,.15);
+  --wash:rgba(26,22,20,.035); --wash2:rgba(26,22,20,.06); --accent:#C4142F;
+}
+[data-theme="dark"]{
+  --bg:#141110; --surface:#1F1B18; --surfaceSoft:rgba(255,255,255,.045); --headerBg:rgba(31,27,24,.9);
+  --sidebar:#0D0A09; --ink:#F6F1EB; --ink2:rgba(246,241,235,.86); --ink3:rgba(246,241,235,.74);
+  --muted:rgba(246,241,235,.62); --muted2:rgba(246,241,235,.5);
+  --line:rgba(246,241,235,.12); --line2:rgba(246,241,235,.17); --line3:rgba(246,241,235,.26);
+  --wash:rgba(246,241,235,.06); --wash2:rgba(246,241,235,.11); --accent:oklch(0.76 0.15 22);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Anuphan,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent);opacity:.82}
+::selection{background:#C4142F;color:#fff}
+@keyframes dliftIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes sweepShine{0%{transform:translateX(-130%) skewX(-20deg)}100%{transform:translateX(230%) skewX(-20deg)}}
+</style></helmet>
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+<div data-theme="{{ theme }}" style="display:flex;flex-wrap:wrap;min-height:100vh;background:var(--bg);color:var(--ink)">
+
+  
+
+  <div style="flex:1 1 50%;min-width:320px;background:#C4142F;color:#fff;position:relative;overflow:hidden;padding:56px 24px 48px;display:flex;flex-direction:column">
+    <div style="position: relative; z-index: 1; pointer-events: none; width: 100%"></div>
+    <div style="position:relative;display:flex;align-items:center;gap:13px;flex-wrap:wrap;row-gap:12px">
+      <div style="width:52px;height:52px;flex:none;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:9px"><img src="assets/deli-logo-red.png" alt="deli" style="width: 115%; height: 115%; object-fit: contain"></div>
+      <div style="font-family: Anuphan,sans-serif; font-weight: 500; font-size: 15px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.9); line-height: normal"><b>Design Brief Hub</b><br>Design department</div>
+      <div style="flex:1 1 auto;min-width:0"></div>
+      <div style="display:flex;gap:2px;padding:3px;border-radius:14px;background:rgba(0,0,0,.16)">
+        <sc-for list="{{ langsLogin }}" as="g" hint-placeholder-count="2">
+          <button onClick="{{ g.pick }}" style="padding:7px 11px;border:0;border-radius:10px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;background:{{ g.bg }};color:{{ g.fg }}">{{ g.label }}</button>
+        </sc-for>
+      </div>
+      <button onClick="{{ toggleDark }}" style="margin-left:8px;display:flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid rgba(255,255,255,.32);border-radius:14px;background:transparent;color:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer" style-hover="background:rgba(0,0,0,.18)"><span style="font-size:13px">{{ themeIcon }}</span>{{ themeLabel }}</button>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;padding:20px 0">
+    
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+    
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(20px,3vw,28px) clamp(20px,4vw,34px); border-radius: 26px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(6px); width: 100%; max-width: 570px; box-sizing: border-box">
+        <div style="font-family: Anuphan; font-weight: 500; font-size: clamp(14px,1.8vw,20px); letter-spacing: 0.1em; text-transform: uppercase; color: #FFFFFF">{{ t.deptTitle }}</div>
+        <div style="display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;text-align:left">
+          <div style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:8px">
+            <div style="font-family: Archivo,sans-serif; font-variant-numeric: tabular-nums; font-size: clamp(42px,7vw,80px); font-weight: 700; letter-spacing: -0.03em; color: #fff; line-height: 1.05">{{ deptPct }}</div>
+            <div style="font-size: clamp(15px,2.2vw,25px); font-weight: 700; color: #fff; line-height: 1.35; white-space: pre-line">{{ loginStatusLabel }}</div>
+          </div>
+          <div style="flex:none;width:clamp(92px,18vw,160px);aspect-ratio:1;position:relative">
+            <sc-if value="{{ loginIsOpen }}" hint-placeholder-val="{{ false }}"><img src="assets/level-open.gif" alt="{{ loginStatus.en }}" style="width:100%;height:100%;object-fit:contain;transform:scale(1.25)"></sc-if>
+            <sc-if value="{{ loginIsBusy }}" hint-placeholder-val="{{ false }}"><img src="assets/level-busy.gif" alt="{{ loginStatus.en }}" style="width:100%;height:100%;object-fit:contain;transform:scale(1.25)"></sc-if>
+            <sc-if value="{{ loginIsOver }}" hint-placeholder-val="{{ false }}"><img src="assets/level-over.gif" alt="{{ loginStatus.en }}" style="width:100%;height:100%;object-fit:contain;transform:scale(1.15)"></sc-if>
+          </div>
+        </div>
+      </div><div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 14px;padding:clamp(14px,2vw,18px) clamp(20px,4vw,34px);border-radius:26px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(6px)">
+      <span style="font-family: Anuphan; font-weight: 500; font-size: clamp(19px,3.2vw,38px); letter-spacing: 0em; color: #FFFFFF">{{ todayLabel }}</span>
+      <span style="width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.5)"></span>
+      <span style="font-family: Anuphan; font-weight: 600; font-size: clamp(19px,3.2vw,38px); letter-spacing: 0.04em; color: #FFFFFF; font-variant-numeric: tabular-nums">{{ clockLabel }}</span>
+      </div>
+    </div><div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:22px;margin-top:24px">
+      
+      
+      
+      <div style="display: flex; gap: clamp(28px,6vw,72px); margin-top: 40px; align-items: center; justify-content: center; flex-wrap: wrap">
+        <div style="text-align:center"><div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:clamp(40px,6vw,64px);font-weight:600;letter-spacing:-0.04em;line-height:normal">{{ totalJobsCount }}</div><div style="font-size:14.5px;color:rgba(255,255,255,.93);margin-top:6px">{{ t.projUnit }} / {{ totalAssets }} {{ t.assets }}</div></div>
+        <div style="text-align:center"><div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:clamp(40px,6vw,64px);font-weight:600;letter-spacing:-0.04em;line-height:normal">3</div><div style="font-size:14.5px;color:rgba(255,255,255,.93);margin-top:6px">{{ t.designers }}</div></div>
+        <div style="text-align:center"><div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:clamp(40px,6vw,64px);font-weight:600;letter-spacing:-0.04em;line-height:normal">6</div><div style="font-size:14.5px;color:rgba(255,255,255,.93);margin-top:6px">{{ t.steps }}</div></div>
+      </div>
+    </div>
+    </div>
+  </div><div style="flex:1 1 50%;min-width:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:56px 32px;background:linear-gradient(180deg,var(--surface),var(--bg))">
+    <div style="width:100%;max-width:460px">
+      <div style="font-family: Anuphan; font-size: 12.5px; font-weight: 600; letter-spacing: 0; text-transform: uppercase; color:var(--accent); margin-bottom: 12px">{{ t.selectAccess }}</div>
+      <h2 style="margin: 0 0 26px; font-family: Anuphan; font-variant-numeric: tabular-nums; font-size: 32px; font-weight: 600; letter-spacing: -0.035em; color: var(--ink)">{{ t.whoAmI }}</h2>
+
+      
+
+      <div style="background:var(--surface);border:1px solid var(--line2);border-radius:20px;padding:26px 28px 28px;margin-bottom:16px;box-shadow:0 1px 3px rgba(26,22,20,.04),0 12px 32px rgba(26,22,20,.05)">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+          
+          <div style="flex:1"><div style="display: flex; align-items: center; gap: 9px; margin-bottom: 2px; flex-wrap: nowrap"><div style="font-size:18.5px;font-weight:700;letter-spacing:0">{{ t.titleOthers }}</div><span style="padding:3px 9px;border-radius:20px;background:#C4142F;color:#fff;font-size:10px;font-weight:700;letter-spacing:0">{{ t.recommended }}</span></div><div style="font-size:12px;color:var(--muted)">{{ t.othersDesc }}</div></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px">
+          <span style="padding:5px 11px;border-radius:20px;font-size:11.5px;background:oklch(0.74 0.11 157);color:oklch(0.4 0.11 158);font-weight:500">✓ {{ t.permBrief }}</span>
+          <span style="padding:5px 11px;border-radius:20px;font-size:11.5px;background:oklch(0.74 0.11 157);color:oklch(0.4 0.11 158);font-weight:500">✓ {{ t.permView }}</span>
+          
+          
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="font-size:11.5px;font-weight:600;margin-bottom:6px;color:var(--ink2)">Email</div>
+          <input type="email" value="{{ emailGuest }}" onChange="{{ onEmailGuest }}" placeholder="name@gmail.com" style="width:100%;padding:11px 14px;border:1px solid var(--line2);border-radius:14px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--wash);outline:none;box-sizing:border-box">
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="font-size:11.5px;font-weight:600;margin-bottom:6px;color:var(--ink2)">{{ t.guestDeptLabel }} <span style="color:#C4142F">*</span></div>
+          <input type="text" value="{{ guestDept }}" onChange="{{ onGuestDept }}" placeholder="{{ t.guestDeptPh }}" style="width:100%;padding:11px 14px;border:1px solid var(--line2);border-radius:14px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--wash);outline:none;box-sizing:border-box">
+        </div>
+        <sc-if value="{{ showGuestErr }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:11px;color:#8E0E22;background:oklch(0.93 0.03 22);padding:6px 10px;border-radius:8px;margin-bottom:10px">{{ t.guestEmailErr }}</div>
+        </sc-if>
+        <sc-if value="{{ showDeptErr }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:11px;color:#8E0E22;background:oklch(0.93 0.03 22);padding:6px 10px;border-radius:8px;margin-bottom:10px">{{ t.guestDeptErr }}</div>
+        </sc-if>
+        <button onClick="{{ loginGmail }}" style="width:100%;padding:13px;display:flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:20px;background:#C4142F;color:#fff;font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(196,20,47,.3)" style-hover="background:#8E0E22">
+          <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"></path><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.94v2.33A9 9 0 0 0 9 18z"></path><path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.17.28-1.7V4.97H.94A9 9 0 0 0 0 9c0 1.45.35 2.83.94 4.03l3.01-2.33z"></path><path fill="#EA4335" d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .94 4.97l3.01 2.33C4.66 5.17 6.65 3.58 9 3.58z"></path></svg>
+          Login via Gmail
+        </button>
+      </div>
+
+      <div style="border: 2px solid #C4142F; border-radius: 16px; padding: 26px 28px 28px; box-shadow: 0 10px 28px rgba(196,20,47,.28); background-color: #C4142F; border-color: #C4142F">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px">
+          
+          <div style="flex:1"><div style="display:flex;align-items:center;gap:9px;margin-bottom:2px"><div style="font-size:18.5px;font-weight:700;letter-spacing:0;color:#fff">Design Department</div><span style="padding: 3px 9px; border-radius: 20px; background: #fff; color: #C4142F; font-size: 10px; font-weight: 700; letter-spacing: 0">FULL ACCESS</span></div><div style="font-size:12px;color:rgba(255,255,255,.72)">{{ t.ownerDesc }}</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+          <div style="padding:12px 14px;border:1px solid rgba(255,255,255,.28);border-radius:14px;background:rgba(255,255,255,.1)">
+            <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:3px">Email</div>
+            <input type="email" value="{{ emailOwner }}" onChange="{{ onEmailOwner }}" placeholder="name@gmail.com" style="width:100%;border:0;background:transparent;outline:none;font-family:inherit;font-size:13.5px;color:#fff;padding:0">
+          </div>
+          <div style="padding:12px 14px;border:1px solid rgba(255,255,255,.28);border-radius:14px;background:rgba(255,255,255,.1);display:flex;align-items:flex-end;gap:10px">
+            <div style="flex:1"><div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:3px">Password</div><input type="password" value="{{ pwOwner }}" onChange="{{ onPwOwner }}" placeholder="••••••••••" style="width:100%;border:0;background:transparent;outline:none;font-family:inherit;font-size:13.5px;letter-spacing:0;color:#fff;padding:0"></div>
+            <div style="font-size:11.5px;color:rgba(255,255,255,.7);padding-bottom:1px">แสดง</div>
+          </div>
+        </div>
+        <sc-if value="{{ showOwnerErr }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:11px;color:#fff;background:rgba(0,0,0,.2);padding:6px 10px;border-radius:8px;margin-bottom:10px">Email หรือรหัสผ่านไม่ถูกต้อง</div>
+        </sc-if>
+        <button onClick="{{ loginOwner }}" style="width: 100%; padding: 14px; border: 0; border-radius: 20px; position: relative; overflow: hidden; background: #fff; color: #C4142F; font-family: inherit; font-size: 14.5px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.18)" style-hover="background:oklch(0.94 0.02 20)">Design Department Login</button>
+        <div style="display:flex;align-items:center;gap:10px;margin:14px 0"><div style="flex:1;height:1px;background:rgba(255,255,255,.25)"></div><span style="font-size: 13px; color: #FFFFFF">{{ t.designerDesc }}</span><div style="flex:1;height:1px;background:rgba(255,255,255,.25)"></div></div>
+        <input type="email" value="{{ emailDesigner }}" onChange="{{ onEmailDesigner }}" placeholder="name@gmail.com" style="width:100%;margin-bottom:8px;padding:11px 14px;border:1px solid rgba(255,255,255,.3);border-radius:14px;font-family:inherit;font-size:13px;color:#fff;background:rgba(255,255,255,.1);outline:none">
+        <sc-if value="{{ showDesignerErr }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:11px;color:#fff;background:rgba(0,0,0,.2);padding:6px 10px;border-radius:8px;margin-bottom:8px">{{ t.designerErr }}</div>
+        </sc-if>
+        <button onClick="{{ loginDesigner }}" style="width: 100%; padding: 12px; display: flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid rgba(255,255,255,.35); border-radius: 20px; background: transparent; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer" style-hover="background:rgba(255,255,255,.12)">
+          <svg width="16" height="16" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"></path><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.94v2.33A9 9 0 0 0 9 18z"></path><path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.17.28-1.7V4.97H.94A9 9 0 0 0 0 9c0 1.45.35 2.83.94 4.03l3.01-2.33z"></path><path fill="#EA4335" d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .94 4.97l3.01 2.33C4.66 5.17 6.65 3.58 9 3.58z"></path></svg>
+          {{ t.designerBtn }}
+        </button>
+        
+      </div>
+
+
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+<div data-theme="{{ theme }}" style="display:flex;flex-direction:column;min-height:100vh;min-width:1240px;background:var(--bg);color:var(--ink)">
+
+  <header style="position:sticky;top:0;z-index:20;display:flex;flex-direction:column">
+
+    <div style="background:var(--sidebar);color:#fff"><div style="width:100%;max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:14px 40px">
+      <div style="display:flex;align-items:center;gap:12px;flex:none">
+        <div style="width:40px;height:40px;flex:none;background:#C4142F;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px"><img src="assets/deli-logo-white.png" alt="deli" style="width: 115%; height: 115%; object-fit: contain"></div>
+        <div style="display:flex;flex-direction:column;gap:1px">
+          <div style="font-size: 15px; font-weight: 600; white-space: nowrap">Design Brief Hub</div>
+          <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9px;letter-spacing:0.18em;color:rgba(255,255,255,.45);text-transform:uppercase;white-space:nowrap">Design Department</div>
+        </div>
+      </div>
+
+      <nav style="flex:1;display:flex;justify-content:center;gap:4px">
+        <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navHomeBg }};color:{{ navHomeFg }}" style-hover="background:rgba(196,20,47,.12)">
+          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.overview }}
+        </button>
+        <button onClick="{{ goWorks }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navWorksBg }};color:{{ navWorksFg }}" style-hover="background:rgba(196,20,47,.12)">
+          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ worksLabel }}
+        </button>
+        <button onClick="{{ goFlow }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navFlowBg }};color:{{ navFlowFg }}" style-hover="background:rgba(196,20,47,.12)">
+          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.flow }}
+        </button>
+        <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ goLoad }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navLoadBg }};color:{{ navLoadFg }}" style-hover="background:rgba(196,20,47,.12)">
+          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.load }}
+        </button>
+        </sc-if>
+        <button onClick="{{ goCal }}" style="display:flex;align-items:center;gap:9px;padding:10px 16px;border:0;border-radius:20px;font-family:inherit;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;background:{{ navCalBg }};color:{{ navCalFg }}" style-hover="background:rgba(196,20,47,.12)">
+          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7"></span>{{ t.calendar }}
+        </button>
+      </nav>
+
+      <div style="flex:none;display:flex;align-items:center;gap:10px">
+        <div style="position:relative">
+          <button onClick="{{ toggleNotif }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.24);border-radius:14px;background:transparent;color:#fff;cursor:pointer" style-hover="background:rgba(255,255,255,.1)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <sc-if value="{{ hasNotif }}" hint-placeholder-val="{{ false }}">
+              <span style="position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;padding:0 3px;border-radius:20px;background:#fff;color:#C4142F;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ notifCount }}</span>
+            </sc-if>
+          </button>
+          <sc-if value="{{ isNotifOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:46px;right:0;width:340px;max-height:420px;overflow:auto;background:var(--surface);border:1px solid var(--line2);border-radius:18px;box-shadow:0 18px 44px rgba(26,22,20,.28);z-index:60">
+              <div style="padding:14px 18px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--ink)">{{ t.notifTitle }}</div>
+              <sc-if value="{{ hasNotif }}" hint-placeholder-val="{{ false }}" hint-placeholder-count="1">
+                <sc-for list="{{ notifList }}" as="n" hint-placeholder-count="3">
+                  <div onClick="{{ n.open }}" style="padding:12px 18px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start;cursor:pointer" style-hover="background:var(--wash)">
+                    <span style="width:8px;height:8px;border-radius:50%;flex:none;margin-top:5px;background:{{ n.dot }}"></span>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12px;color:var(--ink2);line-height:1.45">{{ n.msg }}</div>
+                      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted2);margin-top:3px">{{ n.code }} · {{ n.time }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </sc-if>
+              <sc-if value="{{ noNotif }}" hint-placeholder-val="{{ true }}">
+                <div style="padding:24px 18px;text-align:center;font-size:12.5px;color:var(--muted)">{{ t.noNotif }}</div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display:flex;gap:2px;padding:3px;border-radius:14px;background:rgba(255,255,255,.1)">
+          <sc-for list="{{ langsLogin }}" as="g" hint-placeholder-count="2">
+            <button onClick="{{ g.pick }}" style="padding:6px 11px;border:0;border-radius:10px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;background:{{ g.bg }};color:{{ g.fg }}">{{ g.label }}</button>
+          </sc-for>
+        </div>
+        <button onClick="{{ toggleDark }}" style="display:flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid rgba(255,255,255,.24);border-radius:14px;background:transparent;color:#fff;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer" style-hover="background:rgba(255,255,255,.1)"><span style="font-size:13px">{{ themeIcon }}</span>{{ themeLabel }}</button>
+        <div style="display:flex;align-items:center;gap:9px;padding:5px 6px 5px 5px;border-radius:20px;background:rgba(255,255,255,.08)">
+          <div style="width:30px;height:30px;flex:none;border-radius:50%;background:{{ userAvatarBg }};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff">{{ userInitials }}</div>
+          <div style="line-height:normal">
+            <div style="font-size:12px;font-weight:500;white-space:nowrap">{{ userName }}</div>
+            <div style="font-family:Anuphan,sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,.5);white-space:nowrap">{{ roleChip }}</div>
+          </div>
+          <button onClick="{{ logout }}" style="margin-left:2px;padding:7px 11px;border:0;border-radius:20px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-family:inherit;font-size:11.5px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:rgba(255,255,255,.2);color:#fff">{{ t.logout }}</button>
+        </div>
+        <sc-if value="{{ canCreate }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ openForm }}" style="position:relative;overflow:hidden;padding:13px 22px;border:0;border-radius:20px;background:#C4142F;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 4px 14px rgba(196,20,47,.32)" style-hover="background:#8E0E22">
+            {{ t.newBrief }}
+            <span style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);animation:sweepShine 3s ease-in-out infinite"></span>
+          </button>
+        </sc-if>
+        <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ openReport }}" style="padding:13px 20px;border:1px solid var(--line2);border-radius:20px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="background:var(--wash)">{{ t.reportBtn }}</button>
+        </sc-if>
+      </div>
+    </div></div>
+
+    <div style="background:var(--headerBg);border-bottom:1px solid var(--line)"><div style="width:100%;max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:11px 40px">
+      <div style="flex: none; font-family: Anuphan; font-weight: 500; font-size: 11px; letter-spacing: 0.18em; color: var(--muted); white-space: nowrap">DELI / {{ crumb }}</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap">
+        <span style="font-family: Anuphan; font-weight: 500; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted2); white-space: nowrap">{{ t.category }}</span>
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+          <div style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink3);white-space:nowrap">
+            <span style="width:9px;height:9px;border-radius:50%;flex:none;background:{{ c.color }}"></span>
+            <span>{{ c.name }}</span>
+            <span style="font-family:Anuphan,sans-serif;font-size:11px;color:var(--muted2)">{{ c.count }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ isOther }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:none;display:flex;align-items:center;gap:8px;padding:8px 13px;border-radius:14px;background:var(--wash2);border:1px solid var(--line)">
+          <span style="width:7px;height:7px;border-radius:50%;background:oklch(0.78 0.13 76)"></span>
+          <span style="font-size:12px;font-weight:500;color:var(--ink3);white-space:nowrap">{{ t.othersNote }}</span>
+        </div>
+      </sc-if>
+    </div></div>
+  </header><main style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center">
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;display:flex;flex-direction:column;gap:26px;animation:dliftIn .3s ease both">
+
+      <section style="position:relative;overflow:hidden;border-radius:20px;background:#C4142F;color:#fff;padding:46px 48px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
+        <div style="position:absolute;right:-70px;top:-70px;width:300px;height:300px;border:34px solid rgba(255,255,255,.08);border-radius:50%;pointer-events:none"></div>
+        <div style="position:relative;font-family:Anuphan,sans-serif;font-weight:500;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,.65)">{{ t.week }}</div>
+        <h1 style="margin:0;position:relative;font-family:Archivo,Anuphan,sans-serif;font-size:54px;line-height:1.02;font-weight:600;letter-spacing:-0.032em;max-width:20ch">Deli Design Brief Flow</h1>
+        <p style="margin:0;position:relative;font-size:15px;line-height:1.55;color:rgba(255,255,255,.82);max-width:52ch">{{ t.heroBody }}</p>
+        <div style="position:relative;display:flex;gap:10px">
+          <button onClick="{{ goWorks }}" style="padding:13px 22px;border:0;border-radius:20px;background:#fff;color:#C4142F;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap">{{ t.ctaAll }}</button>
+          <button onClick="{{ goFlow }}" style="padding:13px 22px;border:1px solid rgba(255,255,255,.4);border-radius:20px;background:transparent;color:#fff;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap">{{ t.ctaFlow }}</button>
+        </div>
+        <div style="flex:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:relative;width:100%;margin-top:6px">
+          <div style="padding:0 22px;border-left:1px solid rgba(255,255,255,.28);display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:44px;font-weight:600;letter-spacing:-0.03em;line-height:1">{{ totalJobsCount }}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.8)">{{ t.statAll }}</div>
+            <div style="font-family:Anuphan,sans-serif;font-size:10px;letter-spacing:0.1em;color:rgba(255,255,255,.55)">{{ totalAssets }} {{ t.assets }}</div>
+          </div>
+          <div style="padding:0 22px;border-left:1px solid rgba(255,255,255,.28);display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:44px;font-weight:600;letter-spacing:-0.03em;line-height:1">{{ heroDesignCount }}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.8)">{{ t.statDesign }}</div>
+          </div>
+          <div style="padding:0 22px;border-left:1px solid rgba(255,255,255,.28);display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:44px;font-weight:600;letter-spacing:-0.03em;line-height:1">{{ heroReviewCount }}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.8)">{{ t.statReview }}</div>
+          </div>
+          <div style="padding:0 22px;border-left:1px solid rgba(255,255,255,.28);display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:44px;font-weight:600;letter-spacing:-0.03em;line-height:1">{{ heroLateCount }}</div>
+            <div style="font-size:12px;color:#fff">{{ t.statLate }}</div>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 28px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;margin-bottom:22px;text-align:center">
+          <h2 style="margin:0;font-family:Archivo,Anuphan,sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.02em">{{ t.wfTitle }}</h2>
+          <span style="font-size:12.5px;color:var(--muted)">{{ t.wfSub }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
+            <div style="position:relative;padding:16px 12px 14px;border-radius:16px;background:{{ s.bg }};color:{{ s.fg }};display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px">
+              <div style="position: absolute; top: 10px; right: 12px; font-family: Anuphan,sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; opacity: .55">0{{ s.n }}</div>
+              <div style="width:44px;height:44px;background:{{ s.fg }};-webkit-mask-image:url({{ s.icon }});mask-image:url({{ s.icon }});-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center"></div>
+              <div style="font-size:14.5px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;white-space:nowrap;margin-top:2px">{{ s.name }}</div>
+              <div style="display:flex;align-items:baseline;justify-content:center;gap:4px">
+                <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:26px;font-weight:600;letter-spacing:-0.03em;line-height:1">{{ s.count }}</div>
+                <div style="font-family:Anuphan,sans-serif;font-size:10px;opacity:.68">{{ t.projUnit }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);gap:22px;align-items:stretch">
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 28px;display:flex;flex-direction:column">
+          <h2 style="margin:0 0 4px;font-family:Archivo,Anuphan,sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.02em;text-align:center">{{ t.wlTitle }}</h2>
+          <div style="font-size:12.5px;color:var(--muted);margin-bottom:22px;text-align:center">{{ t.wlSub }}</div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:22px">
+            <div style="width:clamp(220px, 18vw, 320px);height:clamp(220px, 18vw, 320px);flex:none;border-radius:50%;position:relative;background:conic-gradient(oklch(0.72 0.13 22) 0deg 120deg,oklch(0.71 0.11 252) 120deg 210deg,oklch(0.78 0.13 76) 210deg 270deg,oklch(0.72 0.11 311) 270deg 310deg,oklch(0.74 0.11 157) 310deg 360deg)">
+              <div style="position:absolute;inset:38px;background:var(--surface);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:32px;font-weight:600;letter-spacing:-0.035em;line-height:normal">{{ totalJobsCount }}</div>
+                <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;color:var(--muted2);text-transform:uppercase;margin-top:3px">{{ t.jobs }}</div>
+                <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9px;color:var(--muted);margin-top:2px">{{ totalAssets }} {{ t.assets }}</div>
+              </div>
+            </div>
+            <div style="width:100%;display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+                <div>
+                  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:5px">
+                    <span style="width:9px;height:9px;border-radius:50%;flex:none;background:{{ c.soft }}"></span>
+                    <span style="flex:1;font-size:12.5px;font-weight:500">{{ c.name }}</span>
+                    <span style="font-family:Anuphan,sans-serif;font-size:11px;color:var(--muted)">{{ c.count }} · {{ c.artworks }}aw</span>
+                  </div>
+                  <div style="height:5px;border-radius:3px;background:var(--wash2);overflow:hidden">
+                    <div style="height:100%;border-radius:3px;width:{{ c.w }};background:{{ c.soft }}"></div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 28px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;margin-bottom:22px;text-align:center">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+              
+              
+              
+            </div>
+            <h2 style="margin:0;font-family:Archivo,Anuphan,sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.02em">{{ t.deptTitle }}</h2>
+            <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ true }}">
+            <span style="padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;background:{{ deptBg }};color:{{ deptFg }}">{{ deptNow }}</span>
+            </sc-if>
+          </div>
+          
+          <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+            <div style="flex:1;height:9px;border-radius:5px;background:var(--wash2);overflow:hidden"><div style="height:100%;border-radius:5px;width:{{ deptW }};background:{{ deptBarFg }}"></div></div>
+            <span style="font-family:Anuphan,sans-serif;font-size:12px;font-weight:500;color:{{ deptHeadFg }}">{{ deptPct }}</span>
+          </div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ levels }}" as="l" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;text-align:left;gap:18px;padding:22px;border-radius:20px;background:{{ l.rowBg }};border:1px solid {{ l.rowBd }}">
+                <div style="width:42%;aspect-ratio:1;flex:none;border-radius:20px;background:{{ l.rowBg }};position:relative;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px {{ l.shadow }}">
+                  <sc-if value="{{ l.isOpen }}" hint-placeholder-val="{{ false }}"><img src="assets/level-open.gif" alt="{{ l.en }}" style="width:100%;height:100%;object-fit:contain;opacity:{{ l.faceOpacity }}"></sc-if><sc-if value="{{ l.isBusy }}" hint-placeholder-val="{{ false }}"><img src="assets/level-busy.gif" alt="{{ l.en }}" style="width:100%;height:100%;object-fit:contain;opacity:{{ l.faceOpacity }}"></sc-if><sc-if value="{{ l.isOver }}" hint-placeholder-val="{{ false }}"><img src="assets/level-over.gif" alt="{{ l.en }}" style="width:100%;height:100%;object-fit:contain;opacity:{{ l.faceOpacity }}"></sc-if>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;align-items:baseline;justify-content:flex-start;gap:9px;flex-wrap:wrap;margin-bottom:4px">
+                    <span style="font-size:14.5px;font-weight:600;letter-spacing:0;color:{{ l.textFg }}">{{ l.th }}</span>
+                    <span style="font-family:Anuphan,sans-serif;font-weight:500;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:{{ l.faceFg }}">{{ l.en }}</span>
+                  </div>
+                  <div style="font-size:12px;color:var(--muted);line-height:normal;text-wrap:pretty">{{ l.note }}</div>
+                  <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;gap:6px;margin-top:11px;flex-wrap:wrap;justify-content:flex-start">
+                    <sc-for list="{{ l.members }}" as="mb" hint-placeholder-count="2">
+                      <span style="display:flex;align-items:center;gap:6px;padding:3px 9px 3px 3px;border-radius:20px;background:var(--surface);border:1px solid var(--line2);font-size:11.5px;color:var(--ink3)">
+                        <span style="width:19px;height:19px;border-radius:50%;background:{{ mb.color }};color:var(--ink2);display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:600">{{ mb.initials }}</span>{{ mb.name }} · {{ mb.load }}
+                      </span>
+                    </sc-for>
+                  </div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px;justify-content:center">
+          <h2 style="margin:0;font-family:Archivo,Anuphan,sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.02em">{{ t.worksTitle }}</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+          <sc-for list="{{ featured }}" as="p" hint-placeholder-count="3">
+            <div onClick="{{ p.open }}" style="cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:transform .16s ease,box-shadow .16s ease" style-hover="transform:translateY(-3px);box-shadow:0 18px 44px rgba(26,22,20,.13)">
+              <div style="height:158px;position:relative;background:{{ p.cover }};display:flex;align-items:flex-end;justify-content:center;padding:14px">
+                <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.16) 0 1.5px,transparent 1.5px 12px)"></div>
+                <div style="position:relative;font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,22,20,.66);background:rgba(255,255,255,.72);padding:4px 8px;border-radius:4px">{{ p.coverLabel }}</div>
+              </div>
+              <div style="padding:16px 18px 18px;text-align:center">
+                <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:9px">
+                  <span style="width:7px;height:7px;border-radius:50%;background:{{ p.catColor }}"></span>
+                  <span style="font-size:11.5px;font-weight:500;color:var(--muted)">{{ p.cat }}</span>
+                  <span style="padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:600;background:{{ p.onCoverBg }};color:{{ p.onCoverFg }}">{{ p.stepBadge }} · {{ p.statusLabel }}</span>
+                </div>
+                <div style="font-size:16px;font-weight:600;letter-spacing:-0.01em;line-height:1.3;margin-bottom:8px;text-wrap:pretty">{{ p.title }}</div>
+                <div style="font-size:11.5px;color:var(--muted)">{{ p.designerLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isWorks }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;animation:dliftIn .3s ease both">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:28px;text-align:center">
+        <div>
+          <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05">{{ worksLabel }}</h1>
+          <p style="margin:0;font-size:14px;color:var(--muted)">Active projects — {{ countLabel }}</p>
+        </div>
+        <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+            <button onClick="{{ f.pick }}" style="padding:9px 17px;border:1px solid {{ f.bd }};border-radius:20px;background:{{ f.bg }};color:{{ f.fg }};font-family:inherit;font-size:12.5px;font-weight:500;white-space:nowrap;cursor:pointer">{{ f.name }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ gridCss }};gap:22px">
+        <sc-for list="{{ shown }}" as="p" hint-placeholder-count="8">
+          <div onClick="{{ p.open }}" style="cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:transform .16s ease,box-shadow .16s ease" style-hover="transform:translateY(-3px);box-shadow:0 18px 44px rgba(26,22,20,.13)">
+            <div style="height:186px;position:relative;background:{{ p.cover }};display:flex;align-items:flex-end;justify-content:center;padding:15px">
+              <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.16) 0 1.5px,transparent 1.5px 12px)"></div>
+              <div style="position:absolute;top:14px;right:14px;padding:5px 11px;border-radius:20px;font-family:Anuphan,sans-serif;font-size:9.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;box-shadow:0 1px 4px rgba(0,0,0,.14);background:{{ p.onCoverBg }};color:{{ p.onCoverFg }}">{{ p.statusLabel }}</div>
+              <div style="position:relative;font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,22,20,.66);background:rgba(255,255,255,.72);padding:4px 8px;border-radius:4px">{{ p.coverLabel }}</div>
+            </div>
+            <div style="padding:18px 18px 20px;text-align:center">
+              <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:10px">
+                <span style="width:7px;height:7px;border-radius:50%;background:{{ p.catColor }}"></span>
+                <span style="font-size:11.5px;font-weight:500;color:var(--muted)">{{ p.cat }}</span>
+                <span style="color:var(--muted2)">·</span>
+                <span style="font-family:Anuphan,sans-serif;font-weight:500;font-size:10px;letter-spacing:0.18em;color:var(--muted2)">{{ p.code }}</span>
+              </div>
+              <div style="font-size:17px;font-weight:600;letter-spacing:-0.01em;line-height:1.3;margin-bottom:14px;text-wrap:pretty">{{ p.title }}</div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;margin-bottom:13px">
+                <span style="font-family:Anuphan,sans-serif;font-size:11px;font-weight:500;letter-spacing:0.06em;color:var(--ink3)">{{ p.stepLabel }}</span>
+                <div style="width:100%;height:6px;border-radius:4px;background:var(--wash2);overflow:hidden"><div style="height:100%;border-radius:4px;width:{{ p.stepW }};background:{{ p.catColor }}"></div></div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--line)">
+                <div style="font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.designerLabel }}</div>
+                <div style="display:flex;align-items:center;justify-content:center;gap:9px">
+                  <div style="display:flex;flex:none">
+                    <sc-for list="{{ p.avatars }}" as="a" hint-placeholder-count="1">
+                      <div style="width:25px;height:25px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:600;color:var(--ink2);background:{{ a.bg }};margin-left:{{ a.ml }}">{{ a.initials }}</div>
+                    </sc-for>
+                  </div>
+                  <span style="flex:1;font-family:Anuphan,sans-serif;font-size:11px;color:{{ p.dueFg }}">{{ p.due }}</span>
+                  <sc-if value="{{ p.canAssign }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ p.assign }}" style="flex:none;padding:5px 11px;border:1px solid var(--line3);border-radius:20px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer" style-hover="border-color:#C4142F;color:#C4142F">Assign</button>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isFlow }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;animation:dliftIn .3s ease both">
+      <div style="margin-bottom:28px;text-align:center">
+        <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05">{{ t.flow }}</h1>
+        <p style="margin:0;font-size:14px;color:var(--muted)">Brief → Review → Design → Revision → Approved → Completed</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;align-items:start">
+        <sc-for list="{{ columns }}" as="col" hint-placeholder-count="6">
+          <div style="background:var(--surfaceSoft);border:1px solid var(--line);border-radius:20px;padding:12px">
+            <div style="display:flex;align-items:center;gap:8px;padding:4px 4px 12px">
+              <span style="width:8px;height:8px;border-radius:2px;flex:none;background:{{ col.color }}"></span>
+              <span style="font-size:12.5px;font-weight:600;letter-spacing:0">{{ col.name }}</span>
+              <div style="flex:1"></div>
+              <span style="font-family:Anuphan,sans-serif;font-size:11px;color:var(--muted2)">{{ col.count }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ col.items }}" as="it" hint-placeholder-count="2">
+                <div onClick="{{ it.open }}" style="cursor:pointer;background:var(--surface);border:1px solid var(--line2);border-radius:14px;overflow:hidden" style-hover="border-color:rgba(196,20,47,.4)">
+                  <div style="height:48px;background:{{ it.cover }};position:relative"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.16) 0 1.5px,transparent 1.5px 10px)"></div></div>
+                  <div style="padding:10px 11px 11px">
+                    <div style="font-size:12.5px;font-weight:600;line-height:normal;letter-spacing:0;margin-bottom:7px;text-wrap:pretty">{{ it.title }}</div>
+                    <div style="display:flex;align-items:center;gap:6px">
+                      <span style="width:6px;height:6px;border-radius:50%;flex:none;background:{{ it.catColor }}"></span>
+                      <span style="font-size:10.5px;color:var(--muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ it.designerLabel }}</span>
+                      <span style="font-family:Anuphan,sans-serif;font-size:10px;color:{{ it.dueFg }}">{{ it.dueShort }}</span>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isLoad }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;animation:dliftIn .3s ease both">
+      <div style="margin-bottom:28px;text-align:center">
+        <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05">{{ t.load }}</h1>
+        <p style="margin:0 0 18px;font-size:14px;color:var(--muted)">{{ t.loadSub }}</p>
+        <div style="display:inline-flex;align-items:center;gap:14px;padding:9px 12px;border-radius:20px;background:var(--wash);border:1px solid var(--line)">
+          <button onClick="{{ prevMonth }}" style="width:30px;height:30px;border:0;border-radius:50%;background:transparent;color:var(--ink2);font-family:inherit;font-size:15px;cursor:pointer" style-hover="background:var(--wash2)">‹</button>
+          <span style="font-family:Archivo,Anuphan,sans-serif;font-size:14.5px;font-weight:600;letter-spacing:-0.01em;min-width:11ch">{{ statMonthLabel }}</span>
+          <button onClick="{{ nextMonth }}" style="width:30px;height:30px;border:0;border-radius:50%;background:transparent;color:var(--ink2);font-family:inherit;font-size:15px;cursor:pointer" style-hover="background:var(--wash2)">›</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px">
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 32px;display:flex;flex-direction:column;align-items:center">
+          <div style="align-self:center;font-size:15px;font-weight:600;margin-bottom:24px">{{ t.byCat }}</div>
+          <div style="width:290px;height:290px;border-radius:50%;position:relative;background:conic-gradient(oklch(0.72 0.13 22) 0deg 120deg,oklch(0.71 0.11 252) 120deg 210deg,oklch(0.78 0.13 76) 210deg 270deg,oklch(0.72 0.11 311) 270deg 310deg,oklch(0.74 0.11 157) 310deg 360deg)">
+            <div style="position:absolute;inset:52px;background:var(--surface);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:44px;font-weight:600;letter-spacing:-0.035em;line-height:normal">{{ totalJobsCount }}</div>
+              <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.16em;color:var(--muted2);text-transform:uppercase;margin-top:3px">{{ t.jobs }}</div>
+              <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:10px;color:var(--muted);margin-top:2px">{{ totalAssets }} artworks</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin-top:30px;width:100%">
+            <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+              <div style="display:flex;align-items:baseline;gap:9px">
+                <span style="width:10px;height:10px;border-radius:50%;flex:none;background:{{ c.soft }}"></span>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:12.5px;font-weight:500">{{ c.name }}</div>
+                  <div style="font-size:11px;color:var(--muted)">{{ c.count }} งาน · {{ c.artworks }} artworks</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 32px">
+          <div style="font-size:15px;font-weight:600;margin-bottom:6px">{{ t.deptWl }}</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:18px">ภาระงานรวมทั้งแผนก · นับรวม 2 ดีไซเนอร์</div>
+          <div style="padding:20px 22px;border-radius:20px;background:var(--wash);margin-bottom:24px">
+            <div style="display:flex;align-items:flex-end;gap:10px;margin-bottom:12px">
+              <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:40px;font-weight:600;letter-spacing:-0.035em;line-height:normal;color:{{ deptHeadFg }}">{{ deptPct }}</div>
+              <div style="font-family:Anuphan,sans-serif;font-size:12px;color:var(--muted);padding-bottom:6px">{{ deptLoad }} slots</div>
+              <div style="flex:1"></div>
+              <span style="padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:600;background:{{ deptBg }};color:{{ deptFg }}">{{ deptNow }}</span>
+            </div>
+            <div style="height:10px;border-radius:10px;background:var(--wash2);overflow:hidden"><div style="height:100%;border-radius:10px;width:{{ deptW }};background:{{ deptBarFg }}"></div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <sc-for list="{{ deptTeam }}" as="d" hint-placeholder-count="2">
+              <div>
+                <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px">
+                  <div style="width:30px;height:30px;border-radius:50%;flex:none;background:{{ d.soft }};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--ink2)">{{ d.initials }}</div>
+                  <div style="flex:1"><div style="font-size:13.5px;font-weight:500">{{ d.name }}</div><div style="font-size:11px;color:var(--muted)">{{ d.role }}</div></div>
+                  <div style="text-align:right"><span style="font-family:Anuphan,sans-serif;font-size:13px;font-weight:500">{{ d.load }}</span></div>
+                </div>
+                <div style="height:7px;border-radius:4px;background:var(--wash2);overflow:hidden">
+                  <div style="height:100%;border-radius:4px;width:{{ d.w }};background:{{ d.soft }}"></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:30px;padding:18px 20px;border-radius:20px;background:rgba(196,20,47,.06);border:1px solid rgba(196,20,47,.16)">
+              <div style="font-size:13px;font-weight:600;color:#8E0E22;margin-bottom:5px">{{ t.alertTitle }}</div>
+              <div style="font-size:12.5px;line-height:normal;color:var(--ink3)">บอส (E-Comm) รับงานเกิน 90% ของกำลัง — แนะนำย้าย 1 งานไปที่หมิงหรือเลื่อน deadline ของ TikTok Live Overlay</div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 30px">
+        <div style="font-size:15px;font-weight:600;margin-bottom:18px">{{ t.deliveryTitle }}</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+          <div style="padding:18px 16px;border-radius:16px;background:oklch(0.94 0.05 157 / 0.5);text-align:center">
+            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:34px;font-weight:600;letter-spacing:-0.03em;color:oklch(0.4 0.11 158)">{{ deliveryEarly }}</div>
+            <div style="font-size:12px;font-weight:600;color:oklch(0.4 0.11 158);margin-top:4px">{{ t.deliveryEarlyLabel }}</div>
+          </div>
+          <div style="padding:18px 16px;border-radius:16px;background:oklch(0.92 0.05 252 / 0.5);text-align:center">
+            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:34px;font-weight:600;letter-spacing:-0.03em;color:oklch(0.42 0.12 258)">{{ deliveryOntime }}</div>
+            <div style="font-size:12px;font-weight:600;color:oklch(0.42 0.12 258);margin-top:4px">{{ t.deliveryOntimeLabel }}</div>
+          </div>
+          <div style="padding:18px 16px;border-radius:16px;background:oklch(0.9 0.06 22 / 0.5);text-align:center">
+            <div style="font-family:Archivo,sans-serif;font-variant-numeric:tabular-nums;font-size:34px;font-weight:600;letter-spacing:-0.03em;color:oklch(0.42 0.14 25)">{{ deliveryLate }}</div>
+            <div style="font-size:12px;font-weight:600;color:oklch(0.42 0.14 25);margin-top:4px">{{ t.deliveryLateLabel }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isCal }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:32px 40px 56px;animation:dliftIn .3s ease both">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:28px;text-align:center">
+        <div>
+          <h1 style="margin:0 0 8px;font-family:Archivo,Anuphan,sans-serif;font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05">{{ t.calendar }}</h1>
+          <p style="margin:0;font-size:14px;color:var(--muted)">{{ t.calSub }}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;margin-right:6px">
+          <span style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink3)"><span style="width:12px;height:12px;border-radius:4px;border:2px solid var(--muted2)"></span>{{ t.calStart }}</span>
+          <span style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink3)"><span style="width:12px;height:12px;border-radius:4px;background:var(--muted2)"></span>{{ t.calDue }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button onClick="{{ prevMonth }}" style="width:34px;height:34px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:14px;cursor:pointer" style-hover="border-color:#C4142F;color:#C4142F">‹</button>
+          <div style="min-width:150px;text-align:center;font-size:15px;font-weight:600">{{ calLabel }}</div>
+          <button onClick="{{ nextMonth }}" style="width:34px;height:34px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:14px;cursor:pointer" style-hover="border-color:#C4142F;color:#C4142F">›</button>
+        </div>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px 20px 20px">
+        <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:8px">
+          <sc-for list="{{ dows }}" as="w" hint-placeholder-count="5">
+            <div style="text-align: center; font-family: Anuphan,sans-serif; font-weight: 500; font-size: 15px; letter-spacing: 0.18em; color: var(--muted2); padding: 4px 0">{{ w }}</div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px">
+          <sc-for list="{{ monthCells }}" as="c" hint-placeholder-count="25">
+            <div style="min-height:118px;border-radius:20px;padding:9px;background:{{ c.bg }};border:1px solid {{ c.bd }};display:flex;flex-direction:column;gap:6px;position:relative;box-shadow:inset 0 0 0 999px color-mix(in srgb, {{ c.spanColor }} 12%, transparent)">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-family:Anuphan,sans-serif;font-size:12px;font-weight:{{ c.weight }};color:{{ c.fg }}">{{ c.label }}</span>
+                <div style="flex:1"></div>
+                <span style="font-family:Anuphan,sans-serif;font-size:10px;color:var(--muted2)">{{ c.badge }}</span>
+              </div>
+              <sc-for list="{{ c.items }}" as="e" hint-placeholder-count="1">
+                <div onClick="{{ e.open }}" style="cursor:pointer;padding:6px 8px;border-radius:10px;background:{{ e.bg }};border:{{ e.bd }};display:flex;flex-direction:column;gap:2px" style-hover="filter:brightness(.96)">
+                  <div style="font-size:10px;font-family:Anuphan,sans-serif;color:{{ e.ink }};opacity:.8">{{ e.kind }} · {{ e.code }}</div>
+                  <div style="font-size:11.5px;font-weight:600;color:{{ e.ink }};line-height:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ e.title }}</div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ c.overCap }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:10px;font-weight:700;color:#C4142F;padding:2px 4px">+{{ c.overflowCount }} · เกินโควต้า 6/วัน</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;max-width:1360px;margin:0 auto;padding:26px 40px 56px;animation:dliftIn .3s ease both">
+      <button onClick="{{ goWorks }}" style="margin-bottom:20px;padding:8px 14px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink2);cursor:pointer">{{ t.back }}</button>
+
+      <div style="position:relative;height:250px;border-radius:20px;overflow:hidden;background:{{ cur.cover }};display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:36px;margin-bottom:26px">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.14) 0 2px,transparent 2px 16px)"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(255,255,255,.62),transparent 68%)"></div>
+        <div style="position:relative;color:#1A1614;width:100%;display:flex;flex-direction:column;align-items:center">
+          <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px">
+            
+            <span style="padding:4px 11px;border-radius:20px;font-family:Anuphan,sans-serif;font-size:9.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:{{ cur.onCoverBg }};color:{{ cur.onCoverFg }}">{{ cur.statusLabel }}</span>
+          </div>
+          <h1 style="margin:0 0 12px;font-family:Archivo,Anuphan,sans-serif;font-size:44px;font-weight:600;letter-spacing:-0.03em;line-height:1.02;max-width:22ch;text-wrap:pretty;text-align:center">{{ cur.title }}</h1>
+          <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(26,22,20,.6)">{{ cur.coverLabel }}</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:26px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 20px;overflow-x:auto">
+        <sc-for list="{{ cur.stepper }}" as="s" hint-placeholder-count="6">
+          <div style="display:flex;align-items:center;flex:1;min-width:0">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:none">
+              <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;background:{{ s.dotBg }};color:{{ s.dotFg }}">{{ s.mark }}</div>
+              <div style="font-size:10.5px;font-weight:600;color:{{ s.textFg }};white-space:nowrap">{{ s.name }}</div>
+            </div>
+            <sc-if value="{{ s.hasLine }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:1;height:2px;margin:0 8px 18px;background:{{ s.lineBg }};min-width:16px"></div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <sc-if value="{{ cur.gated }}" hint-placeholder-val="{{ false }}">
+          <section style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px 28px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;margin-bottom:22px;text-align:center">
+              <h2 style="margin:0;font-size:16px;font-weight:600">{{ t.gateTitle }}</h2>
+              <div style="flex:1"></div>
+              <span style="padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;background:{{ cur.gateChipBg }};color:{{ cur.gateChipFg }}">{{ cur.gateChip }}</span>
+            </div>
+            <div style="font-size:12.5px;color:var(--muted);margin-bottom:18px;text-wrap:pretty">{{ t.gateSub }}</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="display:flex;align-items:center;gap:11px;padding:14px 16px;border-radius:20px;background:{{ cur.step1Bg }}">
+                <span style="width:24px;height:24px;flex:none;border-radius:50%;background:var(--surface);color:{{ cur.step1Fg }};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">{{ cur.acceptedMark }}</span>
+                <span style="flex:1;font-size:13px;font-weight:600;color:{{ cur.step1Fg }}">{{ cur.acceptedTxt }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:11px;padding:14px 16px;border-radius:20px;background:{{ cur.step2Bg }}">
+                <span style="width:24px;height:24px;flex:none;border-radius:50%;background:var(--surface);color:{{ cur.step2Fg }};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">{{ cur.assignedMark }}</span>
+                <span style="flex:1;font-size:13px;font-weight:600;color:{{ cur.step2Fg }}">{{ cur.assignedTxt }}</span>
+              </div>
+            </div>
+            <sc-if value="{{ cur.canAccept }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ cur.accept }}" style="margin-top:14px;width:100%;padding:13px;border:0;border-radius:14px;background:#C4142F;color:#fff;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer" style-hover="background:#8E0E22">{{ t.accept }}</button>
+            </sc-if>
+            <sc-if value="{{ isOther }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--wash);border:1px dashed var(--line3);font-size:12.5px;line-height:normal;color:var(--muted);text-wrap:pretty">{{ t.gateOwnerOnly }}</div>
+            </sc-if>
+          </section>
+          </sc-if>
+
+          <section style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px 30px">
+            <h2 style="margin:0 0 14px;font-size:16px;font-weight:600">{{ t.briefLabel }}</h2>
+            <p style="margin:0 0 18px;font-size:14.5px;line-height:1.7;color:var(--ink2);text-wrap:pretty;text-align:center;max-width:62ch;margin-left:auto;margin-right:auto">{{ cur.brief }}</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px">
+              <sc-for list="{{ cur.specs }}" as="sp" hint-placeholder-count="3">
+                <div style="padding:16px;border-radius:20px;background:var(--wash);text-align:center">
+                  <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted2);margin-bottom:6px">{{ sp.k }}</div>
+                  <div style="font-size:13.5px;font-weight:500">{{ sp.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+
+          <section style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px 30px">
+            <h2 style="margin:0 0 20px;font-size:16px;font-weight:600">{{ t.revHistory }}</h2>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ cur.history }}" as="h" hint-placeholder-count="4">
+                <div style="display:flex;gap:16px">
+                  <div style="width:11px;flex:none;display:flex;flex-direction:column;align-items:center">
+                    <div style="width:11px;height:11px;border-radius:50%;background:{{ h.dot }};flex:none;margin-top:4px"></div>
+                    <div style="flex:1;width:1.5px;background:rgba(26,22,20,.1)"></div>
+                  </div>
+                  <div style="flex:1;padding-bottom:22px">
+                    <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:3px">
+                      <span style="font-size:13.5px;font-weight:600">{{ h.title }}</span>
+                      <span style="font-family:Anuphan,sans-serif;font-size:10.5px;color:var(--muted2)">{{ h.date }}</span>
+                    </div>
+                    <div style="font-size:12.5px;line-height:normal;color:var(--ink3);text-wrap:pretty">{{ h.note }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <section style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 28px">
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding-bottom:20px;border-bottom:1px solid var(--line)">
+              <div style="display:flex;flex:none">
+                <sc-for list="{{ cur.avatars }}" as="a" hint-placeholder-count="1">
+                  <div style="width:42px;height:42px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--ink2);background:{{ a.bg }};margin-left:{{ a.ml }}">{{ a.initials }}</div>
+                </sc-for>
+              </div>
+              <div style="min-width:0"><div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted2);margin-bottom:3px">Designer</div><div style="font-size:14px;font-weight:600;text-wrap:pretty">{{ cur.designerLabel }}</div></div>
+              <sc-if value="{{ cur.canAssign }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ cur.assign }}" style="flex:none;padding:7px 13px;border:1px solid var(--line3);border-radius:20px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer" style-hover="border-color:#C4142F;color:#C4142F">Assign</button>
+              </sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0">
+              <sc-for list="{{ cur.meta }}" as="m" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)">
+                  <span style="font-size:12.5px;color:var(--muted);flex:1">{{ m.k }}</span>
+                  <span style="font-size:13px;font-weight:500;color:{{ m.c }}">{{ m.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ cur.canAssign }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 0 0">
+                <span style="font-size:12.5px;color:var(--muted);flex:1">{{ t.reschedule }}</span>
+                <input type="date" onChange="{{ cur.reschedule }}" style="padding:7px 10px;border:1px solid var(--line3);border-radius:10px;font-family:inherit;font-size:12.5px;color:var(--ink);background:var(--surface);outline:none">
+              </div>
+            </sc-if>
+            <sc-if value="{{ canSubmitWork }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ submitWork }}" style="width:100%;margin-top:20px;padding:12px;border:0;border-radius:14px;background:oklch(0.52 0.14 250);color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="filter:brightness(.92)">{{ t.submitWorkBtn }}</button>
+            </sc-if>
+            <sc-if value="{{ canApprove }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;gap:9px;margin-top:20px">
+                <button onClick="{{ cur.approveJob }}" style="flex:1;padding:12px;border:0;border-radius:14px;background:#C4142F;color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:#8E0E22">{{ t.approve }}</button>
+                <button onClick="{{ cur.requestRevisionJob }}" style="flex:1;padding:12px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="border-color:var(--line3)">{{ t.requestRev }}</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isOther }}" hint-placeholder-val="{{ false }}">
+              
+            </sc-if>
+          </section>
+
+          <section style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 28px">
+            <h2 style="margin:0 0 16px;font-size:15px;font-weight:600">{{ t.filesLabel }}</h2>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ cur.files }}" as="f" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:14px;background:var(--wash)">
+                  <sc-if value="{{ f.isLink }}" hint-placeholder-val="{{ false }}">
+                    <div style="width:30px;height:30px;flex:none;border-radius:10px;background:{{ f.color }};display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff">🔗</div>
+                    <a href="{{ f.name }}" target="_blank" style="flex:1;min-width:0;font-size:12.5px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.name }}</a>
+                  </sc-if>
+                  <sc-if value="{{ f.isFile }}" hint-placeholder-val="{{ true }}">
+                    <div style="width:30px;height:30px;flex:none;border-radius:10px;background:{{ f.color }};display:flex;align-items:center;justify-content:center;font-family:Anuphan,sans-serif;font-size:9px;font-weight:500;color:#fff">{{ f.ext }}</div>
+                    <div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.name }}</div><div style="font-size:11px;color:var(--muted2)">{{ f.size }}</div></div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ cur.noFiles }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:15px 16px;border-radius:14px;background:var(--wash);border:1px dashed var(--line3);font-size:12.5px;line-height:normal;color:var(--muted);text-wrap:pretty">{{ t.noFiles }}</div>
+            </sc-if>
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <input type="url" value="{{ newLink }}" onChange="{{ setNewLink }}" placeholder="{{ t.linkPh }}" style="flex:1;min-width:0;padding:11px 13px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:12.5px;color:var(--ink);background:var(--surface);outline:none" style-focus="border-color:#C4142F">
+              <button onClick="{{ cur.addLink }}" style="flex:none;padding:11px 16px;border:0;border-radius:14px;background:var(--ink);color:#fff;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:var(--ink2)">{{ t.addLink }}</button>
+            </div>
+          </section>
+
+          
+        </div>
+      </div>
+    </div>
+    </sc-if>
+  </main>
+
+  <sc-if value="{{ isForm }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:40;background:rgba(26,22,20,.42);backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;padding:56px 24px;overflow:auto">
+    <div style="width:100%;max-width:620px;background:var(--surface);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.38);overflow:hidden;animation:dliftIn .22s ease both">
+      <div style="padding:24px 30px;background:#C4142F;color:#fff;display:flex;align-items:center;gap:14px">
+        <div style="flex:1">
+          <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:4px">New Brief</div>
+          <div style="font-size:21px;font-weight:700;letter-spacing:0">{{ t.formTitle }}</div>
+        </div>
+        <button onClick="{{ closeForm }}" style="width:32px;height:32px;flex:none;border:0;border-radius:14px;background:rgba(0,0,0,.18);color:#fff;font-family:inherit;font-size:16px;cursor:pointer" style-hover="background:rgba(0,0,0,.3)">✕</button>
+      </div>
+
+      <div style="padding:26px 30px 8px;display:flex;flex-direction:column;gap:20px">
+        <div>
+          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fName }} <span style="color:#C4142F">*</span></div>
+          <input value="{{ fTitle }}" onChange="{{ onTitle }}" placeholder="เช่น Deli Q4 Campaign Key Visual" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:14px;color:var(--ink);background:var(--surface);outline:none" style-focus="border-color:#C4142F">
+          <sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:7px;font-size:12px;color:#C4142F">{{ t.errName }}</div>
+          </sc-if>
+        </div>
+
+        <div>
+          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fCat }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ catChoices }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid {{ c.bd }};border-radius:20px;background:{{ c.bg }};color:{{ c.fg }};font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer">
+                <span style="width:8px;height:8px;border-radius:50%;background:{{ c.color }}"></span>{{ c.name }}
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fAssign }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ designerChoices }}" as="d" hint-placeholder-count="4">
+              <button onClick="{{ d.pick }}" style="display:flex;align-items:center;gap:8px;padding:7px 13px 7px 7px;border:1px solid {{ d.bd }};border-radius:20px;background:{{ d.bg }};color:{{ d.fg }};font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer">
+                <span style="width:22px;height:22px;border-radius:50%;background:{{ d.avatarBg }};color:{{ d.avatarFg }};display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700">{{ d.initials }}</span>{{ d.name }}
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fStatus }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ statusChoices }}" as="s" hint-placeholder-count="6">
+              <button onClick="{{ s.pick }}" style="display:flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid {{ s.bd }};border-radius:20px;background:{{ s.bg }};color:{{ s.fg }};font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer">
+                <span style="width:8px;height:8px;border-radius:50%;background:{{ s.dot }}"></span>{{ s.label }}
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ showBackdateStatus }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:7px;font-size:11.5px;color:var(--muted)">{{ t.fStatusHint }}</div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <div>
+          
+          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fReq }} <span style="color:#C4142F">*</span></div><input value="{{ fRequester }}" onChange="{{ onRequester }}" placeholder="เช่น Curry · Product" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--surface);outline:none" style-focus="border-color:#C4142F">
+          <sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:7px;font-size:12px;color:#C4142F">{{ t.errName }}</div>
+          </sc-if>
+          <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fEmail }}</div>
+            <input value="{{ fEmail }}" onChange="{{ onEmail }}" placeholder="name@gmail.com" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--surface);outline:none" style-focus="border-color:#C4142F">
+            <div style="margin-top:7px;font-size:11.5px;color:var(--muted)">{{ t.fEmailHint }}</div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ isOwner }}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative">
+          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fStart }}</div>
+          <button onClick="{{ openCalStart }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:10px 11px 10px 14px;border:1px solid {{ startBorder }};border-radius:14px;background:var(--surface);font-family:inherit;cursor:pointer;text-align:left">
+            <span style="flex:1;font-family:Anuphan,sans-serif;font-size:13px;color:{{ startFieldFg }}">{{ startDisplay }}</span>
+            <span style="width:26px;height:26px;flex:none;border-radius:10px;background:{{ calAccentTint }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+              <span style="width:13px;height:2px;border-radius:1px;background:{{ calAccent }}"></span>
+              <span style="width:13px;height:8px;border-radius:1px;border:1.5px solid {{ calAccent }};opacity:.55"></span>
+            </span>
+          </button>
+
+          <sc-if value="{{ fStartVal }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:6px;font-size:11.5px;color:{{ startConfirmFg }};display:flex;align-items:center;gap:6px">
+              <span style="width:6px;height:6px;border-radius:50%;flex:none;background:{{ startConfirmFg }}"></span>{{ fStartVal }}
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ calOpenStart }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:100%;left:0;margin-top:8px;z-index:8;width:min(500px,86vw);background:var(--surface);border:1px solid var(--line3);border-radius:20px;box-shadow:0 16px 38px rgba(0,0,0,.28);padding:18px;animation:dliftIn .16s ease both">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+              <button onClick="{{ prevMonth }}" style="width:28px;height:28px;flex:none;border:1px solid var(--line3);border-radius:10px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:13px;cursor:pointer" style-hover="border-color:var(--line3)">‹</button>
+              <div style="flex:1;text-align:center;font-size:13.5px;font-weight:600;letter-spacing:0">{{ calLabel }}</div>
+              <button onClick="{{ nextMonth }}" style="width:28px;height:28px;flex:none;border:1px solid var(--line3);border-radius:10px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:13px;cursor:pointer" style-hover="border-color:var(--line3)">›</button>
+            </div>
+            <div style="text-align:center;font-size:11px;margin:-8px 0 9px;color:{{ calAccentInk }}">{{ calHint }} · {{ calCatName }}</div>
+            <div style="border:1px solid var(--line2);border-radius:14px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);background:var(--wash)">
+                <sc-for list="{{ dows }}" as="w" hint-placeholder-count="7">
+                  <div style="text-align:center;font-family:Anuphan,sans-serif;font-size:10px;font-weight:600;color:var(--muted2);padding:7px 0;border-bottom:1px solid var(--line2)">{{ w }}</div>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr)">
+                <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
+                  <button onClick="{{ c.pick }}" style="position:relative;min-height:64px;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:{{ c.bg }};color:{{ c.fg }};font-family:inherit;padding:5px 4px;display:flex;flex-direction:column;gap:2px;align-items:flex-start;cursor:{{ c.cursor }};overflow:hidden">
+                    <span style="font-size:12px;font-weight:{{ c.weight }}">{{ c.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;margin-top:13px;padding-top:12px;border-top:1px solid var(--line)">
+              <sc-for list="{{ quickDates }}" as="q" hint-placeholder-count="2">
+                <button onClick="{{ q.pick }}" style="padding:6px 11px;border:1px solid var(--line3);border-radius:20px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:11.5px;font-weight:500;cursor:pointer" style-hover="border-color:#C4142F;color:#C4142F">{{ q.name }}</button>
+              </sc-for>
+              <div style="flex:1"></div>
+              <button onClick="{{ closeCal }}" style="padding:6px 13px;border:0;border-radius:20px;background:var(--sidebar);color:#fff;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer">เสร็จ</button>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <div style="display:grid;grid-template-columns:1fr">
+          <div style="position:relative">
+            <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fDue }}</div>
+            <button onClick="{{ openCalDue }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:10px 11px 10px 14px;border:1px solid {{ dueBorder }};border-radius:14px;background:var(--surface);font-family:inherit;cursor:pointer;text-align:left">
+              <span style="flex:1;font-family:Anuphan,sans-serif;font-size:13px;color:{{ dueFieldFg }}">{{ dueDisplay }}</span>
+              <span style="width:26px;height:26px;flex:none;border-radius:10px;background:{{ calAccentTint }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+                <span style="width:13px;height:2px;border-radius:1px;background:{{ calAccent }}"></span>
+                <span style="width:13px;height:8px;border-radius:1px;border:1.5px solid {{ calAccent }};opacity:.55"></span>
+              </span>
+            </button>
+
+            <sc-if value="{{ fDue }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:6px;font-size:11.5px;color:{{ dueConfirmFg }};display:flex;align-items:center;gap:6px">
+                <span style="width:6px;height:6px;border-radius:50%;flex:none;background:{{ dueConfirmFg }}"></span>{{ t.dueConfirmed }} {{ fDue }}
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ calOpenDue }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:100%;left:0;margin-top:8px;z-index:8;width:min(500px,86vw);background:var(--surface);border:1px solid var(--line3);border-radius:20px;box-shadow:0 16px 38px rgba(0,0,0,.28);padding:18px;animation:dliftIn .16s ease both">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+                <button onClick="{{ prevMonth }}" style="width:28px;height:28px;flex:none;border:1px solid var(--line3);border-radius:10px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:13px;cursor:pointer" style-hover="border-color:var(--line3)">‹</button>
+                <div style="flex:1;text-align:center;font-size:13.5px;font-weight:600;letter-spacing:0">{{ calLabel }}</div>
+                <button onClick="{{ nextMonth }}" style="width:28px;height:28px;flex:none;border:1px solid var(--line3);border-radius:10px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:13px;cursor:pointer" style-hover="border-color:var(--line3)">›</button>
+              </div>
+              <div style="text-align:center;font-size:11px;margin:-8px 0 9px;color:{{ calAccentInk }}">{{ calHint }} · {{ calCatName }}</div>
+              <div style="border:1px solid var(--line2);border-radius:14px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:repeat(7,1fr);background:var(--wash)">
+                  <sc-for list="{{ dows }}" as="w" hint-placeholder-count="7">
+                    <div style="text-align:center;font-family:Anuphan,sans-serif;font-size:10px;font-weight:600;color:var(--muted2);padding:7px 0;border-bottom:1px solid var(--line2)">{{ w }}</div>
+                  </sc-for>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(7,1fr)">
+                  <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
+                    <button onClick="{{ c.pick }}" style="position:relative;min-height:64px;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:{{ c.bg }};color:{{ c.fg }};font-family:inherit;padding:5px 4px;display:flex;flex-direction:column;gap:2px;align-items:flex-start;cursor:{{ c.cursor }};overflow:hidden">
+                      <span style="font-size:12px;font-weight:{{ c.weight }}">{{ c.label }}</span>
+                      <sc-for list="{{ c.dayJobs }}" as="j" hint-placeholder-count="1">
+                        <span style="max-width:100%;font-size:8px;line-height:1.3;padding:2px 4px;border-radius:5px;background:{{ j.bg }};color:{{ j.ink }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left">{{ j.title }}</span>
+                      </sc-for>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;margin-top:13px;padding-top:12px;border-top:1px solid var(--line)">
+                <sc-for list="{{ quickDates }}" as="q" hint-placeholder-count="2">
+                  <button onClick="{{ q.pick }}" style="padding:6px 11px;border:1px solid var(--line3);border-radius:20px;background:var(--surface);color:var(--ink3);font-family:inherit;font-size:11.5px;font-weight:500;cursor:pointer" style-hover="border-color:#C4142F;color:#C4142F">{{ q.name }}</button>
+                </sc-for>
+                <div style="flex:1"></div>
+                <button onClick="{{ closeCal }}" style="padding:6px 13px;border:0;border-radius:20px;background:var(--sidebar);color:#fff;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer">เสร็จ</button>
+              </div>
+            </div>
+            </sc-if>
+          </div>
+          <div>
+            <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fAssets }}</div>
+            <input value="{{ fAssets }}" onChange="{{ onAssets }}" placeholder="30" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:Anuphan,sans-serif;font-size:13px;color:var(--ink);background:var(--surface);outline:none;margin-bottom:16px" style-focus="border-color:#C4142F">
+            <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fDeliv }}</div>
+            <input value="{{ fDeliverable }}" onChange="{{ onDeliverable }}" placeholder="เช่น KV + 4 crops" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--surface);outline:none" style-focus="border-color:#C4142F">
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fBrief }}</div>
+          <textarea value="{{ fBrief }}" onChange="{{ onBrief }}" rows="4" placeholder="อธิบายขอบเขตงาน ช่องทางที่ใช้ ข้อกำหนดพิเศษ…" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:13.5px;line-height:normal;color:var(--ink);background:var(--surface);outline:none;resize:vertical" style-focus="border-color:#C4142F"></textarea>
+        </div>
+        <div>
+          <div style="font-size:12.5px;font-weight:600;margin-bottom:8px">{{ t.fLink }}</div>
+          <input type="url" value="{{ fLink }}" onChange="{{ onLink }}" placeholder="https://drive.google.com/… หรือ https://docs.google.com/spreadsheets/…" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:13px;color:var(--ink);background:var(--surface);outline:none" style-focus="border-color:#C4142F">
+        </div>
+      </div>
+
+      <div style="padding:20px 30px 24px;display:flex;align-items:center;gap:10px">
+        <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:12px;color:var(--muted)">บรีฟใหม่จะเข้าสถานะ <strong style="font-weight:600;color:var(--ink2)">Brief</strong> ในคอลัมน์แรกของ Workflow</div>
+          <sc-if value="{{ hasSpan }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:{{ calAccentInk }}"><span style="width:8px;height:8px;border-radius:2px;background:{{ calAccent }}"></span>{{ spanLabel }}</div>
+          </sc-if>
+        </div>
+        <button onClick="{{ closeForm }}" style="padding:12px 18px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="border-color:var(--line3)">{{ t.cancel }}</button>
+        <button onClick="{{ submitForm }}" style="padding:12px 22px;border:0;border-radius:14px;background:#C4142F;color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:#8E0E22">{{ t.submit }}</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ assignOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:45;background:rgba(26,22,20,.42);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:40px 24px">
+    <div style="width:100%;max-width:470px;background:var(--surface);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.38);overflow:hidden;animation:dliftIn .2s ease both">
+      <div style="padding:22px 26px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px">
+        <div style="flex:1;min-width:0">
+          <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted2);margin-bottom:5px">{{ t.assignLabel }}</div>
+          <div style="font-size:16.5px;font-weight:600;letter-spacing:0;line-height:normal;text-wrap:pretty">{{ assignTitle }}</div>
+        </div>
+        <button onClick="{{ closeAssign }}" style="width:30px;height:30px;flex:none;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--muted);font-family:inherit;font-size:14px;cursor:pointer" style-hover="border-color:var(--line3)">✕</button>
+      </div>
+      <div style="padding:18px 26px 6px;display:flex;flex-direction:column;gap:9px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:2px">{{ t.assignMax }}</div>
+        <sc-for list="{{ assignRows }}" as="d" hint-placeholder-count="4">
+          <button onClick="{{ d.toggle }}" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid {{ d.bd }};border-radius:20px;background:{{ d.bg }};font-family:inherit;cursor:pointer;text-align:left">
+            <div style="width:34px;height:34px;flex:none;border-radius:50%;background:{{ d.color }};color:var(--ink2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">{{ d.initials }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13.5px;font-weight:600;color:var(--ink)">{{ d.name }}</div>
+              <div style="font-size:11px;color:var(--muted);margin-bottom:5px">{{ d.role }}</div>
+              <div style="height:4px;border-radius:3px;background:var(--wash2);overflow:hidden"><div style="height:100%;border-radius:3px;width:{{ d.w }};background:{{ d.color }}"></div></div>
+            </div>
+            <div style="width:22px;height:22px;flex:none;border-radius:50%;border:1.5px solid {{ d.markBd }};background:{{ d.markBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px">{{ d.mark }}</div>
+          </button>
+        </sc-for>
+      </div>
+      <div style="padding:16px 26px 22px;display:flex;align-items:center;gap:12px">
+        <sc-if value="{{ assignWarn }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;font-size:12px;font-weight:500;color:#C4142F">{{ t.assignWarnTxt }}</div>
+        </sc-if>
+        <div style="flex:1"></div>
+        <button onClick="{{ closeAssign }}" style="padding:11px 20px;border:0;border-radius:14px;background:#C4142F;color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:#8E0E22">{{ t.done }}</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isNicknamePrompt }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:70;background:rgba(26,22,20,.5);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="width:100%;max-width:400px;background:var(--surface);border-radius:24px;box-shadow:0 24px 60px rgba(0,0,0,.38);padding:32px 30px 26px;animation:dliftIn .22s ease both">
+      <div style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px">{{ t.nicknamePromptTitle }}</div>
+      <div style="font-size:12.5px;line-height:1.5;color:var(--muted);margin-bottom:18px">{{ t.nicknamePromptSub }}</div>
+      <input type="text" value="{{ guestNickname }}" onChange="{{ onGuestNickname }}" placeholder="{{ t.guestNicknamePh }}" autofocus style="width:100%;padding:12px 14px;margin-bottom:18px;border:1px solid var(--line2);border-radius:14px;font-family:inherit;font-size:14px;color:var(--ink);background:var(--wash);outline:none;box-sizing:border-box">
+      <div style="display:flex;gap:10px">
+        <button onClick="{{ skipNickname }}" style="flex:1;padding:12px;border:1px solid var(--line2);border-radius:16px;background:transparent;color:var(--ink2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="border-color:var(--line3)">{{ t.nicknameSkip }}</button>
+        <button onClick="{{ saveNickname }}" style="flex:1;padding:12px;border:0;border-radius:16px;background:#C4142F;color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#8E0E22">{{ t.nicknameSave }}</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isSentModal }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:60;background:rgba(26,22,20,.5);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="width:100%;max-width:420px;background:var(--surface);border-radius:24px;box-shadow:0 24px 60px rgba(0,0,0,.38);padding:40px 34px 30px;text-align:center;animation:dliftIn .22s ease both">
+      <div style="width:64px;height:64px;margin:0 auto 20px;border-radius:50%;background:oklch(0.5 0.13 156 / .14);display:flex;align-items:center;justify-content:center">
+        
+      <span style="width:36px;height:36px;border-radius:50%;background:oklch(0.5 0.13 156);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px">✓</span></div>
+      <div style="font-size:19px;font-weight:700;color:var(--ink);margin-bottom:10px">{{ t.sentTitle }}</div>
+      <div style="font-size: 13.5px; line-height: 1.6; color: var(--muted); margin-bottom: 6px; font-weight: 700">{{ t.sentBody }}</div>
+      <div style="font-family:Anuphan,sans-serif;font-size:11.5px;color:var(--muted2);margin:8px 0 20px">{{ sentCode }} · {{ sentTitleTxt }}</div>
+      <button onClick="{{ openSentMail }}" style="width:100%;padding:11px;margin-bottom:10px;border:1px solid var(--line2);border-radius:16px;background:transparent;color:var(--ink2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="border-color:var(--line3)">{{ t.viewMail }}</button>
+      <button onClick="{{ closeSentModal }}" style="width:100%;padding:13px;border:0;border-radius:16px;background:#C4142F;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#8E0E22">{{ t.sentClose }}</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isReportOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:65;background:rgba(26,22,20,.5);backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;padding:56px 24px;overflow:auto">
+    <div style="width:100%;max-width:520px;background:var(--surface);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.38);overflow:hidden;animation:dliftIn .22s ease both">
+      <div style="padding:24px 30px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:14px">
+        <div style="flex:1">
+          <div style="font-family:Anuphan,sans-serif;font-weight:500;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:4px">{{ reportMonthLabel }}</div>
+          <div style="font-size:21px;font-weight:700;letter-spacing:0">{{ t.reportTitle }}</div>
+        </div>
+        <button onClick="{{ closeReport }}" style="width:30px;height:30px;flex:none;border:0;border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.22)">✕</button>
+      </div>
+      <div style="padding:24px 30px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+          <div style="padding:14px;border-radius:12px;background:var(--wash);text-align:center"><div style="font-family:Archivo,sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em">{{ reportProjects }}</div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">{{ t.reportProjects }}</div></div>
+          <div style="padding:14px;border-radius:12px;background:var(--wash);text-align:center"><div style="font-family:Archivo,sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em">{{ reportAssets }}</div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">{{ t.reportAssets }}</div></div>
+          <div style="padding:14px;border-radius:12px;background:var(--wash);text-align:center"><div style="font-family:Archivo,sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em">{{ deptPct }}</div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">{{ t.reportLoad }}</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ reportStatusRows }}" as="r" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)">
+              <span style="width:8px;height:8px;border-radius:2px;flex:none;background:{{ r.color }}"></span>
+              <span style="flex:1;font-size:12.5px;color:var(--ink2)">{{ r.name }}</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)">{{ r.count }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:9px;margin-top:6px">
+          <a href="{{ reportCsvHref }}" download="{{ reportFilename }}" style="flex:1;padding:12px;border:0;border-radius:20px;background:#C4142F;color:#fff;font-family:inherit;font-size:13px;font-weight:700;text-align:center;cursor:pointer;text-decoration:none" style-hover="background:#8E0E22">{{ t.reportDownload }}</a>
+          <button onClick="{{ confirmReset }}" style="flex:1;padding:12px;border:1px solid var(--line2);border-radius:20px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:var(--wash)">{{ t.reportReset }}</button>
+        </div>
+        <sc-if value="{{ resetConfirming }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:12px 14px;border-radius:12px;background:rgba(196,20,47,.08);border:1px solid rgba(196,20,47,.25);font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:10px">
+            <span style="flex:1">{{ t.reportResetConfirm }}</span>
+            <button onClick="{{ doReset }}" style="padding:7px 12px;border:0;border-radius:14px;background:#C4142F;color:#fff;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer">{{ t.reportResetYes }}</button>
+          </div>
+        </sc-if>
+        <div style="font-size:11px;color:var(--muted2);line-height:1.5">{{ t.reportFoot }}</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isMail }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:65;background:rgba(26,22,20,.5);backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;padding:56px 24px;overflow:auto">
+    <div style="width:100%;max-width:560px;background:var(--surface);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.38);overflow:hidden;animation:dliftIn .22s ease both">
+      <div style="padding: 20px 26px; color: #fff; display: flex; align-items: center; gap: 12px; background: linear-gradient(180deg, #F82725, #E6909B)">
+        <div style="flex:1">
+          <div style="font-family: Anuphan; font-weight: 500; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #FFFFFF80; margin-bottom: 3px">{{ t.mailSent }}</div>
+          <div style="font-size:15px;font-weight:700">Deli Design Brief Hub</div>
+        </div>
+        <button onClick="{{ closeMail }}" style="width:30px;height:30px;flex:none;border:0;border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:14px;cursor:pointer" style-hover="background:rgba(255,255,255,.22)">✕</button>
+      </div>
+      <div style="padding:22px 26px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--line)">
+        <div style="display:flex;gap:10px;font-size:12.5px"><span style="width:52px;flex:none;color:var(--muted)">{{ t.mailFrom }}</span><span style="color:var(--ink)">noreply@deli.co.th</span></div>
+        <div style="display:flex;gap:10px;font-size:12.5px"><span style="width:52px;flex:none;color:var(--muted)">{{ t.mailTo }}</span><span style="color:var(--ink)">{{ mailTo }}</span></div>
+        <div style="display:flex;gap:10px;font-size:12.5px"><span style="width:52px;flex:none;color:var(--muted)">{{ t.mailSubj }}</span><span style="color:var(--ink);font-weight:600">{{ mailSubject }}</span></div>
+      </div>
+      <div style="padding:26px;white-space:pre-line;font-size:13.5px;line-height:1.7;color:var(--ink2)">{{ mailBody }}</div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isRevisionOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:65;background:rgba(26,22,20,.5);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:40px 24px">
+    <div style="width:100%;max-width:480px;background:var(--surface);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.38);overflow:hidden;animation:dliftIn .2s ease both">
+      <div style="padding:22px 26px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:16.5px;font-weight:600;letter-spacing:0;line-height:normal">{{ t.revisionTitle }}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">{{ t.revisionSub }}</div>
+        </div>
+        <button onClick="{{ closeRevision }}" style="width:30px;height:30px;flex:none;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--muted);font-family:inherit;font-size:14px;cursor:pointer" style-hover="border-color:var(--line3)">✕</button>
+      </div>
+      <div style="padding:22px 26px;display:flex;flex-direction:column;gap:14px">
+        <textarea value="{{ revisionText }}" onChange="{{ setRevisionText }}" placeholder="{{ t.revisionPh }}" rows="4" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--surface);outline:none;resize:vertical" style-focus="border-color:#C4142F"></textarea>
+        <div>
+          <div style="font-size:11.5px;font-weight:600;margin-bottom:8px;color:var(--ink2)">{{ t.revisionImgLabel }}</div>
+          <sc-for list="{{ revisionImageList }}" as="ri" hint-placeholder-count="0">
+            <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line2)">
+              <div style="width:100%;height:220px;background-image:{{ ri.css }};background-size:cover;background-position:center"></div>
+              <button onClick="{{ clearRevisionImage }}" style="position:absolute;top:8px;right:8px;padding:6px 12px;border:0;border-radius:20px;background:rgba(0,0,0,.55);color:#fff;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer">{{ t.removeImg }}</button>
+            </div>
+          </sc-for>
+          <label style="display:{{ imgPickerDisplay }};align-items:center;justify-content:center;gap:8px;padding:18px;border:1.5px dashed var(--line3);border-radius:14px;cursor:pointer;color:var(--muted);font-size:12.5px" style-hover="border-color:#C4142F;color:#C4142F">
+            <input type="file" accept="image/*" onChange="{{ setRevisionImage }}" style="display:none">
+            + {{ t.revisionImgLabel }}
+          </label>
+        </div>
+      </div>
+      <div style="padding:16px 26px 24px;display:flex;gap:10px">
+        <button onClick="{{ closeRevision }}" style="flex:1;padding:12px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="border-color:var(--line3)">{{ t.cancel }}</button>
+        <button onClick="{{ submitRevision }}" style="flex:1;padding:12px;border:0;border-radius:14px;background:#C4142F;color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:#8E0E22">{{ t.revisionSubmit }}</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isSubmitWorkOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:65;background:rgba(26,22,20,.5);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:40px 24px">
+    <div style="width:100%;max-width:480px;background:var(--surface);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.38);overflow:hidden;animation:dliftIn .2s ease both">
+      <div style="padding:22px 26px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:16.5px;font-weight:600;letter-spacing:0;line-height:normal">{{ t.submitWorkTitle }}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">{{ t.submitWorkSub }}</div>
+        </div>
+        <button onClick="{{ closeSubmitWork }}" style="width:30px;height:30px;flex:none;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--muted);font-family:inherit;font-size:14px;cursor:pointer" style-hover="border-color:var(--line3)">✕</button>
+      </div>
+      <div style="padding:22px 26px;display:flex;flex-direction:column;gap:14px">
+        <input type="url" value="{{ submitWorkLink }}" onChange="{{ setSubmitWorkLink }}" placeholder="{{ t.submitWorkLinkPh }}" style="width:100%;padding:12px 14px;border:1px solid var(--line3);border-radius:14px;font-family:inherit;font-size:13.5px;color:var(--ink);background:var(--surface);outline:none" style-focus="border-color:#C4142F">
+        <div>
+          <div style="font-size:11.5px;font-weight:600;margin-bottom:8px;color:var(--ink2)">{{ t.submitWorkImgLabel }}</div>
+          <sc-for list="{{ submitWorkImageList }}" as="ri" hint-placeholder-count="0">
+            <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line2)">
+              <div style="width:100%;height:220px;background-image:{{ ri.css }};background-size:cover;background-position:center"></div>
+              <button onClick="{{ clearSubmitWorkImage }}" style="position:absolute;top:8px;right:8px;padding:6px 12px;border:0;border-radius:20px;background:rgba(0,0,0,.55);color:#fff;font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer">{{ t.removeImg }}</button>
+            </div>
+          </sc-for>
+          <label style="display:{{ swImgPickerDisplay }};align-items:center;justify-content:center;gap:8px;padding:18px;border:1.5px dashed var(--line3);border-radius:14px;cursor:pointer;color:var(--muted);font-size:12.5px" style-hover="border-color:#C4142F;color:#C4142F">
+            <input type="file" accept="image/*" onChange="{{ setSubmitWorkImage }}" style="display:none">
+            + {{ t.submitWorkImgLabel }}
+          </label>
+        </div>
+      </div>
+      <div style="padding:16px 26px 24px;display:flex;gap:10px">
+        <button onClick="{{ closeSubmitWork }}" style="flex:1;padding:12px;border:1px solid var(--line3);border-radius:14px;background:var(--surface);color:var(--ink2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="border-color:var(--line3)">{{ t.cancel }}</button>
+        <button onClick="{{ confirmSubmitWork }}" style="flex:1;padding:12px;border:0;border-radius:14px;background:oklch(0.52 0.14 250);color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="filter:brightness(.92)">{{ t.submitWorkConfirm }}</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;bottom:28px;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 24px;pointer-events:none">
+  <div style="display:flex;align-items:center;gap:12px;padding:15px 22px;border-radius:20px;max-width:min(640px,92vw);background:var(--sidebar);color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.4);animation:dliftIn .2s ease both">
+    <span style="width:20px;height:20px;flex:none;border-radius:50%;background:oklch(0.5 0.13 156);display:flex;align-items:center;justify-content:center;font-size:11px">✓</span>
+    <span style="font-size:13.5px;font-weight:500;line-height:1.45">{{ toastMsg }}</span>
+    <span style="font-family:Anuphan,sans-serif;font-size:11px;color:rgba(255,255,255,.55)">{{ toastCode }}</span>
+  </div>
+  </div>
+  </sc-if>
+</div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startAs&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Login screen&quot;,&quot;Owner&quot;,&quot;Guest&quot;],&quot;default&quot;:&quot;Login screen&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Access&quot;},&quot;gridColumns&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:4,&quot;min&quot;:2,&quot;max&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+const RED = '#C4142F', BLUE = 'oklch(0.52 0.14 250)', AMBER = 'oklch(0.62 0.14 68)', GREEN = 'oklch(0.5 0.13 156)', INK = '#1A1614';
+
+const STATUS = {
+  Brief:     { bg: 'oklch(0.87 0.006 60)', fg: 'rgba(26,22,20,.66)', dot: 'rgba(26,22,20,.22)', th: 'รับบรีฟในองค์กร' },
+  Review:    { bg: 'oklch(0.71 0.11 252)', fg: 'oklch(0.4 0.12 252)', dot: 'oklch(0.71 0.11 252)', th: 'ตรวจบรีฟ / ประเมินงาน' },
+  Design:    { bg: 'oklch(0.72 0.13 22)', fg: '#8E0E22', dot: 'oklch(0.72 0.13 22)', th: 'ลงมือออกแบบ' },
+  Revision:  { bg: 'oklch(0.78 0.13 76)', fg: 'oklch(0.44 0.11 62)', dot: 'oklch(0.78 0.13 76)', th: 'แก้ไขตามคอมเมนต์' },
+  Approved:  { bg: 'oklch(0.74 0.11 157)', fg: 'oklch(0.4 0.11 158)', dot: 'oklch(0.74 0.11 157)', th: 'อนุมัติแล้ว' },
+  Completed: { bg: 'oklch(0.84 0.006 60)', fg: 'rgba(26,22,20,.58)', dot: 'rgba(26,22,20,.3)', th: 'ส่งมอบเรียบร้อย' }
+};
+
+const VIOLET = 'oklch(0.52 0.14 310)';
+
+const P = {
+  red: 'oklch(0.72 0.13 22)', blue: 'oklch(0.71 0.11 252)', amber: 'oklch(0.78 0.13 76)',
+  green: 'oklch(0.74 0.11 157)', violet: 'oklch(0.72 0.11 311)', gray: 'oklch(0.86 0.006 60)'
+};
+const LIGHT_TONE = {
+  red: 'oklch(0.85 0.09 22)', blue: 'oklch(0.86 0.07 250)', amber: 'oklch(0.9 0.09 78)',
+  green: 'oklch(0.88 0.08 157)', violet: 'oklch(0.86 0.07 311)'
+};
+const PINK_INK = {
+  red: '#8E0E22', blue: 'oklch(0.44 0.12 252)', amber: 'oklch(0.5 0.15 92)',
+  green: 'oklch(0.43 0.11 158)', violet: 'oklch(0.44 0.12 312)'
+};
+const PASTEL_OF = {};
+PASTEL_OF[RED] = P.red; PASTEL_OF[BLUE] = P.blue; PASTEL_OF[AMBER] = P.amber;
+PASTEL_OF[GREEN] = P.green; PASTEL_OF[VIOLET] = P.violet;
+PASTEL_OF['rgba(26,22,20,.35)'] = 'rgba(26,22,20,.22)'; PASTEL_OF[INK] = 'rgba(26,22,20,.3)';
+
+const CATS = [
+  { name: 'Product',       color: P.red,    ink: PINK_INK.red,    inkLight: LIGHT_TONE.red,    count: 0 },
+  { name: 'E-Commerce',    color: P.blue,   ink: PINK_INK.blue,   inkLight: LIGHT_TONE.blue,   count: 0 },
+  { name: 'Modern Trade',  color: P.amber,  ink: PINK_INK.amber,  inkLight: LIGHT_TONE.amber,  count: 0 },
+  { name: 'General Trade', color: P.violet, ink: PINK_INK.violet, inkLight: LIGHT_TONE.violet, count: 0 },
+  { name: 'Corporate',     color: P.green,  ink: PINK_INK.green,  inkLight: LIGHT_TONE.green,  count: 0 }
+];
+
+const REQUESTER = {
+  'Product': 'คุณเจี๊ยบ · Marketing',
+  'E-Commerce': 'คุณต้น · E-Commerce',
+  'Modern Trade': 'คุณหนึ่ง · Trade Marketing',
+  'General Trade': 'คุณโอ๋ · General Trade',
+  'Corporate': 'คุณแพร · Corporate Comm'
+};
+
+const cover = (a, b) => 'linear-gradient(135deg,' + a + ',' + b + ')';
+
+const COVER = {
+  'Product': cover('oklch(0.76 0.11 24)', 'oklch(0.66 0.14 16)'),
+  'E-Commerce': cover('oklch(0.76 0.1 251)', 'oklch(0.66 0.12 254)'),
+  'Modern Trade': cover('oklch(0.82 0.11 80)', 'oklch(0.73 0.13 70)'),
+  'General Trade': cover('oklch(0.76 0.1 311)', 'oklch(0.67 0.12 314)'),
+  'Corporate': cover('oklch(0.79 0.1 157)', 'oklch(0.7 0.12 160)')
+};
+
+const PROJECTS = [];
+
+const TEAM = [
+  { name: 'พรทิพย์ ส.', initials: 'พร', role: 'Design Manager · 20%', share: 20, cap: 4, load: 4, color: P.violet },
+  { name: 'พลอย ศ.', initials: 'พล', role: 'Designer A · 40%', share: 40, cap: 8, load: 8, color: P.red },
+  { name: 'บอส ก.', initials: 'บส', role: 'Designer B · 40%', share: 40, cap: 8, load: 7, color: P.blue }
+];
+const INVITED_DESIGNERS = ['ploy@deli.co.th', 'boss@deli.co.th', 'delithaidesigner3@gmail.com', 'delithaidesigner2@gmail.com'];
+const DESIGNER_BY_EMAIL = {
+  'ploy@deli.co.th': { name: 'พลอย ศ.', nameEn: 'Ploy S.', initials: 'พล' },
+  'boss@deli.co.th': { name: 'บอส ก.', nameEn: 'Boss K.', initials: 'บส' }
+};
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MONTHS_TH = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+const DOWS = { th: ['จ', 'อ', 'พ', 'พฤ', 'ศ'], en: ['Mo', 'Tu', 'We', 'Th', 'Fr'] };
+const TODAY = (() => { const n = new Date(); return { y: n.getFullYear(), m: n.getMonth(), d: n.getDate() }; })();
+
+const PASTEL = {
+  'Product': 'oklch(0.72 0.13 22)',
+  'E-Commerce': 'oklch(0.71 0.11 252)',
+  'Modern Trade': 'oklch(0.78 0.13 76)',
+  'General Trade': 'oklch(0.72 0.11 311)',
+  'Corporate': 'oklch(0.74 0.11 157)'
+};
+
+const TINT = {
+  'Product': 'rgba(196,20,47,.13)',
+  'E-Commerce': 'oklch(0.71 0.11 252 / .3)',
+  'Modern Trade': 'oklch(0.78 0.13 76 / .34)',
+  'General Trade': 'oklch(0.72 0.11 311 / .3)',
+  'Corporate': 'oklch(0.74 0.11 157 / .3)'
+};
+
+function parseDay(str) {
+  if (!str) return null;
+  const parts = String(str).trim().split(/\s+/);
+  const d = parseInt(parts[0], 10);
+  const m = MONTHS.indexOf(parts[1]);
+  if (!d || m < 0) return null;
+  const y = parts[2] ? parseInt(parts[2], 10) : 2026;
+  return y * 10000 + m * 100 + d;
+}
+
+function dayGap(a, b) {
+  const toDate = (n) => new Date(Math.floor(n / 10000), Math.floor(n / 100) % 100, n % 100);
+  return Math.max(0, Math.round((toDate(b) - toDate(a)) / 86400000));
+}
+
+const STATUS_NAME = {
+  th: { Brief: 'รับบรีฟ', Review: 'ตรวจบรีฟ', Design: 'ออกแบบ', Revision: 'แก้ไข', Approved: 'อนุมัติ', Completed: 'เสร็จสิ้น' },
+  en: { Brief: 'Brief', Review: 'Review', Design: 'Design', Revision: 'Revision', Approved: 'Approved', Completed: 'Completed' }
+};
+
+const STAGE_TXT = {
+  th: { Brief: 'รับบรีฟในองค์กร', Review: 'ตรวจบรีฟ / ประเมินงาน', Design: 'ลงมือออกแบบ', Revision: 'แก้ไขตามคอมเมนต์', Approved: 'อนุมัติแล้ว', Completed: 'ส่งมอบเรียบร้อย' },
+  en: { Brief: 'Internal request', Review: 'Scope & estimate', Design: 'Design in progress', Revision: 'Client revisions', Approved: 'Signed off', Completed: 'Delivered' }
+};
+
+const L = {
+  th: {
+    overview: 'ภาพรวม', works: 'งานที่เลือก', myWorks: 'บรีฟของฉัน', flow: 'ขั้นตอนงาน', load: 'ภาระงาน', calendar: 'ปฏิทินงาน', calSub: 'วันเริ่มงานและกำหนดส่งของทุกงาน', calStart: 'เริ่มงาน', calDue: 'กำหนดส่ง', category: 'ประเภทงาน',
+    search: 'ค้นหางาน, ลูกค้า, ดีไซเนอร์…', newBrief: '+ สร้างบรีฟใหม่', notifTitle: 'การแจ้งเตือน', noNotif: 'ยังไม่มีการแจ้งเตือน', dueConfirmed: 'กำหนดส่ง:',
+    othersNote: 'Others Department · สร้างบรีฟและอนุมัติได้ · มอบหมายงานไม่ได้',
+    week: 'SEPTEMBR · 2026', heroBody: 'ศูนย์รวมงานออกแบบทั้งหมดของทีม ตั้งแต่รับบรีฟ ตรวจงาน แก้ไข จนถึงอนุมัติ — ดูสถานะและภาระงานได้ในที่เดียว',
+    ctaAll: 'ดูงานทั้งหมด', ctaFlow: 'เปิดขั้นตอนงาน',
+    statAll: 'งานทั้งหมด', statDesign: 'กำลังออกแบบ', statReview: 'รอตรวจ', statLate: 'เกินกำหนด',
+    wfTitle: 'ขั้นตอนงาน', wfSub: 'ขั้นตอนงานมาตรฐาน 6 สเต็ป',
+    wlTitle: 'ภาระงาน', wlSub: 'สัดส่วนงานตามประเภท', jobs: 'งาน', assets: 'Artwork', deliveryTitle: 'ความตรงต่อเวลาการส่งงาน', deliveryEarlyLabel: 'ส่งก่อนกำหนด', deliveryOntimeLabel: 'ส่งตรงเวลา', deliveryLateLabel: 'ส่งเลท', jobsUnit: 'งาน', projUnit: 'project', assetsOf: 'assets done', fAssets: 'จำนวน artworks',
+    deptTitle: 'สถานะแผนก', deptSub: 'ภาระงานรวม · Manager 20% + Designer A/B 40%',
+    worksTitle: 'งานที่เลือก', loadSub: 'ภาระงานรวมทั้งแผนกและรายดีไซเนอร์', byCat: 'งานแยกตามประเภท',
+    deptWl: 'ภาระงานรวมทั้งแผนก', deptWlSub: 'Manager 20% · Designer A 40% · Designer B 40%', alertTitle: 'แจ้งเตือน · เจ้าของงานเท่านั้น',
+    back: '← งานที่เลือก', briefLabel: 'บรีฟงาน', revHistory: 'ประวัติการแก้ไข', filesLabel: 'ไฟล์งาน',
+    fLink: 'ลิงก์อ้างอิง (ไม่บังคับ)', linkPh: 'https://drive.google.com/… หรือ Google Sheet', addLink: 'เพิ่มลิงก์',
+    commentsLabel: 'คอมเมนต์', commentPh: 'แสดงความคิดเห็น…', postComment: 'ส่ง', noComments: 'ยังไม่มีคอมเมนต์',
+    revisionTitle: 'ขอแก้ไขงาน', revisionSub: 'อธิบายสิ่งที่ต้องแก้ พร้อมแนบภาพประกอบได้', revisionPh: 'พิมพ์รายละเอียดที่ต้องการแก้ไข…', revisionImgLabel: 'แนบภาพ (ไม่บังคับ)', revisionSubmit: 'ส่งคำขอแก้ไข', removeImg: 'ลบภาพ',
+    submitWorkTitle: 'ส่งงาน', submitWorkSub: 'แนบลิงก์ไฟล์งานและ/หรือรูปตัวอย่างก่อนส่งให้ Design Manager ตรวจ', submitWorkLinkPh: 'https://drive.google.com/… หรือลิงก์ไฟล์งาน', submitWorkImgLabel: 'แนบรูปตัวอย่างงาน (ไม่บังคับ)', submitWorkConfirm: 'ยืนยันส่งงาน',
+    approve: 'อนุมัติงาน', requestRev: 'ขอแก้ไข', submitWorkBtn: 'ส่งงาน · Submit work', noFiles: 'ยังไม่มีไฟล์แนบ — อัปโหลดไฟล์งานเพื่อเริ่มรอบแรก',
+    assignOnlyOwner: 'มอบหมายดีไซเนอร์ได้เฉพาะเจ้าของงาน — แจ้ง Design Lead เพื่อเปลี่ยนผู้รับงาน',
+    formTitle: 'สร้างบรีฟงานใหม่', fName: 'ชื่องาน', fCat: 'ประเภทงาน', fAssign: 'มอบหมายให้',
+    fStatus: 'สถานะเริ่มต้น', fStatusHint: 'งานตกหล่น ยังไม่ได้เข้าระบบ? เลือกสถานะจริงและวันที่ย้อนหลังได้ที่นี่',
+    fReq: 'ผู้บรีฟ · Requested by', fEmail: 'อีเมลผู้บรีฟ', fEmailHint: 'สร้างบรีฟแทนแผนกอื่น? กรอกอีเมลจริงของผู้ขอ เพื่อให้เขาเห็นงานนี้ในบัญชีของตัวเอง', fStart: 'วัน-เวลาที่บรีฟ', reschedule: 'Design Manager: เลื่อนวันส่งงาน', fDue: 'กำหนดส่ง', fDeliv: 'สิ่งที่ต้องส่ง', fBrief: 'รายละเอียดบรีฟ',
+    cancel: 'ยกเลิก', submit: 'ส่งบรีฟ', pickDate: 'เลือกวันที่', errName: 'กรุณากรอกชื่องานและชื่อผู้บรีฟก่อนส่งบรีฟ',
+    formFoot: 'บรีฟใหม่จะเข้าคิวรอ Design Manager กดรับบรีฟและมอบหมายงาน', toastSent: 'บรีฟถูกส่งเรียบร้อย โปรดรอ Design Manager กดรับ และดำเนินการ', workdays: 'วันทำงาน',
+    assignLabel: 'มอบหมายดีไซเนอร์ · เจ้าของงานเท่านั้น', assignMax: 'เลือกได้สูงสุด 2 คน · Manager 20% · Designer A/B คนละ 40%',
+    done: 'เสร็จสิ้น', assignWarnTxt: 'มอบหมายได้สูงสุด 2 คน — เอาคนเดิมออกก่อน',
+    sentTitle: 'ส่งบรีฟเรียบร้อย', sentBody: 'โปรดรอ Design Manager กดรับบรีฟและมอบหมายงานให้\nDesigner', sentClose: 'ปิด',
+    viewMail: 'ดูอีเมลที่ส่งไป', mailSent: 'อีเมลที่ส่งออก', mailFrom: 'จาก', mailTo: 'ถึง', mailSubj: 'หัวข้อ',sentClose: 'ปิด',
+    gateTitle: 'สถานะการเริ่มงาน', gateSub: 'งานจะเริ่มได้เมื่อ Design Manager รับบรีฟและมอบหมายดีไซเนอร์แล้ว',
+    gate1: 'Design Manager รับบรีฟ', gate2: 'มอบหมายดีไซเนอร์', gateStarted: 'งานเริ่มแล้ว · กำลังออกแบบ',
+    gateWaiting: 'รอเริ่มงาน', accept: 'รับบรีฟ', acceptedTxt: 'รับบรีฟแล้ว', assignBtn: 'มอบหมายงาน', assignedTxt: 'มอบหมายแล้ว',
+    gateOwnerOnly: 'เฉพาะ Design Manager (เจ้าของงาน) เท่านั้นที่รับบรีฟและมอบหมายงานได้',
+    loginTitle: 'เข้าสู่ระบบบรีฟงานดีไซน์',
+    loginBody: 'เลือกวิธีเข้าใช้งาน — Design Manager จัดการและมอบหมายงานได้ทั้งหมด ส่วนแผนกอื่นส่งบรีฟและอนุมัติงานได้',
+    jobsIn: 'งานในระบบ', designers: 'ดีไซเนอร์', steps: 'ขั้นตอนงาน',
+    selectAccess: 'เลือกสิทธิ์เข้าใช้งาน', whoAmI: 'คุณเข้าใช้งานในฐานะใคร?',
+    ownerName: 'Design Manager · เจ้าของงาน', ownerDesc: 'รับบรีฟ มอบหมายงาน อนุมัติ และแก้ไขสถานะได้ทั้งหมด',
+    ownerBtn: 'เข้าสู่ระบบในฐานะ Design Manager', forgot: 'ลืมรหัสผ่าน? ติดต่อฝ่าย IT',
+    othersName: 'แผนกอื่น · Others Department', othersDesc: 'ส่งบรีฟได้ · ได้รับแจ้งเตือนเมื่อ Design Manager อนุมัติงาน',
+    designerDesc: 'Designer เข้าระบบรับงาน', designerNote: 'ต้องได้รับคำเชิญทางอีเมลจาก Design Manager ก่อน จึงจะเข้าระบบได้', designerErr: 'อีเมลนี้ยังไม่ได้รับเชิญ ติดต่อ Design Manager', designerBtn: 'เข้าสู่ระบบด้วยอีเมลที่ได้รับเชิญ',
+    recommended: 'แนะนำ', titleOthers: 'Internal Department', permBrief: 'สร้างบรีฟใหม่', permApprove: 'อนุมัติงาน', permView: 'ดูงานและ Workflow', permNoAssign: 'Assign ดีไซเนอร์',
+    guestNicknameLabel: 'ชื่อเล่น', guestNicknamePh: 'ชื่อเล่นของคุณ', guestDeptLabel: 'แผนก', guestDeptPh: 'เช่น Marketing, E-Commerce', guestEmailErr: 'กรุณากรอกอีเมล Gmail ให้ถูกต้อง (name@gmail.com)', guestDeptErr: 'กรุณากรอกแผนกของคุณ',
+    nicknamePromptTitle: 'ตั้งชื่อเล่นของคุณ', nicknamePromptSub: 'ให้ทีมออกแบบรู้จักคุณง่ายขึ้น — ใส่ภายหลังได้เช่นกัน', nicknameSkip: 'ข้ามไปก่อน', nicknameSave: 'บันทึก',
+    reportBtn: 'รายงานสรุป', reportTitle: 'รายงานสรุปประจำเดือน', reportProjects: 'โปรเจกต์', reportAssets: 'Artwork', reportLoad: 'ภาระงานแผนก',
+    reportDownload: 'ดาวน์โหลด CSV', reportReset: 'รีเซ็ตรอบเดือน', reportResetConfirm: 'ล้างข้อมูลบรีฟและภาระงานของรอบนี้ทั้งหมด?', reportResetYes: 'ยืนยันรีเซ็ต',
+    reportFoot: 'รีเซ็ตทุกต้นเดือน · ดาวน์โหลดรายงานได้เฉพาะ Design Manager',
+    othersBtn: 'เข้าใช้งานในฐานะแผนกอื่น', logout: 'ออกจากระบบ', viewAll: 'ดูทั้งหมด →', portfolioAll: 'งานทั้งหมด →',
+    activeSub: 'งานที่กำลังดำเนินการ'
+  },
+  en: {
+    overview: 'Overview', works: 'Selected Works', myWorks: 'My Briefs', flow: 'Workflow', load: 'Workload', calendar: 'Calendar', calSub: 'Start dates and deadlines across all jobs', calStart: 'Start', calDue: 'Due', category: 'Category',
+    search: 'Search jobs, clients, designers…', newBrief: '+ New Brief', notifTitle: 'Notifications', noNotif: 'No notifications yet', dueConfirmed: 'Due date:',
+    othersNote: 'Others Department · can brief & approve · cannot assign',
+    week: 'Week 37 · 2026', heroBody: 'One place for every design job — from incoming brief through review, revision and sign-off, with live status and team workload.',
+    ctaAll: 'Browse all work', ctaFlow: 'Open workflow',
+    statAll: 'Total jobs', statDesign: 'In design', statReview: 'In review', statLate: 'Overdue',
+    wfTitle: 'Workflow', wfSub: 'The standard six-step flow',
+    wlTitle: 'Workload', wlSub: 'Share of jobs by category', jobs: 'Jobs', assets: 'Artworks', deliveryTitle: 'Delivery timeliness', deliveryEarlyLabel: 'Early', deliveryOntimeLabel: 'On time', deliveryLateLabel: 'Late',late: 'Late', jobsUnit: 'jobs', projUnit: 'projects', assetsOf: 'assets done', fAssets: 'Number of artworks',
+    deptTitle: 'Department Status', deptSub: 'Combined · manager 20% + designers 40% each',
+    worksTitle: 'Selected Works', loadSub: 'Department total and per-designer load', byCat: 'Jobs by category',
+    deptWl: 'Department Workload', deptWlSub: 'Manager 20% · Designer A 40% · Designer B 40%', alertTitle: 'Alert · owner only',
+    back: '← Selected Works', briefLabel: 'Brief', revHistory: 'Revision History', filesLabel: 'Files',
+    fLink: 'Reference link (optional)', linkPh: 'https://drive.google.com/… or a Google Sheet', addLink: 'Add link',
+    commentsLabel: 'Comments', commentPh: 'Leave a comment…', postComment: 'Post', noComments: 'No comments yet',
+    revisionTitle: 'Request revision', revisionSub: 'Describe what needs to change, and attach a reference image if useful', revisionPh: 'Describe the revision needed…', revisionImgLabel: 'Attach image (optional)', revisionSubmit: 'Send revision request', removeImg: 'Remove image',
+    submitWorkTitle: 'Submit work', submitWorkSub: 'Attach a file link and/or preview image before sending it to the Design Manager', submitWorkLinkPh: 'https://drive.google.com/… or a file link', submitWorkImgLabel: 'Attach preview image (optional)', submitWorkConfirm: 'Confirm submit',
+    approve: 'Approve', requestRev: 'Request revision', submitWorkBtn: 'Submit work', noFiles: 'No files yet — upload artwork to start round one',
+    assignOnlyOwner: 'Only the design manager can assign designers — ask the Design Lead to reassign',
+    formTitle: 'Create a new brief', fName: 'Job title', fCat: 'Category', fAssign: 'Assign to',
+    fStatus: 'Starting status', fStatusHint: "Job fell through the cracks and never got logged? Pick its real status and a backdated date here.",
+    fReq: 'Requested by', fEmail: 'Requester email', fEmailHint: 'Briefing on behalf of another department? Enter their real email so they can see this job in their own account.', fStart: 'Briefed at', reschedule: 'Design manager: move deadline', fDue: 'Deadline', fDeliv: 'Deliverable', fBrief: 'Brief details',
+    cancel: 'Cancel', submit: 'Send brief', pickDate: 'Pick a date', errName: 'Add a job title and requester name before sending',
+    formFoot: 'New briefs queue up until the design manager accepts and assigns them', toastSent: 'Brief sent. Waiting for the design manager to accept and proceed.', workdays: 'working days',
+    assignLabel: 'Assign designers · owner only', assignMax: 'Up to 2 people · manager 20% · designers 40% each',
+    done: 'Done', assignWarnTxt: 'Two designers max — remove one first',
+    sentTitle: 'Brief sent', sentBody: 'Please wait for the design manager to accept the brief and assign a designer.', sentClose: 'Close',
+    viewMail: 'View sent email', mailSent: 'Sent email', mailFrom: 'From', mailTo: 'To', mailSubj: 'Subject',
+    gateTitle: 'Start conditions', gateSub: 'Work starts only once the design manager accepts the brief and assigns a designer',
+    gate1: 'Design manager accepts brief', gate2: 'Designer assigned', gateStarted: 'Work started · in design',
+    gateWaiting: 'Not started', accept: 'Accept brief', acceptedTxt: 'Brief accepted', assignBtn: 'Assign', assignedTxt: 'Assigned',
+    gateOwnerOnly: 'Only the design manager can accept briefs and assign designers',
+    loginTitle: 'Sign in to\nDesign Brief Hub',
+    loginBody: 'Pick how you sign in — the design manager runs and assigns everything, other departments can send briefs and approve work.',
+    jobsIn: 'jobs in system', designers: 'designers', steps: 'flow steps',
+    selectAccess: 'Select access', whoAmI: 'Who are you signing in as?',
+    ownerName: 'Design Manager · owner', ownerDesc: 'Accept briefs, assign, approve and change status',
+    ownerBtn: 'Sign in as Design Manager', forgot: 'Forgot your password? Contact IT',
+    othersName: 'Others Department', othersDesc: 'Can send briefs · gets notified once the Design Manager approves',
+    designerDesc: 'For designers with an assigned job', designerNote: 'Requires an invite email from the Design Manager to sign in.', designerErr: 'This email has not been invited yet. Contact the Design Manager.', designerBtn: 'Sign in with invited email',
+    recommended: 'Recommended', titleOthers: 'Internal Department', permBrief: 'New brief', permApprove: 'Approve work', permView: 'View work & Workflow', permNoAssign: 'Assign designer',
+    guestNicknameLabel: 'Nickname', guestNicknamePh: 'Your nickname', guestDeptLabel: 'Department', guestDeptPh: 'e.g. Marketing, E-Commerce', guestEmailErr: 'Enter a valid Gmail address (name@gmail.com)', guestDeptErr: 'Please enter your department',
+    nicknamePromptTitle: 'Set your nickname', nicknamePromptSub: 'Helps the design team recognize you — you can add this later too', nicknameSkip: 'Skip for now', nicknameSave: 'Save',
+    reportBtn: 'Monthly report', reportTitle: 'Monthly summary report', reportProjects: 'Projects', reportAssets: 'Artworks', reportLoad: 'Dept workload',
+    reportDownload: 'Download CSV', reportReset: 'Reset month', reportResetConfirm: 'Clear this month\'s briefs and workload data?', reportResetYes: 'Confirm reset',
+    reportFoot: 'Resets every month · downloadable by the Design Manager only',
+    othersBtn: 'Sign in as another department', logout: 'Sign out', viewAll: 'View all →', portfolioAll: 'All work →',
+    activeSub: 'Active projects'
+  }
+};
+
+const STAGE_BG = {
+  Brief:     { bg: 'oklch(0.93 0.035 178)', fg: 'oklch(0.4 0.08 190)' },
+  Review:    { bg: 'oklch(0.87 0.06 180)',  fg: 'oklch(0.36 0.08 192)' },
+  Design:    { bg: 'oklch(0.79 0.085 183)', fg: 'oklch(0.3 0.08 194)' },
+  Revision:  { bg: 'oklch(0.5 0.095 187)',  fg: '#ffffff' },
+  Approved:  { bg: 'oklch(0.43 0.08 191)',  fg: '#ffffff' },
+  Completed: { bg: 'oklch(0.36 0.065 195)', fg: '#ffffff' }
+};
+
+const HOLIDAYS = ['9-13', '9-23', '11-7', '11-31']; // 0-indexed month: Oct=9, Dec=11
+const ORDER = ['Brief', 'Review', 'Design', 'Revision', 'Approved', 'Completed'];
+const MONTH_NAMES = {
+  th: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+  en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+};
+const STAGE_COUNT = { Brief: 0, Review: 0, Design: 0, Revision: 0, Approved: 0, Completed: 0 };
+
+class Component extends DCLogic {
+  state = {
+    role: 'owner', view: 'home', cat: 'All', pid: 1, statMonthOffset: 0, weekOffset: 0,
+    reportOpen: false, resetConfirming: false, resetMonthAt: null,
+    form: false, err: false, toast: null, sentBrief: null, mail: null, added: [], nextId: 100, dueOverrides: {},
+    notifications: [], notifOpen: false,
+    links: {}, comments: {}, newLink: '', newComment: '',
+    revisionOpen: null, revisionText: '', revisionImage: null,
+    submitWorkOpen: null, submitWorkLink: '', submitWorkImage: null,
+    emailGuest: '', emailOwner: '', pwOwner: '', ownerErr: false, emailDesigner: '', designerErr: false,
+    guestNickname: '', guestDept: '', guestErr: false, deptErr: false, nicknamePromptOpen: false, designerNickname: '',
+    cal: null, calM: 8, calY: 2026, statusOverrides: {},
+    assigns: { 4: ['พลอย ศ.'] }, assignPid: null, assignWarn: false,
+    accepted: { 4: true }, lang: 'th', dark: false,
+    f: { title: '', cat: 'Product', designer: 'พลอย ศ.', status: 'Brief', requester: '', email: '', start: '', due: '', assets: '', deliverable: '', brief: '', link: '' }
+  };
+
+  toggleCal = (field) => () => this.setState(s => ({ cal: s.cal === field ? null : field }));
+  closeCal = () => this.setState({ cal: null });
+  shiftMonth = (n) => () => this.setState(s => {
+    let m = s.calM + n, y = s.calY;
+    if (m < 0) { m = 11; y -= 1; }
+    if (m > 11) { m = 0; y += 1; }
+    return { calM: m, calY: y };
+  });
+  pickDay = (d, m, y) => () => this.setState(s => {
+    const field = s.cal || 'due';
+    const patch = {};
+    patch[field] = d + ' ' + MONTHS[m] + (y !== 2026 ? ' ' + y : '');
+    return { f: Object.assign({}, s.f, patch), cal: null, calM: m, calY: y };
+  });
+
+  openForm = () => this.setState({ form: true, err: false, cal: null });
+  closeForm = () => this.setState({ form: false, err: false });
+  setField = (k) => (e) => {
+    const v = e.target.value;
+    this.setState(s => ({ f: Object.assign({}, s.f, { [k]: v }), err: k === 'title' ? false : s.err }));
+  };
+  pickField = (k, v) => () => this.setState(s => ({ f: Object.assign({}, s.f, { [k]: v }) }));
+
+  rescheduleDue = (pid) => (e) => {
+    const v = e.target.value;
+    if (!v) return;
+    const d = new Date(v + 'T00:00:00');
+    if (d.getDay() === 0 || d.getDay() === 6) { e.target.value = ''; return; }
+    if (HOLIDAYS.indexOf(d.getMonth() + '-' + d.getDate()) > -1) { e.target.value = ''; return; }
+    const MTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const label = d.getDate() + ' ' + MTH[d.getMonth()];
+    this.setState(s => ({ dueOverrides: Object.assign({}, s.dueOverrides, { [pid]: label }) }));
+  };
+
+  todayLabel(lang, withTime) {
+    const MTH_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const MTH_TH = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    const m = lang === 'th' ? MTH_TH : MTH_EN;
+    const date = TODAY.d + ' ' + m[TODAY.m] + ' ' + TODAY.y;
+    if (!withTime) return date;
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0'), mm = String(now.getMinutes()).padStart(2, '0');
+    return date + ' · ' + hh + ':' + mm;
+  }
+
+  submitForm = () => {
+    const f = this.state.f;
+    if (!f.title.trim() || !f.requester.trim()) { this.setState({ err: true }); return; }
+    const id = this.state.nextId;
+    const code = 'DL-2609-' + String(this.state.added.length + 8).padStart(2, '0');
+    const who = TEAM.find(t => t.name === f.designer) || TEAM[0];
+    const isOwner = this.state.role === 'owner';
+    const status = isOwner && f.status ? f.status : 'Brief';
+    const backdated = isOwner && status !== 'Brief';
+    const startVal = (isOwner && f.start.trim()) ? f.start.trim() : this.todayLabel('en', true);
+    const lang = this.state.lang;
+    const actorName = isOwner ? (lang === 'th' ? 'ผู้จัดการฝ่ายออกแบบ' : 'Design Manager') : f.requester.trim();
+    const HIST_TITLE = { Brief: 'Brief received', Review: 'Sent for review', Design: 'Design in progress', Revision: 'Revision requested', Approved: 'Approved', Completed: 'Delivered' };
+    const historyNote = backdated
+      ? (lang === 'th' ? `บันทึกย้อนหลังโดย${actorName} — งานนี้เกิดขึ้นจริงแล้วแต่ยังไม่ได้เข้าระบบ` : `Backdated entry by ${actorName} — this job already happened but hadn't been logged into the system`)
+      : (lang === 'th' ? `สร้างบรีฟผ่าน Design Brief Hub โดย${actorName}` : `Brief created via Design Brief Hub by ${actorName}`);
+    const proj = {
+      id, code, title: f.title.trim(), cat: f.cat, status,
+      designer: who.name, initials: who.initials,
+      requester: f.requester.trim(), requesterEmail: (this.state.role === 'guest' ? this.state.emailGuest : f.email.trim()) || '—',
+      assets: Math.max(1, parseInt(f.assets, 10) || 1), assetsDone: status === 'Completed' ? Math.max(1, parseInt(f.assets, 10) || 1) : 0,
+      start: startVal,
+      due: f.due.trim() || '30 Sep', late: false, coverLabel: 'awaiting artwork',
+      cover: COVER[f.cat] || COVER.Product,
+      brief: f.brief.trim() || 'ยังไม่ได้ระบุรายละเอียดบรีฟ — รอข้อมูลเพิ่มเติมจากผู้ของาน',
+      specs: [{ k: 'Deliverable', v: f.deliverable.trim() || 'TBD' }, { k: 'Artwork', v: String(Math.max(1, parseInt(f.assets, 10) || 1)) }, { k: 'Round', v: 'Not started' }],
+      refLink: f.link.trim() || '',
+      history: [{ title: HIST_TITLE[status] || 'Brief received', date: startVal, note: historyNote, dot: backdated ? STATUS[status].dot : 'rgba(26,22,20,.35)' }],
+      files: []
+    };
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: null }), 5800);
+    const seedAssign = isOwner ? { [id]: [who.name] } : {};
+    const seedAccepted = backdated ? { [id]: true } : {};
+    const msg = (lang === 'th' ? 'ส่งอีเมลแจ้งเตือนไปที่ ' : 'Update emailed to ') + proj.requesterEmail + (lang === 'th' ? ' · บรีฟถูกส่งแล้ว รอ Design Manager กดรับ' : ' · Brief sent, waiting for the design manager to accept');
+    this.setState(s => ({
+      assigns: Object.assign({}, s.assigns, seedAssign),
+      accepted: Object.assign({}, s.accepted, seedAccepted),
+      added: [proj].concat(s.added), nextId: s.nextId + 1, form: false, err: false,
+      toast: { code, msg }, sentBrief: { code, title: proj.title }, sentMail: this.buildMail(proj, 'sent', lang), view: 'detail', pid: id, cat: 'All',
+      f: { title: '', cat: 'Product', designer: 'พลอย ศ.', status: 'Brief', requester: '', email: '', start: '', due: '', assets: '', deliverable: '', brief: '', link: '' }
+    }));
+  };
+
+  closeSentModal = () => this.setState({ sentBrief: null });
+
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  deliveryVals(ALL, t) {
+    const shipped = ALL.filter(x => x.delivery);
+    const n = shipped.length || 1;
+    const defs = [
+      { key: 'early',  label: t.early,  color: P.green,  ink: PINK_INK.green },
+      { key: 'ontime', label: t.ontime, color: P.blue,   ink: PINK_INK.blue },
+      { key: 'late',   label: t.late,   color: P.red,    ink: PINK_INK.red }
+    ];
+    return {
+      delivery: defs.map(d => {
+        const c = shipped.filter(x => x.delivery === d.key).length;
+        return {
+          label: d.label, count: c, pct: Math.round(c / n * 100) + '%',
+          w: Math.round(c / n * 100) + '%', color: d.color, ink: d.ink
+        };
+      }),
+      deliveryTotal: shipped.length
+    };
+  }
+
+  deptVals(ALL) {
+    const activeJobs = ALL.filter(x => this.deco(x).status !== 'Completed');
+    const loads = TEAM.map(d => {
+      const count = activeJobs.filter(x => {
+        const names = this.state.assigns[x.id] || (x.status === 'Brief' ? [] : (x.designers || [x.designer]));
+        return names.indexOf(d.name) > -1;
+      }).length;
+      return Object.assign({}, d, { load: Math.min(d.cap, count) });
+    });
+    const byDue = {};
+    ALL.forEach(x => { if (x.status !== 'Completed') byDue[x.due] = (byDue[x.due] || 0) + 1; });
+    const clashes = Object.keys(byDue).filter(k => byDue[k] > 1).length;
+
+    const defs = [
+      { key: 'open', th: 'ว่าง รับบรีฟได้', en: 'Open for briefs', color: P.green, face: 'assets/level-open.gif', faceFg: PINK_INK.green, countFg: PINK_INK.green, countLight: LIGHT_TONE.green, rowBgDark: 'oklch(0.88 0.08 157 / .14)', shadow: 'oklch(0.74 0.11 157 / .55)', rowBg: 'oklch(0.74 0.11 157 / .2)', rowBd: 'oklch(0.74 0.11 157 / .55)',
+        noteTh: 'รับงานใหม่ได้ทันที 2–3 งาน', noteEn: 'Ready to take 2–3 new jobs right away',
+        test: (l) => l <= 5 },
+      { key: 'busy', th: 'งานแน่น แต่ยังรับ', en: 'Busy · still available', color: P.amber, face: 'assets/level-busy.gif', faceFg: PINK_INK.amber, countFg: PINK_INK.amber, countLight: LIGHT_TONE.amber, rowBgDark: 'oklch(0.9 0.09 78 / .14)', shadow: 'oklch(0.78 0.13 76 / .55)', rowBg: 'oklch(0.78 0.13 76 / .22)', rowBd: 'oklch(0.78 0.13 76 / .6)',
+        noteTh: 'เพิ่มได้ 1 งาน ควรเช็ก deadline ก่อน', noteEn: 'Can take 1 more job — check the deadline first',
+        test: (l) => l >= 6 && l <= 8 },
+      { key: 'over', th: 'overload \nand overlaps', en: 'Overload · Overlaps', color: '#C4142F', face: 'assets/level-over.gif', faceFg: '#C4142F', countFg: '#C4142F', countLight: '#ff8a94', rowBgDark: 'rgba(196,20,47,.22)', shadow: 'rgba(196,20,47,.55)', rowBg: 'rgba(196,20,47,.22)', rowBd: 'rgba(196,20,47,.6)',
+        noteTh: 'ต้องเลื่อนหรือย้ายงานก่อนรับเพิ่ม · deadline ชนกัน ' + clashes + ' จุด', noteEn: 'Reschedule or reassign before taking more — ' + clashes + ' deadline' + (clashes === 1 ? '' : 's') + ' clashing',
+        test: (l) => l >= 9 }
+    ];
+
+    const cap = TEAM.reduce((a, d) => a + d.cap, 0);
+    const totalLoad = loads.reduce((a, d) => a + d.load, 0);
+    const pct = cap ? Math.round((totalLoad / cap) * 100) : 0;
+    const worst = pct > 85 ? 2 : (pct > 50 ? 1 : 0);
+    const ranges = ['0–50%', '51–85%', '86–100%'];
+
+    const levels = defs.map((def, i) => {
+      const on = i === worst;
+      return Object.assign({}, def, {
+        active: on,
+        note: this.state.lang === 'th' ? def.noteTh : def.noteEn,
+        isOpen: def.key === 'open', isBusy: def.key === 'busy', isOver: def.key === 'over',
+        range: ranges[i],
+        color: on ? def.color : 'var(--wash2)',
+        faceOpacity: on ? 1 : 0.45,
+        faceFg: on ? def.faceFg : 'var(--muted2)',
+        countFg: on ? def.countLight : '#8a8580',
+        rowBg: on ? def.rowBgDark : '#2a2622',
+        rowBd: on ? def.rowBd : 'rgba(26,22,20,.08)',
+        shadow: on ? def.shadow : 'transparent',
+        count: on ? pct + '%' : '—',
+        textFg: on ? def.faceFg : 'var(--ink3)',
+        members: on ? loads.map(d => ({ name: d.name, initials: d.initials, load: d.load + '/' + d.cap, color: d.color })) : []
+      });
+    }).sort((a, b) => (b.active ? 1 : 0) - (a.active ? 1 : 0));
+    const badge = (this.state.lang === 'th' ? [
+      { t: 'พร้อมรับบรีฟ', bg: P.green, fg: PINK_INK.green },
+      { t: 'งานแน่น แต่ยังรับ', bg: P.amber, fg: PINK_INK.amber },
+      { t: 'ต้องเกลี่ยงาน', bg: P.red, fg: PINK_INK.red }
+    ] : [
+      { t: 'Open', bg: P.green, fg: PINK_INK.green },
+      { t: 'Busy', bg: P.amber, fg: PINK_INK.amber },
+      { t: 'Overloaded', bg: P.red, fg: PINK_INK.red }
+    ])[worst];
+
+    const headFg = this.state.dark ? (worst === 0 ? LIGHT_TONE.green : worst === 1 ? LIGHT_TONE.amber : LIGHT_TONE.red) : badge.fg;
+    return {
+      levels, deptNow: badge.t, deptBg: badge.bg, deptFg: badge.fg,
+      deptLoad: totalLoad + '/' + cap, deptPct: pct + '%', deptW: pct + '%',
+      deptBarFg: badge.bg, deptHeadFg: headFg,
+      deptTeam: loads.map(d => ({ name: d.name, initials: d.initials, role: d.role, load: d.load + '/' + d.cap, share: d.share + '%', color: d.color, soft: d.color, w: Math.round(d.load / d.cap * 100) + '%' })),
+      deptClash: clashes,
+      actTh: levels[worst].th, actEn: levels[worst].en, actNote: levels[worst].note,
+      actColor: levels[worst].color, actFaceFg: levels[worst].faceFg,
+      actEyeH: levels[worst].eyeH, actEyeTiltL: levels[worst].eyeTiltL, actEyeTiltR: levels[worst].eyeTiltR,
+      actMouthW: levels[worst].mouthW, actMouthH: levels[worst].mouthH, actMouthR: levels[worst].mouthR,
+      actMouthBB: levels[worst].mouthBB, actMouthBT: levels[worst].mouthBT, actMouthBg: levels[worst].mouthBg,
+      actFaceGap: levels[worst].faceGap
+    };
+  }
+
+  calVals() {
+    const { calM: m, calY: y, cal, form, f } = this.state;
+    const catObj = CATS.find(c => c.name === f.cat) || CATS[0];
+    const accent = catObj.color;
+    const accentInk = catObj.ink;
+    const tint = TINT[catObj.name] || 'rgba(196,20,47,.24)';
+    const field = cal || 'due';
+    const startAt = parseDay(f.start), dueAt = parseDay(f.due);
+    const ALL = this.state.added.concat(PROJECTS);
+    const dueCounts = {};
+    ALL.forEach(p => { const key = p.due; dueCounts[key] = (dueCounts[key] || 0) + 1; });
+
+    const firstDow = new Date(y, m, 1).getDay();
+    const daysIn = new Date(y, m + 1, 0).getDate();
+    const cells = [];
+    for (let i = 0; i < firstDow; i++) cells.push({ label: '', bg: 'transparent', fg: 'transparent', weight: '400', cursor: 'default', pick: null, load: 0 });
+    for (let d = 1; d <= daysIn; d++) {
+      const value = d + ' ' + MONTHS[m] + (y !== 2026 ? ' ' + y : '');
+      const n = y * 10000 + m * 100 + d;
+      const sel = f[field] === value;
+      const isStart = f.start === value, isDue = f.due === value;
+      const inRange = startAt && dueAt && n > startAt && n < dueAt;
+      const past = field === 'due' && n < TODAY.y * 10000 + TODAY.m * 100 + TODAY.d;
+      const dow = new Date(y, m, d).getDay();
+      const weekend = field === 'due' && (dow === 0 || dow === 6);
+      const holiday = field === 'due' && HOLIDAYS.indexOf(m + '-' + d) > -1;
+      const blocked = past || weekend || holiday;
+      const isToday = y === TODAY.y && m === TODAY.m && d === TODAY.d;
+      let bg = 'transparent', fg = past ? 'var(--muted2)' : (weekend ? 'var(--muted2)' : 'var(--ink2)'), weight = '400';
+      if (inRange) { bg = tint; fg = this.state.dark ? (catObj.inkLight || accentInk) : accentInk; }
+      if (isToday && !isStart && !isDue) { bg = 'var(--wash2)'; weight = '600'; }
+      if (isStart || isDue) { bg = accent; fg = accentInk; weight = '700'; }
+      const load = field === 'due' ? (dueCounts[value] || 0) : 0;
+      const dayJobs = field === 'due' ? ALL.filter(p => p.due === value).slice(0, 3).map(p => ({
+        code: p.code, title: p.title, bg: (CATS.find(c => c.name === p.cat) || {}).color || 'var(--wash2)',
+        ink: (CATS.find(c => c.name === p.cat) || {}).ink || 'var(--ink2)'
+      })) : [];
+      cells.push({
+        label: String(d), bg, fg, weight,
+        cursor: blocked ? 'not-allowed' : 'pointer',
+        pick: blocked ? null : this.pickDay(d, m, y),
+        load, loadFg: (isStart || isDue) ? fg : (load >= 3 ? '#C4142F' : (load >= 1 ? 'oklch(0.55 0.14 68)' : 'transparent')),
+        dayJobs
+      });
+    }
+    return {
+      calOpenStart: form && cal === 'start',
+      calOpenDue: form && cal === 'due',
+      openCalStart: this.toggleCal('start'), openCalDue: this.toggleCal('due'),
+      calLabel: (this.state.lang === 'th' ? MONTHS_TH[m] : MONTHS[m]) + ' ' + (this.state.lang === 'th' ? y + 543 : y),
+      calHint: field === 'start' ? (this.state.lang === 'th' ? 'เลือกวันเริ่มงาน' : 'Pick start date') : (this.state.lang === 'th' ? 'เลือกวันส่งงาน · จุดใต้วันคือจำนวนงานที่ต้องส่งวันนั้น' : 'Pick due date · dot shows jobs due that day'),
+      calAccent: accent, calAccentInk: this.state.dark ? (catObj.inkLight || accentInk) : accentInk, calAccentTint: tint, calCatName: catObj.name,
+      dows: DOWS[this.state.lang], calCells: cells, closeCal: this.closeCal,
+      prevMonth: this.shiftMonth(-1), nextMonth: this.shiftMonth(1),
+      startDisplay: f.start || (this.state.lang === 'th' ? 'เลือกวันที่ (ค่าเริ่มต้น: วันนี้)' : 'Pick a date (default: today)'),
+      startFieldFg: f.start ? '#1A1614' : 'rgba(26,22,20,.38)',
+      startBorder: cal === 'start' ? accent : 'rgba(26,22,20,.15)',
+      startConfirmFg: 'oklch(0.5 0.13 156)',
+      dueDisplay: f.due || 'เลือกวันที่',
+      dueFieldFg: f.due ? '#1A1614' : 'rgba(26,22,20,.38)',
+      dueBorder: cal === 'due' ? accent : 'rgba(26,22,20,.15)',
+      spanLabel: (startAt && dueAt) ? (dayGap(startAt, dueAt) + ' วันทำงาน') : '',
+      hasSpan: !!(startAt && dueAt),
+      quickDates: field === 'start'
+        ? [{ name: 'วันนี้', pick: this.pickDay(4, 8, 2026) }, { name: 'พรุ่งนี้', pick: this.pickDay(5, 8, 2026) }, { name: 'จันทร์หน้า', pick: this.pickDay(7, 8, 2026) }]
+        : [{ name: 'สัปดาห์นี้', pick: this.pickDay(6, 8, 2026) }, { name: '+2 สัปดาห์', pick: this.pickDay(18, 8, 2026) }, { name: 'สิ้นเดือน', pick: this.pickDay(30, 8, 2026) }]
+    };
+  }
+
+  componentDidMount() {
+    const start = this.props.startAs;
+    if (start === 'Owner') this.setState({ role: 'owner' });
+    else if (start === 'Guest') this.setState({ role: 'guest' });
+    this._clock = setInterval(() => this.setState({ clock: new Date() }), 1000);
+  }
+
+  componentWillUnmount() {
+    if (this._clock) clearInterval(this._clock);
+  }
+
+  loginOwner = () => {
+    const email = (this.state.emailOwner || '').trim().toLowerCase();
+    const pw = this.state.pwOwner || '';
+    if (email === 'delithaidesigner@gmail.com' && pw === 'delithai1') this.setState({ role: 'owner', view: 'home', ownerErr: false });
+    else this.setState({ ownerErr: true });
+  };
+  loginGuest = () => { if (this.isEmail(this.state.emailGuest)) this.setState({ role: 'guest', view: 'home' }); };
+  loginGmail = () => {
+    const v = (this.state.emailGuest || '').trim().toLowerCase();
+    const validEmail = /^[^\s@]+@gmail\.com$/.test(v);
+    const validDept = !!(this.state.guestDept || '').trim();
+    if (validEmail && validDept) this.setState({ role: 'guest', view: 'home', guestErr: false, deptErr: false, nicknamePromptOpen: true });
+    else this.setState({ guestErr: !validEmail, deptErr: !validDept });
+  };
+  closeNicknamePrompt = () => this.setState({ nicknamePromptOpen: false });
+  skipNickname = () => this.setState(s => ({ [s.role === 'designer' ? 'designerNickname' : 'guestNickname']: '', nicknamePromptOpen: false }));
+  loginDesigner = () => {
+    const v = (this.state.emailDesigner || '').trim().toLowerCase();
+    if (INVITED_DESIGNERS.indexOf(v) > -1) this.setState({ role: 'designer', view: 'home', designerErr: false, nicknamePromptOpen: true });
+    else this.setState({ designerErr: true });
+  };
+  isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v || '').trim());
+  setEmail = (k) => (e) => this.setState({ [k]: e.target.value });
+  logout = () => this.setState({ role: null, view: 'home', cat: 'All' });
+
+  go = (view) => () => this.setState({ view });
+  monthCells(ALL, lang) {
+    const m = this.state.calM, y = this.state.calY;
+    const firstDow = new Date(y, m, 1).getDay();
+    const daysIn = new Date(y, m + 1, 0).getDate();
+    const decoed = ALL.map(x => this.deco(x));
+    const cells = [];
+    const lead = firstDow === 0 ? 0 : firstDow - 1; // Mon-Fri grid; Sun counts as 0 lead cells
+    for (let i = 0; i < lead; i++) cells.push({ label: '', badge: '', weight: '400', bg: 'transparent', bd: 'transparent', fg: 'transparent', items: [], spanColor: 'transparent' });
+    for (let d = 1; d <= daysIn; d++) {
+      const dow = new Date(y, m, d).getDay();
+      if (dow === 0 || dow === 6) continue;
+      const key = d + ' ' + MONTHS[m];
+      const dayN = y * 10000 + m * 100 + d;
+      const items = [];
+      let spanColor = 'transparent';
+      decoed.forEach(p => {
+        const st = String(p.start || '').replace(/^0/, '');
+        const du = String(p.due || '').replace(/^0/, '');
+        if (st === key || st === '0' + key) items.push({
+          kind: L[lang].calStart, code: p.code, title: p.title, open: p.open,
+          bg: 'transparent', bd: '1.5px solid ' + p.catColor, ink: p.catInk
+        });
+        if (du === key || du === '0' + key) items.push({
+          kind: L[lang].calDue, code: p.code, title: p.title, open: p.open,
+          bg: p.catColor, bd: '1.5px solid ' + p.catColor, ink: p.catInk
+        });
+        const started = p.status !== 'Brief' && (!!this.state.accepted[p.id] || p.status !== 'Brief') && this.namesOf(p.id).length > 0;
+        if (started) {
+          const sN = parseDay(p.start), dN = parseDay(p.due);
+          if (sN && dN && dayN >= sN && dayN <= dN) spanColor = p.catColor;
+          if (sN && dN && dayN > sN && dayN < dN) items.push({
+            kind: lang === 'th' ? 'กำลังทำงาน' : 'In progress', code: p.code, title: p.title, open: p.open,
+            bg: 'color-mix(in srgb, ' + p.catColor + ' 22%, transparent)', bd: '1px dashed ' + p.catColor, ink: p.catInk
+          });
+        }
+      });
+      const isToday = y === TODAY.y && m === TODAY.m && d === TODAY.d;
+      cells.push({
+        label: String(d), badge: items.length ? String(items.length) : '',
+        weight: isToday ? '700' : '400',
+        spanColor,
+        bg: 'var(--wash)',
+        bd: items.length > 6 ? '#C4142F' : (isToday ? 'rgba(196,20,47,.35)' : 'var(--line)'),
+        fg: items.length > 6 ? '#C4142F' : (isToday ? '#C4142F' : 'var(--ink2)'),
+        overCap: items.length > 6,
+        overflowCount: Math.max(0, items.length - 6),
+        items: items.slice(0, 6)
+      });
+    }
+    return cells;
+  }
+  open = (pid) => () => this.setState({ view: 'detail', pid });
+  pickCat = (cat) => () => this.setState({ cat });
+
+  setLang = (lang) => () => this.setState({ lang });
+  toggleDark = () => this.setState(s => ({ dark: !s.dark }));
+  acceptBrief = (pid) => (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    if (this.state.role !== 'owner') return;
+    this.setState(s => ({ accepted: Object.assign({}, s.accepted, { [pid]: true }) }));
+    this.notify(pid, 'started');
+  };
+
+  buildMail = (p, kind, lang) => {
+    const email = p.requesterEmail && p.requesterEmail !== '—' ? p.requesterEmail : 'requester@deli.co.th';
+    const th = lang === 'th';
+    const SUBJ = {
+      sent: (th ? '[Deli Brief Hub] บรีฟใหม่ถูกส่งแล้ว — ' : '[Deli Brief Hub] Brief received — ') + p.code,
+      started: (th ? '[Deli Brief Hub] เริ่มดำเนินงานแล้ว — ' : '[Deli Brief Hub] Work has started — ') + p.code,
+      revision: (th ? '[Deli Brief Hub] ส่งไฟล์แก้ไขแล้ว — ' : '[Deli Brief Hub] Revision file sent — ') + p.code,
+      final: (th ? '[Deli Brief Hub] ส่งไฟล์ไฟนอลแล้ว — ' : '[Deli Brief Hub] Final file delivered — ') + p.code
+    };
+    const BODY = {
+      sent: th ? `เรียนคุณ${p.requester},\n\nระบบได้รับบรีฟงาน "${p.title}" ของคุณแล้ว กำลังเข้าคิวรอ Design Manager กดรับและมอบหมายดีไซเนอร์ เราจะแจ้งความคืบหน้าให้ทราบทุกขั้นตอน\n\nรหัสงาน: ${p.code}\nประเภท: ${p.cat}\nกำหนดส่ง: ${p.due}\n\nขอบคุณครับ/ค่ะ\nDeli Design Brief Hub`
+        : `Hi ${p.requester},\n\nWe've received your brief "${p.title}". It's now queued for the design manager to accept and assign a designer. We'll keep you posted at every stage.\n\nJob code: ${p.code}\nCategory: ${p.cat}\nDue: ${p.due}\n\nThanks,\nDeli Design Brief Hub`,
+      started: th ? `เรียนคุณ${p.requester},\n\nงาน "${p.title}" (${p.code}) เริ่มดำเนินการออกแบบแล้วโดย ${p.designer} คาดว่าจะแล้วเสร็จภายในกำหนด ${p.due}\n\nขอบคุณครับ/ค่ะ\nDeli Design Brief Hub`
+        : `Hi ${p.requester},\n\nWork on "${p.title}" (${p.code}) has started with ${p.designer}. Expected by ${p.due}.\n\nThanks,\nDeli Design Brief Hub`,
+      revision: th ? `เรียนคุณ${p.requester},\n\nไฟล์แก้ไขล่าสุดของงาน "${p.title}" (${p.code}) ถูกส่งให้แล้ว กรุณาตรวจสอบและแจ้งกลับหากต้องการแก้ไขเพิ่มเติม\n\nขอบคุณครับ/ค่ะ\nDeli Design Brief Hub`
+        : `Hi ${p.requester},\n\nThe latest revision for "${p.title}" (${p.code}) has been sent. Please review and let us know if further changes are needed.\n\nThanks,\nDeli Design Brief Hub`,
+      final: th ? `เรียนคุณ${p.requester},\n\nไฟล์ไฟนอลของงาน "${p.title}" (${p.code}) ถูกส่งเรียบร้อยแล้ว งานนี้ได้รับการอนุมัติและปิดงานแล้ว\n\nขอบคุณครับ/ค่ะ\nDeli Design Brief Hub`
+        : `Hi ${p.requester},\n\nThe final file for "${p.title}" (${p.code}) has been delivered. This job is now approved and closed.\n\nThanks,\nDeli Design Brief Hub`
+    };
+    return { to: email, subject: SUBJ[kind], body: BODY[kind], code: p.code };
+  };
+
+  closeMail = () => this.setState({ mail: null });
+  openSentMail = () => this.setState(s => ({ mail: s.sentMail }));
+  openReport = () => this.setState({ reportOpen: true, resetConfirming: false });
+  closeReport = () => this.setState({ reportOpen: false, resetConfirming: false });
+  confirmReset = () => this.setState(s => ({ resetConfirming: !s.resetConfirming }));
+  doReset = () => this.setState({ resetConfirming: false, resetMonthAt: Date.now(), added: [], assigns: {}, notifications: [] });
+
+  toggleNotif = () => this.setState(s => ({ notifOpen: !s.notifOpen }));
+  pushNotif = (p, kind, designerName) => {
+    const lang = this.state.lang;
+    const DOT = { final: 'oklch(0.5 0.13 156)', revision: 'oklch(0.62 0.14 68)', assigned: 'oklch(0.52 0.14 250)', submitted: 'oklch(0.52 0.14 250)' };
+    const MSG = {
+      final: lang === 'th' ? `งาน "${p.title}" ได้รับการอนุมัติแล้ว` : `"${p.title}" was approved`,
+      revision: lang === 'th' ? `ขอแก้ไขงาน "${p.title}"` : `Revision requested for "${p.title}"`,
+      assigned: lang === 'th' ? `Design Manager มอบหมายงาน "${p.title}" ให้คุณแล้ว` : `Design Manager assigned "${p.title}" to you`,
+      submitted: lang === 'th' ? `ดีไซเนอร์ส่งงาน "${p.title}" แล้ว รอ Design Manager ตรวจ` : `Designer submitted "${p.title}" — awaiting Design Manager review`
+    };
+    const now = new Date();
+    const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+    const entry = { id: Date.now(), pid: p.id, code: p.code, msg: MSG[kind], dot: DOT[kind], time };
+    this.setState(s => ({ notifications: [entry].concat(s.notifications).slice(0, 20) }));
+  };
+
+  notify = (pid, kind) => {
+    const ALL = this.state.added.concat(PROJECTS);
+    const p = ALL.find(x => x.id === pid);
+    if (!p) return;
+    const email = p.requesterEmail || p.requester || '—';
+    const lang = this.state.lang;
+    const TXT = {
+      started: lang === 'th' ? ' · เริ่มดำเนินงานแล้ว' : ' · Work has started',
+      revision: lang === 'th' ? ' · ส่งไฟล์แก้ไขแล้ว' : ' · Revision file sent',
+      final: lang === 'th' ? ' · ส่งไฟล์ไฟนอลแล้ว' : ' · Final file delivered'
+    };
+    const msg = (lang === 'th' ? 'ส่งอีเมลแจ้งเตือนไปที่ ' : 'Update emailed to ') + email + (TXT[kind] || '');
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: null }), 5800);
+    this.setState({ toast: { code: p.code, msg }, mail: this.buildMail(p, kind, lang) });
+  };
+
+  approveJob = (pid) => (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const ALL = this.state.added.concat(PROJECTS);
+    const p = ALL.find(x => x.id === pid);
+    if (p) this.pushNotif(p, 'final');
+  };
+
+  requestRevisionJob = (pid) => (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    this.setState({ revisionOpen: pid, revisionText: '', revisionImage: null });
+  };
+  closeRevision = () => this.setState({ revisionOpen: null, revisionText: '', revisionImage: null });
+  setRevisionText = (e) => this.setState({ revisionText: e.target.value });
+  setRevisionImage = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => this.setState({ revisionImage: reader.result });
+    reader.readAsDataURL(file);
+  };
+  clearRevisionImage = () => this.setState({ revisionImage: null });
+  submitRevision = () => {
+    const pid = this.state.revisionOpen;
+    if (!pid) return;
+    const ALL = this.state.added.concat(PROJECTS);
+    const p = ALL.find(x => x.id === pid);
+    const text = (this.state.revisionText || '').trim();
+    if (p) this.pushNotif(p, 'revision');
+    if (p && text) {
+      const who = this.state.role === 'owner' ? 'Design Manager' : 'Others Department';
+      const initials = who.split(' ').map(w => w[0]).join('').toUpperCase();
+      const at = this.todayLabel(this.state.lang, false) + ' · ' + (this.state.clock || new Date()).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      this.setState(s => ({
+        comments: Object.assign({}, s.comments, { [pid]: (s.comments[pid] || []).concat({ who, initials, text, at, image: s.revisionImage }) }),
+      }));
+    }
+    this.closeRevision();
+  };
+
+  submitWork = (pid) => (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    this.setState({ submitWorkOpen: pid, submitWorkLink: '', submitWorkImage: null });
+  };
+  closeSubmitWork = () => this.setState({ submitWorkOpen: null, submitWorkLink: '', submitWorkImage: null });
+  setSubmitWorkLink = (e) => this.setState({ submitWorkLink: e.target.value });
+  setSubmitWorkImage = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => this.setState({ submitWorkImage: reader.result });
+    reader.readAsDataURL(file);
+  };
+  clearSubmitWorkImage = () => this.setState({ submitWorkImage: null });
+  confirmSubmitWork = () => {
+    const pid = this.state.submitWorkOpen;
+    if (!pid) return;
+    const ALL = this.state.added.concat(PROJECTS);
+    const p = ALL.find(x => x.id === pid);
+    if (!p) return;
+    const link = (this.state.submitWorkLink || '').trim();
+    this.setState(s => {
+      const links = link ? Object.assign({}, s.links, { [pid]: (s.links[pid] || []).concat(link) }) : s.links;
+      let comments = s.comments;
+      if (s.submitWorkImage) {
+        const who = s.role === 'designer' ? 'Designer' : (s.role === 'owner' ? 'Design Manager' : 'Others Department');
+        const initials = who.split(' ').map(w => w[0]).join('').toUpperCase();
+        const at = this.todayLabel(s.lang, false) + ' · ' + (s.clock || new Date()).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        const noteTxt = s.lang === 'th' ? 'แนบไฟล์งานที่ส่ง' : 'Attached submitted artwork';
+        comments = Object.assign({}, s.comments, { [pid]: (s.comments[pid] || []).concat({ who, initials, text: noteTxt, at, image: s.submitWorkImage }) });
+      }
+      return {
+        links, comments,
+        statusOverrides: Object.assign({}, s.statusOverrides, { [pid]: 'Approved' }),
+        submitWorkOpen: null, submitWorkLink: '', submitWorkImage: null
+      };
+    });
+    this.pushNotif(p, 'submitted');
+  };
+
+  openAssign = (pid) => (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    if (this.state.role !== 'owner') return;
+    this.setState({ assignPid: pid, assignWarn: false });
+  };
+  closeAssign = () => this.setState({ assignPid: null, assignWarn: false });
+  toggleAssign = (pid, name) => () => this.setState(s => {
+    const base = s.assigns[pid] || (this.namesOf(pid));
+    let next, added = false;
+    if (base.indexOf(name) > -1) next = base.filter(n => n !== name);
+    else if (base.length >= 2) return { assignWarn: true };
+    else { next = base.concat([name]); added = true; }
+    if (added) {
+      const all = s.added.concat(PROJECTS);
+      const p = all.find(x => x.id === pid);
+      if (p) setTimeout(() => this.pushNotif(p, 'assigned', name), 0);
+    }
+    return { assigns: Object.assign({}, s.assigns, { [pid]: next }), assignWarn: false };
+  });
+
+  namesOf(pid) {
+    const all = this.state.added.concat(PROJECTS);
+    const p = all.find(x => x.id === pid);
+    if (!p) return [];
+    return this.state.assigns[pid] || p.designers || [p.designer];
+  }
+
+  deco(p) {
+    const t = L[this.state.lang];
+    const due = this.state.dueOverrides[p.id] || p.due;
+    const cat = CATS.find(c => c.name === p.cat);
+    const names = this.state.assigns[p.id] || (p.status === 'Brief' ? [] : (p.designers || [p.designer]));
+    const members = names.map(n => TEAM.find(x => x.name === n) || { name: n, initials: n.slice(0, 2), color: INK });
+    const gated = p.status === 'Brief';
+    const isAccepted = gated ? !!this.state.accepted[p.id] : true;
+    const started = isAccepted && names.length > 0;
+    const status = this.state.statusOverrides[p.id] || (gated ? (started ? 'Design' : 'Brief') : p.status);
+    const st = STATUS[status];
+    return Object.assign({}, p, {
+      status, statusLabel: STATUS_NAME[this.state.lang][status],
+      stepBadge: '0' + (ORDER.indexOf(status) + 1) + '/0' + ORDER.length,
+      stepper: ORDER.map((name, i) => {
+        const curIdx = ORDER.indexOf(status);
+        const done = i < curIdx, activeStep = i === curIdx;
+        const stColor = STATUS[name].dot;
+        return {
+          name: STATUS_NAME[this.state.lang][name],
+          mark: done ? '✓' : String(i + 1),
+          dotBg: done || activeStep ? stColor : 'var(--wash2)',
+          dotFg: done || activeStep ? '#fff' : 'var(--muted)',
+          textFg: activeStep ? stColor : (done ? 'var(--ink2)' : 'var(--muted)'),
+          lineBg: done ? stColor : 'var(--wash2)',
+          hasLine: i < ORDER.length - 1
+        };
+      }),
+      gated, isAccepted, started, notStarted: gated && !started,
+      acceptedMark: isAccepted ? '✓' : '1',
+      assignedMark: names.length ? '✓' : '2',
+      acceptedTxt: isAccepted ? t.acceptedTxt : t.gate1,
+      assignedTxt: names.length ? t.assignedTxt : t.gate2,
+      step1Bg: isAccepted ? P.green : 'var(--wash2)', step1Fg: isAccepted ? PINK_INK.green : 'var(--muted)',
+      step2Bg: names.length ? P.green : 'var(--wash2)', step2Fg: names.length ? PINK_INK.green : 'var(--muted)',
+      canAccept: this.state.role === 'owner' && !isAccepted,
+      accept: this.acceptBrief(p.id),
+      gateChip: started ? t.gateStarted : t.gateWaiting,
+      gateChipBg: started ? P.green : P.amber,
+      gateChipFg: started ? PINK_INK.green : PINK_INK.amber,
+      cover: COVER[p.cat] || COVER.Product,
+      assetLabel: (p.assetsDone || 0) + ' / ' + (p.assets || 1) + ' ' + L[this.state.lang].assets,
+      assetW: Math.round((p.assetsDone || 0) / (p.assets || 1) * 100) + '%',
+      assetPct: Math.round((p.assetsDone || 0) / (p.assets || 1) * 100) + '%',
+      stepLabel: ORDER.indexOf(p.status) + 1 + '/' + ORDER.length + ' · ' + STATUS_NAME[this.state.lang][p.status],
+      stepW: Math.round((ORDER.indexOf(p.status) + 1) / ORDER.length * 100) + '%',
+      catInk: cat ? (this.state.dark ? cat.inkLight : cat.ink) : 'var(--ink)',
+      history: (p.history || []).map(h => Object.assign({}, h, { dot: PASTEL_OF[h.dot] || h.dot })),
+      designerNames: names,
+      designerLabel: names.length ? names.join(' + ') : (this.state.lang === 'th' ? 'ยังไม่มอบหมาย' : 'Unassigned'),
+      avatars: members.map((mm, i) => ({ initials: mm.initials, bg: mm.color, ml: i === 0 ? '0' : '-9px' })),
+      canAssign: this.state.role === 'owner',
+      isGuestCard: this.state.role !== 'owner',
+      assign: this.openAssign(p.id),
+      statusBg: st.bg, statusFg: st.fg,
+      onCoverBg: '#fff',
+      onCoverFg: st.fg === 'rgba(26,22,20,.58)' ? 'rgba(26,22,20,.66)' : st.fg,
+      catColor: cat ? cat.color : INK,
+      dueFg: status === 'Completed' ? 'var(--muted2)' : (p.late ? RED : 'var(--muted)'),
+      dueShort: due, due,
+      files: (p.files || []).map(fl => Object.assign({ isFile: true }, fl)).concat((this.state.links[p.id] || []).map(l => ({ ext: 'LINK', name: l, size: '', color: BLUE, isLink: true }))),
+      comments: this.state.comments[p.id] || [],
+      noComments: !(this.state.comments[p.id] || []).length,
+      addLink: this.addLink(p.id),
+      postComment: this.addComment(p.id),
+      open: this.open(p.id)
+    });
+  }
+
+  setNewLink = (e) => this.setState({ newLink: e.target.value });
+  addLink = (pid) => () => {
+    const v = (this.state.newLink || '').trim();
+    if (!v) return;
+    this.setState(s => ({ links: Object.assign({}, s.links, { [pid]: (s.links[pid] || []).concat(v) }), newLink: '' }));
+  };
+  setNewComment = (e) => this.setState({ newComment: e.target.value });
+  addComment = (pid) => () => {
+    const v = (this.state.newComment || '').trim();
+    if (!v) return;
+    const who = this.state.role === 'owner' ? 'Design Manager' : 'Others Department';
+    const initials = who.split(' ').map(w => w[0]).join('').toUpperCase();
+    const at = this.todayLabel(this.state.lang, false) + ' · ' + (this.state.clock || new Date()).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    this.setState(s => ({ comments: Object.assign({}, s.comments, { [pid]: (s.comments[pid] || []).concat({ who, initials, text: v, at }) }), newComment: '' }));
+  };
+
+
+  prevMonth = () => this.setState(s => ({ statMonthOffset: s.statMonthOffset - 1 }));
+  nextMonth = () => this.setState(s => ({ statMonthOffset: s.statMonthOffset + 1 }));
+  prevWeek = () => this.setState(s => ({ weekOffset: s.weekOffset - 1 }));
+  nextWeek = () => this.setState(s => ({ weekOffset: s.weekOffset + 1 }));
+
+  renderVals() {
+    const { role, view, cat, pid, lang, dark, statMonthOffset, weekOffset } = this.state;
+    const owner = role === 'owner', guest = role === 'guest', designer = role === 'designer';
+    const t = L[lang];
+    const cols = this.props.gridColumns ?? 4;
+    const active = '#C4142F', inactive = 'transparent';
+    const on = '#fff', off = 'rgba(255,255,255,.58)';
+    const extra = this.state.added;
+    const catCounts = CATS.map(c => c.count + extra.filter(x => x.cat === c.name).length);
+    const total = catCounts.reduce((a, n) => a + n, 0);
+
+    const added = this.state.added;
+    const ALL = added.concat(PROJECTS);
+    const EMPTY_PROJECT = { id: null, status: 'Brief', cat: null, due: '', code: '', title: '', requesterEmail: '', assets: 0, assetsDone: 0, designer: '', initials: '', coverLabel: '', cover: '', brief: '', specs: [], history: [], files: [] };
+    const p = ALL.find(x => x.id === pid) || ALL[0] || EMPTY_PROJECT;
+    const st = STATUS[p.status] || STATUS.Brief;
+    const mine = (x) => !guest || x.requesterEmail === this.state.emailGuest;
+    const scoped = guest ? ALL.filter(mine) : ALL;
+    const filtered = cat === 'All' ? scoped : scoped.filter(x => x.cat === cat);
+
+    const crumb = { home: t.overview, works: t.works, flow: t.flow, load: t.load, calendar: t.calendar, detail: t.works + ' / ' + p.code }[view];
+
+    return {
+      t, theme: dark ? 'dark' : 'light', themeIcon: dark ? '☾' : '☀',
+      themeLabel: dark ? (lang === 'th' ? 'สว่าง' : 'Light') : (lang === 'th' ? 'มืด' : 'Dark'),
+      toggleDark: this.toggleDark,
+      langs: [
+        { code: 'th', label: 'ไทย' },
+        { code: 'en', label: 'EN' }
+      ].map(o => ({
+        label: o.label, pick: this.setLang(o.code),
+        bg: lang === o.code ? 'var(--ink)' : 'transparent',
+        fg: lang === o.code ? 'var(--bg)' : 'var(--ink3)'
+      })),
+      langsLogin: [
+        { code: 'th', label: 'ไทย' },
+        { code: 'en', label: 'EN' }
+      ].map(o => ({
+        label: o.label, pick: this.setLang(o.code),
+        bg: lang === o.code ? '#fff' : 'transparent',
+        fg: lang === o.code ? '#C4142F' : 'rgba(255,255,255,.75)'
+      })),
+
+      isLogin: !role, isApp: !!role, isOwner: owner, isGuest: guest,
+      isOther: guest, canCreate: true, canApprove: owner,
+      canSubmitWork: (owner || designer) && ['Design', 'Revision'].indexOf(this.deco(p).status) > -1,
+      submitWork: this.submitWork(p.id),
+      loginOwner: this.loginOwner, loginGuest: this.loginGuest, loginGmail: this.loginGmail, logout: this.logout,
+      quickOwner: () => this.setState({ role: 'owner', view: 'home' }),
+      quickDesigner: () => this.setState({ role: 'designer', view: 'home' }),
+      quickGuest: () => this.setState({ role: 'guest', view: 'home' }),
+      userName: owner ? (lang === 'th' ? 'ผู้จัดการฝ่ายออกแบบ' : 'Design Manager') : (designer ? (this.state.designerNickname || (lang === 'th' ? (DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).name || 'ดีไซเนอร์' : (DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).nameEn || 'Designer')) : (this.state.guestNickname || this.state.emailGuest || (lang === 'th' ? 'แผนกอื่น' : 'Others Dept.'))),
+      userRole: owner ? 'Design Manager' : (designer ? 'Designer' : 'Others Department'),
+      userInitials: owner ? 'DM' : (designer ? (this.state.designerNickname ? this.state.designerNickname.slice(0, 2).toUpperCase() : ((DESIGNER_BY_EMAIL[this.state.emailDesigner] || {}).initials || 'DS')) : (this.state.guestNickname ? this.state.guestNickname.slice(0, 2).toUpperCase() : 'OD')),
+      userAvatarBg: owner ? '#C4142F' : '#3A322E',
+      roleChip: owner ? 'Owner' : (designer ? 'Designer' : (this.state.guestDept || 'Others')),
+      roleChipBg: owner ? 'rgba(255,255,255,.16)' : 'rgba(255,255,255,.08)',
+      roleChipFg: owner ? '#fff' : 'rgba(255,255,255,.55)',
+
+      isHome: view === 'home', isWorks: view === 'works', isFlow: view === 'flow',
+      isLoad: view === 'load' && owner, isCal: view === 'calendar', isDetail: view === 'detail',
+      goHome: this.go('home'), goWorks: this.go('works'), goFlow: this.go('flow'), goLoad: this.go('load'), goCal: this.go('calendar'),
+      navCalBg: view === 'calendar' ? active : inactive, navCalFg: view === 'calendar' ? on : off,
+      monthCells: this.monthCells(ALL, lang),
+      navHomeBg: view === 'home' ? active : inactive, navHomeFg: view === 'home' ? on : off,
+      navWorksBg: (view === 'works' || view === 'detail') ? active : inactive, navWorksFg: (view === 'works' || view === 'detail') ? on : off,
+      worksLabel: guest ? t.myWorks : t.works,
+      navFlowBg: view === 'flow' ? active : inactive, navFlowFg: view === 'flow' ? on : off,
+      navLoadBg: view === 'load' ? active : inactive, navLoadFg: view === 'load' ? on : off,
+      crumb,
+
+      cats: CATS.map((c, i) => Object.assign({}, c, { count: catCounts[i], artworks: ALL.filter(x => x.cat === c.name).reduce((a, x) => a + (x.assets || 0), 0), soft: PASTEL[c.name], pct: total ? Math.round(catCounts[i] / total * 100) : 0, w: (total ? Math.round(catCounts[i] / total * 100) : 0) + '%' })),
+      team: TEAM.map(d => {
+        const catName = (CATS.find(c => c.color === d.color) || {}).name;
+        return Object.assign({}, d, { w: Math.round(d.load / d.cap * 100) + '%', soft: PASTEL[catName] || 'oklch(0.84 0.05 30)' });
+      }),
+
+      steps: ORDER.map((name, i) => ({
+        n: i + 1, name: STATUS_NAME[lang][name], th: STAGE_TXT[lang][name], count: STAGE_COUNT[name] + (name === 'Brief' ? extra.length : 0),
+        arrow: i === ORDER.length - 1 ? '' : '→',
+        icon: 'assets/wf-' + ['brief', 'review', 'design', 'revision', 'approved', 'completed'][i] + '.png',
+        iconFilter: 'brightness(0) saturate(100%) opacity(.82)',
+        assets: ALL.filter(x => this.deco(x).status === name).reduce((a, x) => a + (x.assets || 0), 0) || Math.round(STAGE_COUNT[name] * 4),
+        bg: STAGE_BG[name].bg,
+        fg: STAGE_BG[name].fg
+      })),
+
+      isForm: this.state.form, showErr: this.state.err,
+      isSentModal: !!this.state.sentBrief, closeSentModal: this.closeSentModal, openSentMail: this.openSentMail,
+      sentCode: this.state.sentBrief ? this.state.sentBrief.code : '',
+      sentTitleTxt: this.state.sentBrief ? this.state.sentBrief.title : '',
+      isMail: !!this.state.mail, closeMail: this.closeMail,
+      isReportOpen: this.state.reportOpen, openReport: this.openReport, closeReport: this.closeReport,
+      resetConfirming: this.state.resetConfirming, confirmReset: this.confirmReset, doReset: this.doReset,
+      reportMonthLabel: MONTH_NAMES[lang][8] + (lang === 'th' ? ' 2569' : ' 2026'),
+      reportProjects: ALL.length,
+      reportAssets: ALL.reduce((a, p) => a + (p.assets || 0), 0),
+      reportStatusRows: ORDER.map(name => ({ name: STATUS_NAME[lang][name], color: STATUS[name].dot, count: ALL.filter(p => p.status === name).length })),
+      reportFilename: 'deli-report-' + MONTH_NAMES.en[8].toLowerCase() + '-2026.csv',
+      reportCsvHref: 'data:text/csv;charset=utf-8,' + encodeURIComponent(
+        'Metric,Value\n' +
+        'Month,' + MONTH_NAMES.en[8] + ' 2026\n' +
+        'Total Projects,' + ALL.length + '\n' +
+        'Total Artworks,' + ALL.reduce((a, p) => a + (p.assets || 0), 0) + '\n' +
+        'Dept Workload %,' + this.deptVals(ALL).deptPct + '\n\n' +
+        'Status,Count\n' +
+        ORDER.map(name => name + ',' + ALL.filter(p => p.status === name).length).join('\n')
+      ),
+      isRevisionOpen: !!this.state.revisionOpen, closeRevision: this.closeRevision,
+      revisionText: this.state.revisionText, setRevisionText: this.setRevisionText,
+      revisionImage: this.state.revisionImage, hasRevisionImage: !!this.state.revisionImage,
+      revisionImageList: this.state.revisionImage ? [{ css: 'url(' + this.state.revisionImage + ')' }] : [],
+      imgPickerDisplay: this.state.revisionImage ? 'none' : 'flex',
+      setRevisionImage: this.setRevisionImage, clearRevisionImage: this.clearRevisionImage,
+      submitRevision: this.submitRevision,
+      isSubmitWorkOpen: !!this.state.submitWorkOpen, closeSubmitWork: this.closeSubmitWork,
+      submitWorkLink: this.state.submitWorkLink, setSubmitWorkLink: this.setSubmitWorkLink,
+      submitWorkImageList: this.state.submitWorkImage ? [{ css: 'url(' + this.state.submitWorkImage + ')' }] : [],
+      swImgPickerDisplay: this.state.submitWorkImage ? 'none' : 'flex',
+      setSubmitWorkImage: this.setSubmitWorkImage, clearSubmitWorkImage: this.clearSubmitWorkImage,
+      confirmSubmitWork: this.confirmSubmitWork,
+      isNotifOpen: this.state.notifOpen, toggleNotif: this.toggleNotif,
+      notifList: this.state.notifications.map(n => Object.assign({}, n, { open: () => this.setState({ view: 'detail', pid: n.pid, notifOpen: false }) })), hasNotif: this.state.notifications.length > 0, noNotif: this.state.notifications.length === 0,
+      notifCount: this.state.notifications.length,
+      mailTo: this.state.mail ? this.state.mail.to : '',
+      mailSubject: this.state.mail ? this.state.mail.subject : '',
+      mailBody: this.state.mail ? this.state.mail.body : '',
+      openForm: this.openForm, closeForm: this.closeForm, submitForm: this.submitForm,
+      newLink: this.state.newLink, setNewLink: this.setNewLink,
+      newComment: this.state.newComment, setNewComment: this.setNewComment,
+      showToast: !!this.state.toast, toastCode: this.state.toast ? this.state.toast.code : '',
+      toastMsg: this.state.toast ? this.state.toast.msg : '',
+      nextCode: 'DL-2609-' + String(added.length + 8).padStart(2, '0'),
+      fRequester: this.state.f.requester, onRequester: this.setField('requester'),
+      fEmail: this.state.f.email, onEmail: this.setField('email'),
+      requesterChoices: Object.keys(REQUESTER).map(k => {
+        const v = REQUESTER[k];
+        const sel = this.state.f.requester === v;
+        return {
+          name: v, pick: this.pickField('requester', v),
+          bg: sel ? 'rgba(196,20,47,.07)' : '#fff',
+          fg: sel ? '#1A1614' : 'rgba(26,22,20,.55)',
+          bd: sel ? RED : 'rgba(26,22,20,.13)'
+        };
+      }),
+      ...this.calVals(),
+      fTitle: this.state.f.title, fDue: this.state.f.due, fStartVal: this.state.f.start, dueConfirmFg: 'oklch(0.5 0.13 156)',
+      fDeliverable: this.state.f.deliverable, fBrief: this.state.f.brief,
+      fLink: this.state.f.link, onLink: this.setField('link'),
+      fAssets: this.state.f.assets, onAssets: this.setField('assets'),
+      onTitle: this.setField('title'), onDue: this.setField('due'),
+      onDeliverable: this.setField('deliverable'), onBrief: this.setField('brief'),
+      catChoices: CATS.map(c => ({
+        name: c.name, color: c.color, pick: this.pickField('cat', c.name),
+        bg: this.state.f.cat === c.name ? 'rgba(196,20,47,.07)' : '#fff',
+        fg: this.state.f.cat === c.name ? '#1A1614' : 'rgba(26,22,20,.6)',
+        bd: this.state.f.cat === c.name ? RED : 'rgba(26,22,20,.13)'
+      })),
+      designerChoices: TEAM.map(d => {
+        const sel = this.state.f.designer === d.name;
+        return {
+          name: d.name, initials: d.initials, load: d.load, pick: this.pickField('designer', d.name),
+          bg: sel ? 'rgba(196,20,47,.07)' : '#fff',
+          fg: sel ? '#1A1614' : 'rgba(26,22,20,.6)',
+          bd: sel ? RED : 'rgba(26,22,20,.13)',
+          avatarBg: sel ? RED : 'rgba(26,22,20,.08)',
+          avatarFg: sel ? '#fff' : 'rgba(26,22,20,.6)'
+        };
+      }),
+      statusChoices: ORDER.map(name => {
+        const sel = this.state.f.status === name;
+        return {
+          name, label: STATUS_NAME[this.state.lang][name], pick: this.pickField('status', name),
+          bg: sel ? 'rgba(196,20,47,.07)' : '#fff',
+          fg: sel ? '#1A1614' : 'rgba(26,22,20,.6)',
+          bd: sel ? RED : 'rgba(26,22,20,.13)',
+          dot: STATUS[name].dot
+        };
+      }),
+      showBackdateStatus: this.state.f.status && this.state.f.status !== 'Brief',
+
+      assignOpen: owner && !!this.state.assignPid,
+      assignWarn: this.state.assignWarn,
+      closeAssign: this.closeAssign,
+      assignTitle: (ALL.find(x => x.id === this.state.assignPid) || {}).title || '',
+      assignRows: TEAM.map(d => {
+        const picked = this.state.assignPid ? this.namesOf(this.state.assignPid).indexOf(d.name) > -1 : false;
+        return {
+          name: d.name, initials: d.initials, role: d.role, load: d.load, cap: d.cap, w: Math.round(d.load / d.cap * 100) + '%',
+          color: d.color, toggle: this.toggleAssign(this.state.assignPid, d.name),
+          bg: picked ? 'rgba(196,20,47,.05)' : '#fff',
+          bd: picked ? RED : 'rgba(26,22,20,.11)',
+          markBg: picked ? RED : 'transparent',
+          markBd: picked ? RED : 'rgba(26,22,20,.22)',
+          mark: picked ? '✓' : ''
+        };
+      }),
+
+      ...this.deptVals(ALL),
+      loginStatus: this.deptVals(ALL).levels.find(l => l.active),
+      loginStatusLabel: lang === 'th' ? this.deptVals(ALL).levels.find(l => l.active).th : this.deptVals(ALL).levels.find(l => l.active).en,
+      loginIsOpen: this.deptVals(ALL).levels.find(l => l.active).isOpen,
+      loginIsBusy: this.deptVals(ALL).levels.find(l => l.active).isBusy,
+      loginIsOver: this.deptVals(ALL).levels.find(l => l.active).isOver,
+      todayLabel: this.todayLabel(lang, false),
+      emailOwner: this.state.emailOwner, pwOwner: this.state.pwOwner, emailGuest: this.state.emailGuest,
+      onEmailOwner: this.setEmail('emailOwner'), onEmailGuest: this.setEmail('emailGuest'), onPwOwner: this.setEmail('pwOwner'),
+      emailDesigner: this.state.emailDesigner, onEmailDesigner: this.setEmail('emailDesigner'), loginDesigner: this.loginDesigner, showDesignerErr: this.state.designerErr,
+      showOwnerErr: this.state.ownerErr, showGuestErr: this.state.guestErr,
+      guestNickname: designer ? this.state.designerNickname : this.state.guestNickname,
+      onGuestNickname: this.setEmail(designer ? 'designerNickname' : 'guestNickname'),
+      guestDept: this.state.guestDept, onGuestDept: this.setEmail('guestDept'),
+      showDeptErr: this.state.deptErr,
+      isNicknamePrompt: (guest || designer) && this.state.nicknamePromptOpen,
+      closeNicknamePrompt: this.closeNicknamePrompt, skipNickname: this.skipNickname, saveNickname: this.closeNicknamePrompt,
+      clockLabel: (this.state.clock || new Date()).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+
+      summary: scoped.slice(0, 5).map(x => {
+        const d = this.deco(x);
+        return Object.assign(d, { meta: x.cat + ' · ' + d.designerLabel });
+      }),
+      featured: scoped.filter(x => x.status === 'Design' || x.status === 'Review').slice(0, 3).map(x => this.deco(x)),
+
+      totalAssets: ALL.reduce((a, x) => a + (x.assets || 0), 0),
+      heroDesignCount: ALL.filter(x => this.deco(x).status === 'Design').length,
+      heroReviewCount: ALL.filter(x => this.deco(x).status === 'Review').length,
+      heroLateCount: ALL.filter(x => x.delivery === 'late').length,
+      totalJobsCount: total,
+      deliveryEarly: ALL.filter(x => x.delivery === 'early').length,
+      deliveryOntime: ALL.filter(x => x.delivery === 'ontime').length,
+      deliveryLate: ALL.filter(x => x.delivery === 'late').length,
+      weekLabel: (() => {
+        const base = new Date(2026, 8, 7);
+        const d = new Date(base.getTime() + weekOffset * 7 * 86400000);
+        const end = new Date(d.getTime() + 6 * 86400000);
+        const MTH = MONTH_NAMES[lang];
+        const fmt = (x) => x.getDate() + ' ' + MTH[x.getMonth()].slice(0, 3);
+        return fmt(d) + ' – ' + fmt(end);
+      })(),
+      statMonthLabel: (() => {
+        const d = new Date(2026, 8 + statMonthOffset, 1);
+        return MONTH_NAMES[lang][d.getMonth()] + ' ' + (lang === 'th' ? d.getFullYear() + 543 : d.getFullYear());
+      })(),
+      prevMonth: this.prevMonth, nextMonth: this.nextMonth,
+      ...this.deliveryVals(ALL, t),
+      countLabel: filtered.length + ' ' + t.projUnit + ' / ' + filtered.reduce((a, x) => a + (x.assets || 0), 0) + ' ' + t.assets,
+      gridCss: 'repeat(' + cols + ',minmax(0,1fr))',
+      filters: ['All'].concat(CATS.map(c => c.name)).map(name => ({
+        name, pick: this.pickCat(name),
+        bg: cat === name ? 'var(--ink)' : 'var(--surface)',
+        fg: cat === name ? 'var(--bg)' : 'var(--ink3)',
+        bd: cat === name ? 'var(--ink)' : 'var(--line3)'
+      })),
+      shown: filtered.map(x => this.deco(x)),
+
+      columns: ORDER.map(name => ({
+        name: STATUS_NAME[lang][name], color: STATUS[name].dot, count: STAGE_COUNT[name] + (name === 'Brief' ? added.length : 0),
+        items: scoped.map(x => this.deco(x)).filter(x => x.status === name)
+      })),
+
+      cur: Object.assign({}, this.deco(p), {
+        reschedule: this.rescheduleDue(p.id),
+        approveJob: this.approveJob(p.id), requestRevisionJob: this.requestRevisionJob(p.id),
+        meta: [
+          { k: t.category, v: p.cat, c: 'var(--ink)' },
+          { k: 'Artwork', v: (p.assetsDone || 0) + ' / ' + (p.assets || 1), c: 'var(--ink)' },
+          { k: 'Status', v: this.deco(p).statusLabel, c: st.fg },
+          { k: t.fStart, v: p.start || (p.history.length ? p.history[p.history.length - 1].date : '—'), c: 'var(--ink)' },
+          { k: t.fDue, v: /\d{4}$/.test(this.deco(p).due) ? this.deco(p).due : this.deco(p).due + ' 2026', c: 'var(--ink)' },
+          { k: t.revHistory, v: String(p.history.filter(h => h.title.indexOf('Revision') === 0).length), c: 'var(--ink)' },
+          { k: t.fReq, v: p.requester || REQUESTER[p.cat] || '—', c: 'var(--ink2)' }
+        ],
+        noFiles: !p.files || p.files.length === 0
+      })
+    };
+  }
+}
+
+</script>
+</body>
+</html>

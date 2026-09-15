@@ -61,10 +61,14 @@ export default function ProjectActions({
   const t = lang === 'th' ? th : en;
 
   const isAssignedDesigner = viewer.role === 'designer' && currentDesignerIds.includes(viewer.id);
-  const canApproveOrRevise =
-    hasSubmission &&
-    !['Completed', 'Cancelled', 'OnHold'].includes(brief.status) &&
-    (viewer.role === 'manager' || deco.isMine);
+  const isApproverRole = viewer.role === 'manager' || deco.isMine;
+  // Re-approving an already-completed brief is a no-op that just spams duplicate
+  // history/notifications (the bug this used to have), so block it once Completed.
+  // Request revision has no such issue and should stay available even afterwards —
+  // it's the intended way to reopen a completed job for further changes.
+  const canApprove = hasSubmission && isApproverRole && brief.status !== 'Completed';
+  const canRequestRevision = hasSubmission && isApproverRole;
+  const canApproveOrRevise = canApprove || canRequestRevision;
   const canSubmitWork = viewer.role === 'manager' || isAssignedDesigner;
 
   function run(action: () => Promise<{ ok: true } | { error: string }>, onOk?: () => void) {
@@ -193,19 +197,23 @@ export default function ProjectActions({
 
       {canApproveOrRevise && (
         <div className="rounded-2xl border border-black/[.08] bg-white p-5 flex flex-col gap-2">
-          <button
-            disabled={pending}
-            onClick={() => run(() => approveBrief(brief.id))}
-            className="rounded-lg bg-[var(--color-brand)] text-white text-sm font-semibold py-2 disabled:opacity-60"
-          >
-            {t.approve}
-          </button>
-          <button
-            onClick={() => setRevisionOpen(true)}
-            className="rounded-lg border border-black/10 text-sm font-semibold py-2"
-          >
-            {t.requestRev}
-          </button>
+          {canApprove && (
+            <button
+              disabled={pending}
+              onClick={() => run(() => approveBrief(brief.id))}
+              className="rounded-lg bg-[var(--color-brand)] text-white text-sm font-semibold py-2 disabled:opacity-60"
+            >
+              {t.approve}
+            </button>
+          )}
+          {canRequestRevision && (
+            <button
+              onClick={() => setRevisionOpen(true)}
+              className="rounded-lg border border-black/10 text-sm font-semibold py-2"
+            >
+              {t.requestRev}
+            </button>
+          )}
         </div>
       )}
 

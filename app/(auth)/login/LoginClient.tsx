@@ -35,9 +35,13 @@ export default function LoginClient({
   const [lang, setLang] = useState<'th' | 'en'>('en');
   const [dark, setDark] = useState(false);
   const t = lang === 'th' ? th : en;
-  const [now, setNow] = useState<Date>(() => new Date());
+  const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
+    // Correct the client's local time immediately on mount instead of showing the
+    // server-rendered (UTC) time until the first 30s interval tick — otherwise anyone
+    // outside UTC sees a stale clock for up to 30 seconds after the page loads.
+    setNow(new Date());
     const id = setInterval(() => setNow(new Date()), 1000 * 30);
     return () => clearInterval(id);
   }, []);
@@ -102,10 +106,12 @@ export default function LoginClient({
 
           <div className="rounded-[26px] bg-white/[.14] backdrop-blur-md border border-white/30 p-6 text-center">
             <div className="text-lg opacity-80" suppressHydrationWarning>
-              {now.toLocaleDateString(lang === 'th' ? 'th-TH' : 'en-US', { weekday: 'long', day: 'numeric', month: 'long' })}
+              {now
+                ? now.toLocaleDateString(lang === 'th' ? 'th-TH' : 'en-US', { weekday: 'long', day: 'numeric', month: 'long' })
+                : ' '}
             </div>
             <div className="font-display text-[56px] font-bold tabular-nums" suppressHydrationWarning>
-              {now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+              {now ? now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : ' '}
             </div>
           </div>
 

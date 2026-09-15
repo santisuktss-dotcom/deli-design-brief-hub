@@ -61,7 +61,10 @@ export default function ProjectActions({
   const t = lang === 'th' ? th : en;
 
   const isAssignedDesigner = viewer.role === 'designer' && currentDesignerIds.includes(viewer.id);
-  const canApproveOrRevise = hasSubmission && (viewer.role === 'manager' || deco.isMine);
+  const canApproveOrRevise =
+    hasSubmission &&
+    !['Completed', 'Cancelled', 'OnHold'].includes(brief.status) &&
+    (viewer.role === 'manager' || deco.isMine);
   const canSubmitWork = viewer.role === 'manager' || isAssignedDesigner;
 
   function run(action: () => Promise<{ ok: true } | { error: string }>, onOk?: () => void) {

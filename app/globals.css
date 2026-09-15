@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
+/* Design Tokens — ported verbatim from the prototype's README "Design Tokens" section. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #EFEBE6;
+  --foreground: #1A1614;
+  --color-brand: #C4142F;
+  --color-brand-hover: #8E0E22;
+  --color-ink: #1A1614;
+  --color-surface: #FFFFFF;
+  --wash2: rgba(26, 22, 20, 0.06);
+  --muted: rgba(26, 22, 20, 0.5);
+  --muted2: rgba(26, 22, 20, 0.35);
+  --ink2: rgba(26, 22, 20, 0.75);
 }
+
+/* Dark mode — toggled by [data-theme="dark"] on <html>, set client-side (lib/theme-toggle). */
+[data-theme="dark"] {
+  --background: #171412;
+  --foreground: #F2ECE4;
+  --color-ink: #F2ECE4;
+  --color-surface: #221E1B;
+  --wash2: rgba(255, 255, 255, 0.06);
+  --muted: rgba(255, 255, 255, 0.55);
+  --muted2: rgba(255, 255, 255, 0.38);
+  --ink2: rgba(255, 255, 255, 0.82);
+}
+[data-theme="dark"] .bg-white { background-color: var(--color-surface) !important; }
+[data-theme="dark"] [class*="border-black/"] { border-color: rgba(255, 255, 255, 0.12) !important; }
+[data-theme="dark"] [class*="bg-black/"] { background-color: rgba(255, 255, 255, 0.07) !important; }
+[data-theme="dark"] [class*="text-black/"] { color: rgba(255, 255, 255, 0.7) !important; }
+[data-theme="dark"] [class*="hover:bg-black/"]:hover { background-color: rgba(255, 255, 255, 0.1) !important; }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: var(--color-brand);
+  --color-brand-hover: var(--color-brand-hover);
+  --color-ink: var(--color-ink);
+  --color-surface: var(--color-surface);
+  --font-sans: var(--font-anuphan);
+  --font-display: var(--font-archivo);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes sweepShine {
+  0% { transform: translateX(-130%) skewX(-20deg); }
+  100% { transform: translateX(230%) skewX(-20deg); }
+}
+.sweep-shine {
+  position: relative;
+  overflow: hidden;
+}
+.sweep-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  animation: sweepShine 3s ease-in-out infinite;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-anuphan), Arial, Helvetica, sans-serif;
 }

@@ -199,7 +199,7 @@ export default async function OverviewPage() {
               >
                 <div className="h-[120px] relative" style={{ background: b.cover }}>
                   <span
-                    className="text-sm font-semibold px-3 py-1.5 rounded-full bg-white/90 absolute top-3 left-1/2 -translate-x-1/2"
+                    className="text-sm font-semibold px-3 py-1.5 rounded-full bg-white/90 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                     style={{ color: b.stColors.fg }}
                   >
                     {b.statusLabel}

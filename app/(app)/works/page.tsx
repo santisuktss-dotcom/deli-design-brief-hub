@@ -94,7 +94,7 @@ export default async function WorksPage({
             >
               <div className="h-[140px] relative flex items-end p-3" style={{ background: b.cover }}>
                 <span
-                  className="text-[11px] font-semibold px-2 py-1 rounded-full bg-white/90 absolute top-3 right-3"
+                  className="text-sm font-semibold px-3 py-1.5 rounded-full bg-white/90 absolute top-3 left-1/2 -translate-x-1/2"
                   style={{ color: b.stColors.fg }}
                 >
                   {b.statusLabel}

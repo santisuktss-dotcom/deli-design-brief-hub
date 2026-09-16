@@ -120,7 +120,9 @@ export function decorateBrief(
   viewer: { id: string; role: Role },
   lang: 'th' | 'en' = 'en'
 ) {
-  const gated = brief.status === 'Brief';
+  // Review is where an accepted-but-unassigned brief now sits (see accept_brief RPC),
+  // so the gate checklist (accepted / designer assigned) must stay visible through it too.
+  const gated = brief.status === 'Brief' || brief.status === 'Review';
   const isAccepted = gated ? brief.accepted : true;
   const started = isAccepted && designers.length > 0;
   const canAccept = viewer.role === 'manager' && !brief.accepted && brief.status === 'Brief';

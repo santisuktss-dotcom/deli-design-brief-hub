@@ -31,6 +31,43 @@ function isBlockedDate(dateStr: string, holidays: string[]): boolean {
 const inputClass =
   'border border-black/[.12] rounded-[10px] px-3 py-2 text-sm w-full outline-none focus:border-[var(--color-brand)]';
 
+// If the session drops mid-typing (expired token, network blip, a Netlify hiccup) the
+// modal unmounts and everything typed is gone. Autosaving text fields to localStorage as
+// the user types means reopening the form — even after being bounced to /login and back —
+// restores what they had, instead of forcing a full retype of a long brief.
+const DRAFT_KEY = 'deli:new-brief-draft';
+const DRAFT_FIELDS = ['title', 'requesterName', 'briefText', 'referenceLink', 'deliverable', 'channel'] as const;
+type Draft = Partial<Record<(typeof DRAFT_FIELDS)[number], string>>;
+
+function readDraft(): Draft {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveDraft(form: HTMLFormElement) {
+  try {
+    const fd = new FormData(form);
+    const draft: Draft = {};
+    for (const key of DRAFT_FIELDS) {
+      const v = fd.get(key);
+      if (v) draft[key] = String(v);
+    }
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  } catch {
+    // localStorage unavailable (private mode etc.) — draft saving is a nicety, not required
+  }
+}
+
+function clearDraft() {
+  try {
+    localStorage.removeItem(DRAFT_KEY);
+  } catch {}
+}
+
 export default function NewBriefButton({
   viewer,
   holidays,
@@ -48,9 +85,15 @@ export default function NewBriefButton({
   const [refImage, setRefImage] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [pending, startTransition] = useTransition();
+  const [draft, setDraftState] = useState<Draft>({});
   const t = lang === 'th' ? th : en;
 
   const isManager = viewer.role === 'manager';
+
+  function openModal() {
+    setDraftState(readDraft());
+    setOpen(true);
+  }
 
   function close() {
     setOpen(false);
@@ -108,6 +151,7 @@ export default function NewBriefButton({
       if ('error' in result) {
         setError(result.error);
       } else {
+        clearDraft();
         close();
       }
     });
@@ -116,7 +160,7 @@ export default function NewBriefButton({
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
+        onClick={openModal}
         className="sweep-shine rounded-full bg-[var(--color-brand)] text-white text-sm font-semibold px-4 py-2 hover:bg-[var(--color-brand-hover)] transition"
       >
         {label ?? t.newBrief}
@@ -136,9 +180,13 @@ export default function NewBriefButton({
               </button>
             </div>
 
-            <form action={handleSubmit} className="flex flex-col gap-3">
+            <form
+              action={handleSubmit}
+              onInput={(e) => saveDraft(e.currentTarget)}
+              className="flex flex-col gap-3"
+            >
               <Field label={t.fName}>
-                <input name="title" required className={inputClass} />
+                <input name="title" required defaultValue={draft.title} className={inputClass} />
               </Field>
 
               <Field label={t.fCat}>
@@ -153,16 +201,16 @@ export default function NewBriefButton({
 
               {isManager && (
                 <Field label={t.fReq}>
-                  <input name="requesterName" required className={inputClass} placeholder={t.reqNamePh} />
+                  <input name="requesterName" required defaultValue={draft.requesterName} className={inputClass} placeholder={t.reqNamePh} />
                 </Field>
               )}
 
               <Field label={t.fBrief}>
-                <textarea name="briefText" rows={3} className={`${inputClass} resize-none`} />
+                <textarea name="briefText" rows={3} defaultValue={draft.briefText} className={`${inputClass} resize-none`} />
               </Field>
 
               <Field label={t.fLink}>
-                <input name="referenceLink" type="url" placeholder={t.linkPh} className={inputClass} />
+                <input name="referenceLink" type="url" defaultValue={draft.referenceLink} placeholder={t.linkPh} className={inputClass} />
               </Field>
 
               <div className="flex flex-col gap-1.5">
@@ -190,10 +238,10 @@ export default function NewBriefButton({
 
               <div className="grid grid-cols-2 gap-3">
                 <Field label={t.fDeliv}>
-                  <input name="deliverable" placeholder={t.fDelivPh} className={inputClass} />
+                  <input name="deliverable" defaultValue={draft.deliverable} placeholder={t.fDelivPh} className={inputClass} />
                 </Field>
                 <Field label={t.fChannel}>
-                  <input name="channel" placeholder={t.fChannelPh} className={inputClass} />
+                  <input name="channel" defaultValue={draft.channel} placeholder={t.fChannelPh} className={inputClass} />
                 </Field>
                 <Field label={t.fAssets}>
                   <input name="assets" type="number" min={1} defaultValue={1} className={inputClass} />

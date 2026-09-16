@@ -148,7 +148,7 @@ export default async function OverviewPage() {
         <div className="flex flex-col gap-3">
           <div className="rounded-2xl border border-black/[.08] bg-white p-5 flex flex-col gap-4 sm:flex-row sm:items-center">
             <div
-              className="w-[130px] h-[130px] rounded-full shrink-0 mx-auto sm:mx-0"
+              className="w-1/2 aspect-square rounded-full shrink-0 mx-auto sm:mx-0"
               style={{ background: donutGradient }}
             />
             <div className="flex-1 flex flex-col gap-2">

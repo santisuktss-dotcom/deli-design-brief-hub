@@ -44,6 +44,7 @@ export default function DatePicker({
   label,
   defaultValue,
   holidays,
+  busyDates,
   required,
   onChange,
   lang = 'en',
@@ -52,6 +53,7 @@ export default function DatePicker({
   label?: string;
   defaultValue?: string;
   holidays: string[];
+  busyDates?: Record<string, string[]>;
   required?: boolean;
   onChange?: (iso: string) => void;
   lang?: Lang;
@@ -140,13 +142,14 @@ export default function DatePicker({
               const iso = toISO(date);
               const blocked = isBlocked(iso, holidays);
               const selected = iso === value;
+              const busy = busyDates?.[iso];
               return (
                 <button
                   key={iso}
                   type="button"
                   disabled={blocked}
                   onClick={() => pick(iso)}
-                  className={`aspect-square rounded-lg text-xs flex items-center justify-center transition ${
+                  className={`aspect-square rounded-lg text-xs flex flex-col items-center justify-center gap-0.5 transition ${
                     selected
                       ? 'bg-[var(--color-brand)] text-white font-semibold'
                       : blocked
@@ -156,7 +159,17 @@ export default function DatePicker({
                           : 'text-black/25 hover:bg-black/[.04]'
                   }`}
                 >
-                  {date.getDate()}
+                  <span>{date.getDate()}</span>
+                  {/* Dots show which teams/categories already have work on this day, so a
+                      requester picking a due date can see the design team's existing load —
+                      same category colors as the main work calendar. */}
+                  {!selected && busy && busy.length > 0 && (
+                    <span className="flex gap-0.5">
+                      {busy.slice(0, 3).map((color, i) => (
+                        <span key={i} className="w-1 h-1 rounded-full" style={{ background: color }} />
+                      ))}
+                    </span>
+                  )}
                 </button>
               );
             })}

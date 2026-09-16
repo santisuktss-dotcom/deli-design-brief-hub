@@ -71,11 +71,13 @@ function clearDraft() {
 export default function NewBriefButton({
   viewer,
   holidays,
+  busyDates,
   label,
   lang = 'en',
 }: {
   viewer: CurrentUser;
   holidays: string[];
+  busyDates?: Record<string, string[]>;
   label?: string;
   lang?: Lang;
 }) {
@@ -252,6 +254,7 @@ export default function NewBriefButton({
                 name="dueDate"
                 label={isManager ? t.fDue : t.deadlineOptionalLabel}
                 holidays={holidays}
+                busyDates={busyDates}
                 lang={lang}
               />
               {!isManager && <p className="text-xs text-[var(--muted)] -mt-2">{t.leaveBlankNote}</p>}

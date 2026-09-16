@@ -65,7 +65,7 @@ export default async function ProjectDetailPage({
   let holidays: string[] = [];
   if (viewer.role === 'manager') {
     const [{ data }, { data: holidayRows }] = await Promise.all([
-      supabase.from('profiles').select('id, name, nickname, initials').eq('role', 'designer'),
+      supabase.from('profiles').select('id, name, nickname, initials').in('role', ['designer', 'manager']),
       supabase.from('company_holidays').select('holiday_date'),
     ]);
     allDesigners = data ?? [];

@@ -109,6 +109,16 @@ export async function holdBrief(briefId: string): Promise<ActionResult> {
   return { ok: true };
 }
 
+export async function deleteBrief(briefId: string): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('delete_brief', { p_brief_id: briefId });
+  if (error) return { error: error.message };
+  revalidatePath('/');
+  revalidatePath('/works');
+  revalidatePath('/calendar');
+  return { ok: true };
+}
+
 export async function rescheduleBrief(briefId: string, dueDate: string): Promise<ActionResult> {
   const supabase = await createClient();
   const { error } = await supabase.rpc('reschedule_brief', { p_brief_id: briefId, p_due_date: dueDate });

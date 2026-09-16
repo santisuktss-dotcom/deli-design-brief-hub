@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   acceptBrief,
   assignDesigner,
@@ -11,6 +12,7 @@ import {
   holdBrief,
   addComment,
   rescheduleBrief,
+  deleteBrief,
 } from '@/lib/brief-actions';
 import type { Brief, DecoratedBrief } from '@/lib/workflow';
 import type { CurrentUser } from '@/lib/current-user';
@@ -50,12 +52,14 @@ export default function ProjectActions({
   holidays: string[];
   lang?: Lang;
 }) {
+  const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [assignOpen, setAssignOpen] = useState(false);
   const [submitOpen, setSubmitOpen] = useState(false);
   const [revisionOpen, setRevisionOpen] = useState(false);
   const [rescheduleOpen, setRescheduleOpen] = useState(false);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [newDueDate, setNewDueDate] = useState(brief.due_date ?? '');
   const [commentText, setCommentText] = useState('');
   const t = lang === 'th' ? th : en;
@@ -236,6 +240,42 @@ export default function ProjectActions({
           {t.postComment}
         </button>
       </div>
+
+      {viewer.role === 'manager' && (
+        <div className="rounded-2xl border border-black/[.08] bg-white p-5 flex flex-col gap-2">
+          {deleteConfirmOpen ? (
+            <>
+              <h2 className="font-semibold text-sm">{t.confirmDeleteTitle}</h2>
+              <p className="text-sm text-[var(--muted)]">{t.confirmDeleteBody}</p>
+              <div className="flex gap-2">
+                <button
+                  disabled={pending}
+                  onClick={() =>
+                    run(() => deleteBrief(brief.id), () => router.push('/works'))
+                  }
+                  className="flex-1 rounded-lg bg-[var(--color-brand)] text-white text-sm font-semibold py-2 disabled:opacity-60"
+                >
+                  {t.confirmDeleteBtn}
+                </button>
+                <button
+                  disabled={pending}
+                  onClick={() => setDeleteConfirmOpen(false)}
+                  className="flex-1 rounded-lg border border-black/10 text-sm font-semibold py-2"
+                >
+                  {t.cancel}
+                </button>
+              </div>
+            </>
+          ) : (
+            <button
+              onClick={() => setDeleteConfirmOpen(true)}
+              className="rounded-lg border border-[var(--color-brand)]/30 text-[var(--color-brand)] text-sm font-semibold py-2 hover:bg-[var(--color-brand)]/5"
+            >
+              {t.deleteProject}
+            </button>
+          )}
+        </div>
+      )}
 
       {assignOpen && (
         <Modal onClose={() => setAssignOpen(false)} title={t.assignModalTitle}>

@@ -18,6 +18,7 @@ export const en: Dict = {
   revisionTitle: 'Request revision', revisionSub: 'Describe what needs to change, and attach a reference image if useful', revisionPh: 'Describe the revision needed…', revisionImgLabel: 'Attach image (optional)', revisionSubmit: 'Send revision request', removeImg: 'Remove image',
   submitWorkTitle: 'Submit work', submitWorkSub: 'Attach a file link and/or preview image before sending it to the Creative & Design Manager', submitWorkLinkPh: 'https://drive.google.com/… or a file link', submitWorkImgLabel: 'Attach preview image (optional)', submitWorkConfirm: 'Confirm submit',
   approve: 'Approve', requestRev: 'Request revision', requestCancel: 'Request cancel', requestHold: 'Request hold', submitWorkBtn: 'Submit work', noFiles: 'No files yet — upload artwork to start round one',
+  deleteProject: 'Delete project', confirmDeleteTitle: 'Delete this project?', confirmDeleteBody: 'This permanently removes the brief and all its history, files, submissions and comments. This cannot be undone.', confirmDeleteBtn: 'Yes, delete it',
   assignOnlyOwner: 'Only the Creative & Design Manager can assign designers — ask the Design Lead to reassign',
   formTitle: 'Create a new brief', fName: 'Job title', fCat: 'Category', fAssign: 'Assign to',
   fStatus: 'Starting status', fStatusHint: "Job fell through the cracks and never got logged? Pick its real status and a backdated date here.",

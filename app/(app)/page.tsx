@@ -5,7 +5,7 @@ import { getDepartmentStatus } from '@/lib/department-actions';
 import { getLang } from '@/lib/lang';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
-import { ORDER, STATUS_NAME, STAGE_TXT, STATUS, CATS, VIOLET, decorateBrief, type Brief } from '@/lib/workflow';
+import { ORDER, STATUS_NAME, STAGE_TXT, STATUS, CATS, VIVID_STATUS_COLOR, decorateBrief, type Brief } from '@/lib/workflow';
 import DepartmentStatusWidget from '@/components/DepartmentStatusWidget';
 import MonthlyReportButton from '@/components/MonthlyReportButton';
 
@@ -16,15 +16,6 @@ const WF_ICON: Record<string, string> = {
   Revision: '/brand/wf-revision.png',
   Approved: '/brand/wf-approved.png',
   Completed: '/brand/wf-completed.png',
-};
-
-// Brief and Completed share near-identical grayscale `dot` colors in STATUS (both faint
-// ink tints) — washed-out and indistinguishable once blown up into a 64px icon, so give
-// the icon strip its own vivid, non-gray pair without touching the shared STATUS palette
-// used elsewhere (badges, chips).
-const WF_ICON_COLOR: Record<string, string> = {
-  Brief: VIOLET,
-  Completed: 'oklch(0.55 0.12 200)',
 };
 
 type BriefRow = Brief & {
@@ -123,7 +114,7 @@ export default async function OverviewPage() {
                 aria-hidden
                 className="w-16 h-16 mb-2"
                 style={{
-                  background: WF_ICON_COLOR[name] ?? STATUS[name].dot,
+                  background: VIVID_STATUS_COLOR[name] ?? STATUS[name].dot,
                   WebkitMaskImage: `url(${WF_ICON[name]})`,
                   WebkitMaskSize: 'contain',
                   WebkitMaskRepeat: 'no-repeat',

@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { createPortal } from 'react-dom';
 import { getMonthlyReport, resetMonth, type MonthlyReport } from '@/lib/report-actions';
-import { ORDER, STATUS_NAME, STATUS } from '@/lib/workflow';
+import { ORDER, STATUS_NAME, STATUS, VIVID_STATUS_COLOR } from '@/lib/workflow';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
 import type { Lang } from '@/lib/lang';
@@ -108,7 +108,7 @@ export default function MonthlyReportButton({ label, lang = 'en' }: { label?: st
                           <div className="flex-1 h-2.5 rounded-full bg-black/[.06] overflow-hidden">
                             <div
                               className="h-full rounded-full"
-                              style={{ width: `${(count / max) * 100}%`, background: STATUS[s].dot }}
+                              style={{ width: `${(count / max) * 100}%`, background: VIVID_STATUS_COLOR[s] ?? STATUS[s].dot }}
                             />
                           </div>
                           <span className="w-5 text-right font-medium tabular-nums">{count}</span>

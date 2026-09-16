@@ -25,6 +25,15 @@ export const STATUS: Record<BriefStatus, { bg: string; fg: string; dot: string; 
   OnHold:    { bg: 'oklch(0.92 0.045 70)', fg: 'oklch(0.45 0.1 60)', dot: 'oklch(0.62 0.1 60)', th: 'พักงานชั่วคราว' },
 };
 
+// STATUS[s].dot uses grayscale for Brief/Completed (matches the badge/chip look used
+// elsewhere), but some UI wants every status visually distinct instead of two shades of
+// gray blending together — the workflow icon strip and the monthly report bars share
+// this override for exactly that.
+export const VIVID_STATUS_COLOR: Partial<Record<BriefStatus, string>> = {
+  Brief: VIOLET,
+  Completed: 'oklch(0.55 0.12 200)',
+};
+
 export const STATUS_NAME: Record<'th' | 'en', Record<BriefStatus, string>> = {
   th: { Brief: 'รับบรีฟ', Review: 'ตรวจบรีฟ', Design: 'ออกแบบ', Revision: 'แก้ไข', Approved: 'อนุมัติ', Completed: 'เสร็จสิ้น', Cancelled: 'ยกเลิก', OnHold: 'พักงาน' },
   en: { Brief: 'Brief', Review: 'Review', Design: 'Design', Revision: 'Revision', Approved: 'Approved', Completed: 'Completed', Cancelled: 'Cancelled', OnHold: 'On Hold' },

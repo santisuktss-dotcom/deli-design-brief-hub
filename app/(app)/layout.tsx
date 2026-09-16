@@ -11,29 +11,32 @@ import NewBriefButton from '@/components/NewBriefButton';
 import NotificationBell from '@/components/NotificationBell';
 import NavLinks from '@/components/NavLinks';
 import HeaderControls from '@/components/HeaderControls';
+import { buildBusyDateColors } from '@/lib/calendar-events';
 
 export default async function AppLayout({ children }: LayoutProps<'/'>) {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
 
   const supabase = await createClient();
-  const [{ data: holidayRows }, { data: notifications }, lang] = await Promise.all([
+  const [{ data: holidayRows }, { data: notifications }, { data: briefRows }, lang] = await Promise.all([
     supabase.from('company_holidays').select('holiday_date'),
     supabase
       .from('notifications')
       .select('id, brief_id, type, message, read, created_at')
       .order('created_at', { ascending: false })
       .limit(20),
+    supabase.from('briefs').select('category, status, start_date, due_date'),
     getLang(),
   ]);
   const holidays = (holidayRows ?? []).map((h) => h.holiday_date);
+  const busyDates = buildBusyDateColors(briefRows ?? []);
   const t = lang === 'th' ? th : en;
 
   const displayName = user.nickname || user.name;
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-10 backdrop-blur-md bg-[var(--background)]/85 border-b border-black/[.06]">
+      <header className="sticky top-0 z-30 backdrop-blur-md bg-[var(--background)]/85 border-b border-black/[.06]">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-4 flex-1 min-w-0">
             <Link href="/" className="flex items-center gap-3 shrink-0">
@@ -48,7 +51,7 @@ export default async function AppLayout({ children }: LayoutProps<'/'>) {
           </div>
           <div className="flex items-center gap-3 flex-1 min-w-0 justify-end flex-wrap">
             <HeaderControls lang={lang} />
-            <NewBriefButton viewer={user} holidays={holidays} label={t.newBrief} lang={lang} />
+            <NewBriefButton viewer={user} holidays={holidays} busyDates={busyDates} label={t.newBrief} lang={lang} />
             <NotificationBell notifications={notifications ?? []} lang={lang} />
             <div className="text-sm text-[var(--ink2)] truncate max-w-[220px]">
               {displayName}

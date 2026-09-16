@@ -60,7 +60,7 @@ export const en: Dict = {
   setDeadlineBtn: 'Set deadline',
   rescheduleBtn: 'Reschedule',
   saveDeadlineBtn: 'Save deadline',
-  leaveBlankNote: 'Leave blank and the Creative & Design Manager will set the deadline.',
+  leaveBlankNote: 'If not specified, the Creative & Design Manager will set the deadline.',
   deadlineOptionalLabel: 'Deadline (optional)',
   noProjectsInCat: 'No projects in this category yet.',
   noHistoryYet: 'No history yet.',

@@ -43,5 +43,17 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  return supabaseResponse;
+  // Forward the already-verified user id to Server Components/Actions via a trusted
+  // header, so getCurrentUser() doesn't need its own separate auth.getUser() round-trip
+  // to Supabase on every single page load and button click — that redundant call is
+  // exactly what piles up when several people are active at once. Always strip any
+  // client-supplied value first so this can never be spoofed; only our own verified
+  // `user` can set it.
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.delete('x-user-id');
+  if (user) requestHeaders.set('x-user-id', user.id);
+
+  const finalResponse = NextResponse.next({ request: { headers: requestHeaders } });
+  supabaseResponse.cookies.getAll().forEach((cookie) => finalResponse.cookies.set(cookie));
+  return finalResponse;
 }

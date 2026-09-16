@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import { headers } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 import type { Role } from '@/lib/workflow';
 
@@ -17,15 +18,24 @@ export type CurrentUser = {
 // pages at once. cache() memoizes the result per request so both callers share one call.
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return null;
+
+  // proxy.ts already ran auth.getUser() for this exact request and forwards the verified
+  // id via this trusted header (never client-settable — proxy always strips it first) —
+  // reuse it instead of paying for a second identical Auth API round-trip here. Falls
+  // back to a real check only if the header is somehow missing.
+  let userId = (await headers()).get('x-user-id');
+  if (!userId) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    userId = user?.id ?? null;
+  }
+  if (!userId) return null;
 
   const { data: profile } = await supabase
     .from('profiles')
     .select('id, email, role, name, nickname, initials')
-    .eq('id', user.id)
+    .eq('id', userId)
     .single();
 
   if (!profile) return null;

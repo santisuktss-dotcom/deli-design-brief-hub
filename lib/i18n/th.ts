@@ -20,7 +20,7 @@ export const th = {
   assignOnlyOwner: 'มอบหมายดีไซเนอร์ได้เฉพาะเจ้าของงาน — แจ้ง Design Lead เพื่อเปลี่ยนผู้รับงาน',
   formTitle: 'สร้างบรีฟงานใหม่', fName: 'ชื่องาน', fCat: 'ประเภทงาน', fAssign: 'มอบหมายให้',
   fStatus: 'สถานะเริ่มต้น', fStatusHint: 'งานตกหล่น ยังไม่ได้เข้าระบบ? เลือกสถานะจริงและวันที่ย้อนหลังได้ที่นี่',
-  fReq: 'ผู้บรีฟ · Requested by', fEmail: 'อีเมลผู้บรีฟ', fEmailHint: 'สร้างบรีฟแทนแผนกอื่น? กรอกอีเมลจริงของผู้ขอ เพื่อให้เขาเห็นงานนี้ในบัญชีของตัวเอง', fStart: 'วัน-เวลาที่บรีฟ', reschedule: 'Creative & Design Manager: เลื่อนวันส่งงาน', fDue: 'กำหนดส่ง', fDeliv: 'สิ่งที่ต้องส่ง', fBrief: 'รายละเอียดบรีฟ',
+  fReq: 'ผู้บรีฟ · Requested by', reqNamePh: 'เช่น Curry Product', fEmail: 'อีเมลผู้บรีฟ', fEmailHint: 'สร้างบรีฟแทนแผนกอื่น? กรอกอีเมลจริงของผู้ขอ เพื่อให้เขาเห็นงานนี้ในบัญชีของตัวเอง', fStart: 'วัน-เวลาที่บรีฟ', reschedule: 'Creative & Design Manager: เลื่อนวันส่งงาน', fDue: 'กำหนดส่ง', fDeliv: 'สิ่งที่ต้องส่ง', fBrief: 'รายละเอียดบรีฟ',
   cancel: 'ยกเลิก', submit: 'ส่งบรีฟ', pickDate: 'เลือกวันที่', errName: 'กรุณากรอกชื่องานและชื่อผู้บรีฟก่อนส่งบรีฟ',
   formFoot: 'บรีฟใหม่จะเข้าคิวรอ Creative & Design Manager กดรับบรีฟและมอบหมายงาน', toastSent: 'บรีฟถูกส่งเรียบร้อย โปรดรอ Creative & Design Manager กดรับ และดำเนินการ', workdays: 'วันทำงาน',
   assignLabel: 'มอบหมายดีไซเนอร์ · เจ้าของงานเท่านั้น', assignMax: 'เลือกได้พร้อมกันทั้ง 3 คน · Manager 20% · Designer A/B คนละ 40%',

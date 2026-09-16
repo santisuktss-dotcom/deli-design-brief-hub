@@ -153,7 +153,7 @@ export default function NewBriefButton({
 
               {isManager && (
                 <Field label={t.fReq}>
-                  <input name="requesterName" required className={inputClass} placeholder={t.fReq} />
+                  <input name="requesterName" required className={inputClass} placeholder={t.reqNamePh} />
                 </Field>
               )}
 

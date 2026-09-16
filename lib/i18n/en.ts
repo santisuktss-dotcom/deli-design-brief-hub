@@ -22,7 +22,7 @@ export const en: Dict = {
   assignOnlyOwner: 'Only the Creative & Design Manager can assign designers — ask the Design Lead to reassign',
   formTitle: 'Create a new brief', fName: 'Job title', fCat: 'Category', fAssign: 'Assign to',
   fStatus: 'Starting status', fStatusHint: "Job fell through the cracks and never got logged? Pick its real status and a backdated date here.",
-  fReq: 'Requested by', fEmail: 'Requester email', fEmailHint: 'Briefing on behalf of another department? Enter their real email so they can see this job in their own account.', fStart: 'Briefed at', reschedule: 'Creative & Design Manager: move deadline', fDue: 'Deadline', fDeliv: 'Deliverable', fBrief: 'Brief details',
+  fReq: 'Requested by', reqNamePh: 'e.g. Curry Product', fEmail: 'Requester email', fEmailHint: 'Briefing on behalf of another department? Enter their real email so they can see this job in their own account.', fStart: 'Briefed at', reschedule: 'Creative & Design Manager: move deadline', fDue: 'Deadline', fDeliv: 'Deliverable', fBrief: 'Brief details',
   cancel: 'Cancel', submit: 'Send brief', pickDate: 'Pick a date', errName: 'Add a job title and requester name before sending',
   formFoot: 'New briefs queue up until the Creative & Design Manager accepts and assigns them', toastSent: 'Brief sent. Waiting for the Creative & Design Manager to accept and proceed.', workdays: 'working days',
   assignLabel: 'Assign designers · owner only', assignMax: 'All 3 can be assigned together · manager 20% · designers 40% each',

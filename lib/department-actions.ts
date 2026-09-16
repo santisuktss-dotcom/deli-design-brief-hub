@@ -1,7 +1,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export type DeptStatus = 'open' | 'busy' | 'over';
 
@@ -16,5 +16,6 @@ export async function setDepartmentStatus(status: DeptStatus): Promise<{ ok: tru
   const { error } = await supabase.rpc('set_department_status', { p_status: status });
   if (error) return { error: error.message };
   revalidatePath('/', 'layout');
+  revalidateTag('dept-status', { expire: 0 });
   return { ok: true };
 }

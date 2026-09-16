@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { createClient } from '@/lib/supabase/server';
 import type { Role } from '@/lib/workflow';
 
@@ -10,7 +11,11 @@ export type CurrentUser = {
   initials: string;
 };
 
-export async function getCurrentUser(): Promise<CurrentUser | null> {
+// Both the (app) layout and every page under it call getCurrentUser() — without this,
+// that's 2x the auth.getUser() + profile round-trips to Supabase per page view, which is
+// exactly what saturates a small project's Auth/DB connections when several people load
+// pages at once. cache() memoizes the result per request so both callers share one call.
+export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
   const supabase = await createClient();
   const {
     data: { user },
@@ -25,4 +30,4 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 
   if (!profile) return null;
   return profile as CurrentUser;
-}
+});

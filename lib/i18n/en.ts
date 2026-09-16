@@ -7,7 +7,7 @@ export const en: Dict = {
   othersNote: 'Others Department · can brief & approve · cannot assign',
   heroBody: 'One place for every design job — from incoming brief through review, revision and sign-off, with live status and team workload.',
   ctaAll: 'Browse all work',
-  statAll: 'Total jobs', statDesign: 'In design', statReview: 'In review', statLate: 'Overdue',
+  statAll: 'Total projects', statDesign: 'In design', statReview: 'In review', statLate: 'Overdue',
   wfTitle: 'Workflow', wfSub: 'The standard six-step flow',
   jobs: 'Jobs', assets: 'Artworks', jobsUnit: 'jobs', projUnit: 'projects', assetsOf: 'assets done',
   deptTitle: 'Department Status', deptSub: 'Combined · manager 20% + designers 40% each',

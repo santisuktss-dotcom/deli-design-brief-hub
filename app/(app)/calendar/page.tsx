@@ -4,7 +4,7 @@ import { getCurrentUser } from '@/lib/current-user';
 import { getLang } from '@/lib/lang';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
-import { CATS, type Brief } from '@/lib/workflow';
+import { CATS, LIGHT_TONE, PINK_INK, type Brief } from '@/lib/workflow';
 
 const DOW_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 const DOW_TH = ['จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.'];
@@ -63,20 +63,35 @@ export default async function CalendarPage({
   const rangeStart = toISO(days[0]);
   const rangeEnd = toISO(days[days.length - 1]);
 
+  // Fetched unfiltered (this is a small internal team's dataset) rather than trying to
+  // express "date range overlaps the visible month" as a PostgREST .or() string — that
+  // filter also has to catch a brief whose start/due span the whole visible month without
+  // either endpoint falling inside it, which the previous exact-match version missed.
   const supabase = await createClient();
   const { data: rows } = await supabase
     .from('briefs')
     .select('id, code, title, category, status, start_date, due_date')
-    .or(`and(due_date.gte.${rangeStart},due_date.lte.${rangeEnd}),and(start_date.gte.${rangeStart},start_date.lte.${rangeEnd})`)
+    .neq('status', 'Cancelled')
     .returns<Pick<Brief, 'id' | 'code' | 'title' | 'category' | 'status' | 'start_date' | 'due_date'>[]>();
 
-  const byDate: Record<string, { kind: 'Start' | 'Due'; brief: (typeof rows extends (infer T)[] | null ? T : never) }[]> = {};
+  type CalEvent = { kind: 'Start' | 'Due' | 'InProgress'; brief: NonNullable<typeof rows>[number] };
+  const byDate: Record<string, CalEvent[]> = {};
   for (const b of rows ?? []) {
     if (b.start_date && b.start_date >= rangeStart && b.start_date <= rangeEnd) {
       (byDate[b.start_date] ??= []).push({ kind: 'Start', brief: b });
     }
     if (b.due_date && b.due_date >= rangeStart && b.due_date <= rangeEnd) {
       (byDate[b.due_date] ??= []).push({ kind: 'Due', brief: b });
+    }
+    // Days strictly between start and due for a brief still being designed would
+    // otherwise sit empty even though work is actively happening that day.
+    if (b.status === 'Design' && b.start_date && b.due_date && b.due_date > b.start_date) {
+      for (const d of days) {
+        const iso = toISO(d);
+        if (iso > b.start_date && iso < b.due_date) {
+          (byDate[iso] ??= []).push({ kind: 'InProgress', brief: b });
+        }
+      }
     }
   }
 
@@ -96,12 +111,15 @@ export default async function CalendarPage({
         <p className="text-sm text-[var(--muted)]">{t.calSub}</p>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 flex-wrap justify-center">
         <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
           <span className="w-3 h-3 rounded border-2 border-black/30" /> {t.calStart}
         </span>
         <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
           <span className="w-3 h-3 rounded bg-black/30" /> {t.calDue}
+        </span>
+        <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
+          <span className="w-3 h-3 rounded" style={{ background: LIGHT_TONE.red }} /> {t.calInProgress}
         </span>
       </div>
 
@@ -146,27 +164,33 @@ export default async function CalendarPage({
                 <span className={`text-xs font-medium ${inMonth ? 'text-[var(--ink2)]' : 'text-[var(--muted2)]'}`}>
                   {d.getDate()}
                 </span>
-                {visible.map((e, i) => (
-                  <Link
-                    key={`${e.brief.id}-${e.kind}-${i}`}
-                    href={`/projects/${e.brief.id}`}
-                    className="rounded-lg px-1.5 py-1 flex flex-col gap-0.5 hover:brightness-95 transition"
-                    style={{
-                      background: catLight(e.brief.category),
-                      border: e.kind === 'Start' ? `1.5px solid ${catColor(e.brief.category)}` : undefined,
-                    }}
-                  >
-                    <span className="text-[9px] opacity-75" style={{ color: catInk(e.brief.category) }}>
-                      {e.kind === 'Start' ? t.calStart : t.calDue} · {e.brief.code}
-                    </span>
-                    <span
-                      className="text-[10.5px] font-semibold leading-snug truncate"
-                      style={{ color: catInk(e.brief.category) }}
+                {visible.map((e, i) => {
+                  // InProgress is colored by the Design status (red), not category — it
+                  // marks "this day, this brief is being worked on", separate from the
+                  // category-colored Start/Due markers.
+                  const bg = e.kind === 'InProgress' ? LIGHT_TONE.red : catLight(e.brief.category);
+                  const ink = e.kind === 'InProgress' ? PINK_INK.red : catInk(e.brief.category);
+                  const kindLabel =
+                    e.kind === 'Start' ? t.calStart : e.kind === 'Due' ? t.calDue : t.calInProgress;
+                  return (
+                    <Link
+                      key={`${e.brief.id}-${e.kind}-${i}`}
+                      href={`/projects/${e.brief.id}`}
+                      className="rounded-lg px-1.5 py-1 flex flex-col gap-0.5 hover:brightness-95 transition"
+                      style={{
+                        background: bg,
+                        border: e.kind === 'Start' ? `1.5px solid ${catColor(e.brief.category)}` : undefined,
+                      }}
                     >
-                      {e.brief.title}
-                    </span>
-                  </Link>
-                ))}
+                      <span className="text-[9px] opacity-75" style={{ color: ink }}>
+                        {kindLabel} · {e.brief.code}
+                      </span>
+                      <span className="text-[10.5px] font-semibold leading-snug truncate" style={{ color: ink }}>
+                        {e.brief.title}
+                      </span>
+                    </Link>
+                  );
+                })}
                 {overflow > 0 && (
                   <span className="text-[10px] text-[var(--muted)] px-1">
                     +{overflow} {t.moreLabel}

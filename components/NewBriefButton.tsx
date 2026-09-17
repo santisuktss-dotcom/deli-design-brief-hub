@@ -145,7 +145,7 @@ export default function NewBriefButton({
         round: formData.get('round') ? Number(formData.get('round')) : null,
         assets: formData.get('assets') ? Number(formData.get('assets')) : 1,
         dueDate,
-        requesterName: isManager ? requesterName : undefined,
+        requesterName: requesterName || undefined,
         requesterEmail: isManager ? String(formData.get('requesterEmail') ?? '').trim() || undefined : undefined,
         referenceLink: referenceLink || undefined,
         referenceImageUrl: referenceImageUrl || undefined,
@@ -201,11 +201,15 @@ export default function NewBriefButton({
                 </select>
               </Field>
 
-              {isManager && (
-                <Field label={t.fReq}>
-                  <input name="requesterName" required defaultValue={draft.requesterName} className={inputClass} placeholder={t.reqNamePh} />
-                </Field>
-              )}
+              <Field label={t.fReq}>
+                <input
+                  name="requesterName"
+                  required={isManager}
+                  defaultValue={draft.requesterName ?? (isManager ? undefined : viewer.nickname || viewer.name)}
+                  className={inputClass}
+                  placeholder={t.reqNamePh}
+                />
+              </Field>
 
               <Field label={t.fBrief}>
                 <textarea name="briefText" rows={3} defaultValue={draft.briefText} className={`${inputClass} resize-none`} />

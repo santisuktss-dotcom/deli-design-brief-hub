@@ -4,8 +4,10 @@
 -- set/agreed, unaffected by that internal re-planning. This adds original_due_date: set
 -- once at creation, updated only when the requester themselves deliberately pushes their
 -- own deadline later (update_brief_scope), and left untouched by reschedule_brief.
-alter table public.briefs add column original_due_date date;
-update public.briefs set original_due_date = due_date;
+alter table public.briefs add column if not exists original_due_date date;
+-- Only backfill rows that don't have it yet — never overwrite an already-frozen date with
+-- today's (possibly manager/designer-rescheduled) due_date if this script is re-run.
+update public.briefs set original_due_date = due_date where original_due_date is null;
 
 create or replace function public.create_brief(
   p_title text, p_category brief_category, p_brief_text text, p_deliverable text,

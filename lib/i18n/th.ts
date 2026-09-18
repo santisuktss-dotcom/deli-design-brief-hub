@@ -15,7 +15,7 @@ export const th = {
   commentsLabel: 'คอมเมนต์', commentPh: 'แสดงความคิดเห็น…', postComment: 'ส่ง', noComments: 'ยังไม่มีคอมเมนต์',
   revisionTitle: 'ขอแก้ไขงาน', revisionSub: 'อธิบายสิ่งที่ต้องแก้ พร้อมแนบภาพประกอบได้', revisionPh: 'พิมพ์รายละเอียดที่ต้องการแก้ไข…', revisionImgLabel: 'แนบภาพ (ไม่บังคับ)', revisionSubmit: 'ส่งคำขอแก้ไข', removeImg: 'ลบภาพ',
   submitWorkTitle: 'ส่งงาน', submitWorkSub: 'แนบลิงก์ไฟล์งานและ/หรือรูปตัวอย่างก่อนส่งให้ Creative & Design Manager ตรวจ', submitWorkLinkPh: 'https://drive.google.com/… หรือลิงก์ไฟล์งาน', submitWorkImgLabel: 'แนบรูปตัวอย่างงาน (ไม่บังคับ)', submitWorkConfirm: 'ยืนยันส่งงาน',
-  approve: 'อนุมัติงาน', requestRev: 'ขอแก้ไข', requestCancel: 'ขอยกเลิกงาน', requestHold: 'ขอพักงาน', submitWorkBtn: 'ส่งงาน · Submit work', noFiles: 'ยังไม่มีไฟล์แนบ — อัปโหลดไฟล์งานเพื่อเริ่มรอบแรก',
+  approve: 'อนุมัติงาน', reviewApprove: 'ตรวจงาน & ส่งให้ผู้บรีฟยืนยัน · Review & send to requester', requestRev: 'ขอแก้ไข', requestCancel: 'ขอยกเลิกงาน', requestHold: 'ขอพักงาน', submitWorkBtn: 'ส่งงาน · Submit work', noFiles: 'ยังไม่มีไฟล์แนบ — อัปโหลดไฟล์งานเพื่อเริ่มรอบแรก',
   deleteProject: 'ลบโปรเจกต์ · Delete project', confirmDeleteTitle: 'ลบโปรเจกต์นี้ใช่ไหม?', confirmDeleteBody: 'การลบจะเอาบรีฟนี้ออกถาวร รวมถึงประวัติ ไฟล์ งานที่ส่ง และคอมเมนต์ทั้งหมด — กู้คืนไม่ได้', confirmDeleteBtn: 'ใช่ ลบเลย',
   assignOnlyOwner: 'มอบหมายดีไซเนอร์ได้เฉพาะเจ้าของงาน — แจ้ง Design Lead เพื่อเปลี่ยนผู้รับงาน',
   formTitle: 'สร้างบรีฟงานใหม่', fName: 'ชื่องาน', fCat: 'ประเภทงาน', fAssign: 'มอบหมายให้',

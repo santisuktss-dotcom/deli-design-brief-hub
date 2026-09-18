@@ -70,13 +70,21 @@ export default function ProjectActions({
   const t = lang === 'th' ? th : en;
 
   const isAssignedDesigner = viewer.role === 'designer' && currentDesignerIds.includes(viewer.id);
-  const isApproverRole = viewer.role === 'manager' || deco.isMine;
+  // Submitted work goes to the manager's own review first — the requester isn't shown
+  // Approve/Request revision until the manager has moved it to 'Approved' (or it's back to
+  // 'Completed', the reopen-after-done case the manager can always do regardless).
+  const managerReviewed = brief.status === 'Approved' || brief.status === 'Completed';
+  const isApproverRole = viewer.role === 'manager' || (deco.isMine && managerReviewed);
   // Re-approving an already-completed brief is a no-op that just spams duplicate
   // history/notifications (the bug this used to have), so block it once Completed.
   // Request revision has no such issue and should stay available even afterwards —
   // it's the intended way to reopen a completed job for further changes.
   const canApprove = hasSubmission && isApproverRole && brief.status !== 'Completed';
   const canRequestRevision = hasSubmission && isApproverRole;
+  // The manager's first click (before the requester ever sees this) reviews and forwards
+  // to the requester rather than finishing the job outright — different label so it's
+  // clear this isn't the final sign-off yet.
+  const isManagerFirstReview = viewer.role === 'manager' && brief.status !== 'Approved' && brief.status !== 'Completed';
   const canApproveOrRevise = canApprove || canRequestRevision;
   const canSubmitWork = viewer.role === 'manager' || isAssignedDesigner;
 
@@ -280,7 +288,7 @@ export default function ProjectActions({
               onClick={() => run(() => approveBrief(brief.id))}
               className="rounded-lg bg-[var(--color-brand)] text-white text-sm font-semibold py-2 disabled:opacity-60"
             >
-              {t.approve}
+              {isManagerFirstReview ? t.reviewApprove : t.approve}
             </button>
           )}
           {canRequestRevision && (

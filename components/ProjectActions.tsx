@@ -14,6 +14,7 @@ import {
   rescheduleBrief,
   deleteBrief,
   updateBriefScope,
+  unassignDesigner,
 } from '@/lib/brief-actions';
 import type { Brief, DecoratedBrief } from '@/lib/workflow';
 import type { CurrentUser } from '@/lib/current-user';
@@ -358,7 +359,9 @@ export default function ProjectActions({
                 <button
                   key={d.id}
                   disabled={pending}
-                  onClick={() => run(() => assignDesigner(brief.id, d.id))}
+                  onClick={() =>
+                    run(() => (active ? unassignDesigner(brief.id, d.id) : assignDesigner(brief.id, d.id)))
+                  }
                   className={`flex items-center justify-between rounded-lg border px-3 py-2 text-sm ${
                     active ? 'border-[var(--color-brand)] bg-[var(--color-brand)]/5' : 'border-black/10'
                   }`}

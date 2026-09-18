@@ -61,6 +61,16 @@ export async function assignDesigner(briefId: string, designerId: string): Promi
   return { ok: true };
 }
 
+export async function unassignDesigner(briefId: string, designerId: string): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('unassign_designer', { p_brief_id: briefId, p_designer_id: designerId });
+  if (error) return { error: error.message };
+  revalidatePath(`/projects/${briefId}`);
+  revalidatePath('/');
+  revalidatePath('/works');
+  return { ok: true };
+}
+
 export async function submitWork(briefId: string, link: string, imageUrl: string | null): Promise<ActionResult> {
   const supabase = await createClient();
   const { error } = await supabase.rpc('submit_work', { p_brief_id: briefId, p_link: link || null, p_image_url: imageUrl });

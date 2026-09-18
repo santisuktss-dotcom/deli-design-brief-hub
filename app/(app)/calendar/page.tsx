@@ -69,9 +69,11 @@ export default async function CalendarPage({
   const [{ data: rows }, { data: assignmentRows }] = await Promise.all([
     supabase
       .from('briefs')
-      .select('id, code, title, category, status, start_date, due_date')
+      .select('id, code, title, category, status, start_date, due_date, original_due_date')
       .neq('status', 'Cancelled')
-      .returns<Pick<Brief, 'id' | 'code' | 'title' | 'category' | 'status' | 'start_date' | 'due_date'>[]>(),
+      .returns<
+        Pick<Brief, 'id' | 'code' | 'title' | 'category' | 'status' | 'start_date' | 'due_date' | 'original_due_date'>[]
+      >(),
     // Only needed to know which "Due" chips a designer viewer is allowed to drag —
     // skipped for manager/requester, who don't need it (manager can drag everything).
     viewer.role === 'designer'
@@ -88,20 +90,24 @@ export default async function CalendarPage({
       : (assignmentRows ?? []).map((a) => a.brief_id)
   );
 
+  // A requester ("Other Department") always sees the deadline frozen at whatever was
+  // originally agreed, never the manager/designer's internal drag-to-reschedule working
+  // date — see reschedule_brief (0031) vs original_due_date (0033).
   const byDate: Record<string, CalEvent[]> = {};
   for (const b of rows ?? []) {
+    const dueIso = viewer.role === 'requester' ? b.original_due_date : b.due_date;
     if (b.start_date && b.start_date >= rangeStart && b.start_date <= rangeEnd) {
       (byDate[b.start_date] ??= []).push({ kind: 'Start', brief: b });
     }
-    if (b.due_date && b.due_date >= rangeStart && b.due_date <= rangeEnd) {
-      (byDate[b.due_date] ??= []).push({ kind: 'Due', brief: b });
+    if (dueIso && dueIso >= rangeStart && dueIso <= rangeEnd) {
+      (byDate[dueIso] ??= []).push({ kind: 'Due', brief: b });
     }
     // Days strictly between start and due for a brief still being designed would
     // otherwise sit empty even though work is actively happening that day.
-    if (b.status === 'Design' && b.start_date && b.due_date && b.due_date > b.start_date) {
+    if (b.status === 'Design' && b.start_date && dueIso && dueIso > b.start_date) {
       for (const d of days) {
         const iso = toISO(d);
-        if (iso > b.start_date && iso < b.due_date) {
+        if (iso > b.start_date && iso < dueIso) {
           (byDate[iso] ??= []).push({ kind: 'InProgress', brief: b });
         }
       }

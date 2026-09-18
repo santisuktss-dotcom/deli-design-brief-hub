@@ -112,6 +112,7 @@ export type Brief = {
   assets_done: number;
   start_date: string | null;
   due_date: string | null;
+  original_due_date: string | null;
   delivery_timing: 'early' | 'ontime' | 'late' | null;
   accepted: boolean;
   accepted_at: string | null;
@@ -139,11 +140,18 @@ export function decorateBrief(
   const isMine = viewer.role === 'requester' && brief.requester_id === viewer.id;
   const canCancelHold = isMine && gated && !brief.accepted;
   const cat = CATS.find((c) => c.name === brief.category);
+  // The manager/designer can drag "Due" around the calendar for their own internal
+  // re-planning (reschedule_brief) without that ever moving the deadline the requester
+  // was originally told — a requester always sees original_due_date, frozen since
+  // creation (or their own deliberate update_brief_scope push), never the working date.
+  const displayDueDate = viewer.role === 'requester' ? brief.original_due_date : brief.due_date;
+  // "Late" styling follows whichever date this viewer actually sees, so a requester's
+  // red/muted color always matches the frozen date shown next to it.
   const late =
-    !!brief.due_date &&
+    !!displayDueDate &&
     brief.status !== 'Completed' &&
     brief.status !== 'Cancelled' &&
-    new Date(brief.due_date) < new Date();
+    new Date(displayDueDate) < new Date();
 
   return {
     ...brief,
@@ -160,6 +168,7 @@ export function decorateBrief(
     canAssign,
     canCancelHold,
     isMine,
+    displayDueDate,
     designers,
     designerLabel: designers.length
       ? designers.map((d) => d.nickname || d.name).join(' + ')

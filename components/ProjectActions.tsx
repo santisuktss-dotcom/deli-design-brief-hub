@@ -146,7 +146,7 @@ export default function ProjectActions({
             )}
           </div>
         ) : (
-          <MetaRow label={t.fDue} value={brief.due_date ?? t.notSetYet} />
+          <MetaRow label={t.fDue} value={deco.displayDueDate ?? t.notSetYet} />
         )}
 
         <MetaRow label={t.fReq} value={brief.requester_name} />

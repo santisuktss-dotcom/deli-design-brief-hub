@@ -31,7 +31,13 @@ export default function NotificationBell({
   return (
     <div className="relative">
       <button
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          setOpen((v) => {
+            const next = !v;
+            if (next && unreadCount > 0) startTransition(() => markAllNotificationsRead());
+            return next;
+          });
+        }}
         className="relative w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-black/[.04] transition"
         aria-label="Notifications"
       >

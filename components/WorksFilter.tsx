@@ -81,7 +81,7 @@ export default function WorksFilter({ briefs, lang = 'en' }: { briefs: Decorated
                 <div className="flex items-center justify-between pt-1 text-xs">
                   <span>{b.designerLabel}</span>
                   <span className={b.late ? 'text-[var(--color-brand)]' : 'text-[var(--muted)]'}>
-                    {b.due_date ?? t.noDeadlineYet}
+                    {b.displayDueDate ?? t.noDeadlineYet}
                   </span>
                 </div>
               </div>

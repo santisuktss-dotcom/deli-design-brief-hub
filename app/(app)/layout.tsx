@@ -13,7 +13,7 @@ import NavLinks from '@/components/NavLinks';
 import HeaderControls from '@/components/HeaderControls';
 import { buildBusyDateColors } from '@/lib/calendar-events';
 
-export default async function AppLayout({ children }: LayoutProps<'/'>) {
+export default async function AppLayout({ children, modal }: LayoutProps<'/'>) {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
 
@@ -68,6 +68,7 @@ export default async function AppLayout({ children }: LayoutProps<'/'>) {
         </div>
       </header>
       <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-8">{children}</main>
+      {modal}
     </div>
   );
 }

@@ -13,6 +13,7 @@ import {
   addComment,
   rescheduleBrief,
   deleteBrief,
+  updateBriefScope,
 } from '@/lib/brief-actions';
 import type { Brief, DecoratedBrief } from '@/lib/workflow';
 import type { CurrentUser } from '@/lib/current-user';
@@ -61,6 +62,9 @@ export default function ProjectActions({
   const [rescheduleOpen, setRescheduleOpen] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [newDueDate, setNewDueDate] = useState(brief.due_date ?? '');
+  const [editScopeOpen, setEditScopeOpen] = useState(false);
+  const [scopeDueDate, setScopeDueDate] = useState(brief.due_date ?? '');
+  const [scopeAssets, setScopeAssets] = useState(brief.assets);
   const [commentText, setCommentText] = useState('');
   const t = lang === 'th' ? th : en;
 
@@ -138,7 +142,75 @@ export default function ProjectActions({
 
         <MetaRow label={t.fReq} value={brief.requester_name} />
         <MetaRow label={t.assignedToLabel} value={deco.designerLabel} />
+        <MetaRow label={t.fAssets} value={String(brief.assets)} />
       </div>
+
+      {deco.isMine && !['Completed', 'Cancelled'].includes(brief.status) && (
+        <div className="rounded-2xl border border-black/[.08] bg-white p-5 flex flex-col gap-3">
+          <h2 className="font-semibold text-sm">{t.editScopeTitle}</h2>
+          {!editScopeOpen ? (
+            <button
+              onClick={() => {
+                setScopeDueDate(brief.due_date ?? '');
+                setScopeAssets(brief.assets);
+                setEditScopeOpen(true);
+              }}
+              className="rounded-lg border border-black/10 text-sm font-semibold py-2"
+            >
+              {t.editScopeBtn}
+            </button>
+          ) : (
+            <div className="flex flex-col gap-3">
+              <label className="flex flex-col gap-1 text-sm">
+                <span className="text-xs text-[var(--muted)]">{t.fAssets}</span>
+                <input
+                  type="number"
+                  min={1}
+                  value={scopeAssets}
+                  onChange={(e) => setScopeAssets(Math.max(1, Number(e.target.value) || 1))}
+                  className="border border-black/[.12] rounded-[10px] px-3 py-2 text-sm w-full outline-none focus:border-[var(--color-brand)]"
+                />
+              </label>
+              <DatePicker
+                name="scopeDueDate"
+                label={t.fDue}
+                defaultValue={brief.due_date ?? undefined}
+                holidays={holidays}
+                onChange={setScopeDueDate}
+                lang={lang}
+                key={brief.due_date}
+              />
+              <p className="text-xs text-[var(--muted)]">{t.editScopeHint}</p>
+              <div className="flex gap-2">
+                <button
+                  disabled={pending}
+                  onClick={() =>
+                    run(
+                      () =>
+                        updateBriefScope(
+                          brief.id,
+                          scopeDueDate || null,
+                          scopeAssets !== brief.assets ? scopeAssets : null
+                        ),
+                      () => setEditScopeOpen(false)
+                    )
+                  }
+                  className="flex-1 rounded-lg bg-[var(--color-brand)] text-white text-sm font-semibold py-2 disabled:opacity-60"
+                >
+                  {t.saveChangesBtn}
+                </button>
+                <button
+                  disabled={pending}
+                  onClick={() => setEditScopeOpen(false)}
+                  className="flex-1 rounded-lg border border-black/10 text-sm font-semibold py-2"
+                >
+                  {t.cancel}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {error && (
         <div className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-3 py-2">{error}</div>

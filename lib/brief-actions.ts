@@ -130,6 +130,25 @@ export async function rescheduleBrief(briefId: string, dueDate: string): Promise
   return { ok: true };
 }
 
+export async function updateBriefScope(
+  briefId: string,
+  dueDate: string | null,
+  assets: number | null
+): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('update_brief_scope', {
+    p_brief_id: briefId,
+    p_due_date: dueDate,
+    p_assets: assets,
+  });
+  if (error) return { error: error.message };
+  revalidatePath(`/projects/${briefId}`);
+  revalidatePath('/');
+  revalidatePath('/works');
+  revalidatePath('/calendar');
+  return { ok: true };
+}
+
 export async function addComment(briefId: string, text: string): Promise<ActionResult> {
   const supabase = await createClient();
   const {

@@ -64,11 +64,13 @@ export default async function ProjectDetailPage({
   let allDesigners: { id: string; name: string; nickname: string | null; initials: string }[] = [];
   let holidays: string[] = [];
   if (viewer.role === 'manager') {
-    const [{ data }, { data: holidayRows }] = await Promise.all([
-      supabase.from('profiles').select('id, name, nickname, initials').in('role', ['designer', 'manager']),
-      supabase.from('company_holidays').select('holiday_date'),
-    ]);
+    const { data } = await supabase.from('profiles').select('id, name, nickname, initials').in('role', ['designer', 'manager']);
     allDesigners = data ?? [];
+  }
+  // Requester needs holidays too now, to block weekends/company holidays when pushing
+  // their own brief's deadline out (see update_brief_scope).
+  if (viewer.role === 'manager' || deco.isMine) {
+    const { data: holidayRows } = await supabase.from('company_holidays').select('holiday_date');
     holidays = (holidayRows ?? []).map((h) => h.holiday_date);
   }
 

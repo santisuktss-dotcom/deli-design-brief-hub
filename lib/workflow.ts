@@ -144,7 +144,10 @@ export function decorateBrief(
   // re-planning (reschedule_brief) without that ever moving the deadline the requester
   // was originally told — a requester always sees original_due_date, frozen since
   // creation (or their own deliberate update_brief_scope push), never the working date.
-  const displayDueDate = viewer.role === 'requester' ? brief.original_due_date : brief.due_date;
+  // Falls back to due_date when original_due_date is missing — covers the window before
+  // migration 0033 has been run (column doesn't exist yet / isn't backfilled), so a
+  // requester never sees a deadline vanish just because the DB hasn't caught up yet.
+  const displayDueDate = viewer.role === 'requester' ? brief.original_due_date ?? brief.due_date : brief.due_date;
   // "Late" styling follows whichever date this viewer actually sees, so a requester's
   // red/muted color always matches the frozen date shown next to it.
   const late =

@@ -68,6 +68,7 @@ export const en: Dict = {
   calStart: 'Design start',
   calDue: 'Due',
   calInProgress: 'In progress',
+  calCompleted: 'Completed on this date',
   moreLabel: 'more',
   reportByStatus: 'Jobs by status',
   changeAssignment: 'Change assignment',

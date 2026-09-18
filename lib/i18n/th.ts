@@ -66,6 +66,7 @@ export const th = {
   calStart: 'เริ่มดีไซน์ · Design start',
   calDue: 'วันกำหนดส่ง · Due',
   calInProgress: 'กำลังดีไซน์ · In progress',
+  calCompleted: 'เสร็จสมบูรณ์ · Completed',
   moreLabel: 'เพิ่มเติม',
   reportByStatus: 'งานแยกตามสถานะ · Jobs by status',
   changeAssignment: 'เปลี่ยนผู้รับงาน · Change assignment',

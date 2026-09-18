@@ -121,6 +121,15 @@ export default async function CalendarPage({
         <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
           <span className="w-3 h-3 rounded border-2 border-dashed border-black/30" /> {t.calInProgress}
         </span>
+        <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
+          <span
+            className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] text-white"
+            style={{ background: 'oklch(0.5 0.13 156)' }}
+          >
+            ✓
+          </span>
+          {t.calCompleted}
+        </span>
       </div>
 
       <div className="flex items-center gap-2">
@@ -171,11 +180,12 @@ export default async function CalendarPage({
                   const ink = catInk(e.brief.category);
                   const kindLabel =
                     e.kind === 'Start' ? t.calStart : e.kind === 'Due' ? t.calDue : t.calInProgress;
+                  const isCompleted = e.kind === 'Due' && e.brief.status === 'Completed';
                   return (
                     <Link
                       key={`${e.brief.id}-${e.kind}-${i}`}
                       href={`/projects/${e.brief.id}`}
-                      className="rounded-lg px-1.5 py-1 flex flex-col gap-0.5 hover:brightness-95 transition"
+                      className="relative rounded-lg px-1.5 py-1 flex flex-col gap-0.5 hover:brightness-95 transition"
                       style={{
                         background: e.kind === 'InProgress' ? 'transparent' : catLight(e.brief.category),
                         border:
@@ -184,6 +194,18 @@ export default async function CalendarPage({
                             : undefined,
                       }}
                     >
+                      {/* Completed jobs get a checkmark badge on their due-date chip — the
+                          calendar otherwise gives no visual signal that a due date was
+                          actually met, just that one existed. */}
+                      {isCompleted && (
+                        <span
+                          className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] text-white"
+                          style={{ background: 'oklch(0.5 0.13 156)' }}
+                          title={t.calCompleted}
+                        >
+                          ✓
+                        </span>
+                      )}
                       <span className="text-[9px] opacity-75" style={{ color: ink }}>
                         {kindLabel} · {e.brief.code}
                       </span>

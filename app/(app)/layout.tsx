@@ -37,8 +37,8 @@ export default async function AppLayout({ children }: LayoutProps<'/'>) {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-30 backdrop-blur-md bg-[var(--background)]/85 border-b border-black/[.06]">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-4 flex-1 min-w-0">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-4">
+          <div className="flex items-center gap-4 min-w-0 flex-wrap">
             <Link href="/" className="flex items-center gap-3 shrink-0">
               <div className="w-9 h-9 rounded-xl bg-[var(--color-brand)] p-1.5 flex items-center justify-center shrink-0">
                 <Image src="/brand/deli-logo-white.png" alt="deli" width={22} height={22} />
@@ -49,7 +49,7 @@ export default async function AppLayout({ children }: LayoutProps<'/'>) {
             </Link>
             <NavLinks lang={lang} />
           </div>
-          <div className="flex items-center gap-3 flex-1 min-w-0 justify-end flex-wrap">
+          <div className="flex items-center gap-3 min-w-0 flex-wrap lg:flex-1 lg:justify-end">
             <HeaderControls lang={lang} />
             <NewBriefButton viewer={user} holidays={holidays} busyDates={busyDates} label={t.newBrief} lang={lang} />
             <NotificationBell notifications={notifications ?? []} lang={lang} />

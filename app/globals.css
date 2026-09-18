@@ -64,3 +64,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-anuphan), Arial, Helvetica, sans-serif;
 }
+
+/* Browsers default <button> to cursor:default, unlike <a> — every button in the app
+   (New Brief, Accept, Assign, etc.) showed the plain arrow cursor on hover instead of a
+   hand, giving no visual affordance that it's clickable. */
+button:not(:disabled) {
+  cursor: pointer;
+}

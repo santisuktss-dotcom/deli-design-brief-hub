@@ -43,6 +43,57 @@ const catColor = (category: string) => CATS.find((c) => c.name === category)?.co
 const catInk = (category: string) => CATS.find((c) => c.name === category)?.ink ?? '#1A1614';
 const catLight = (category: string) => CATS.find((c) => c.name === category)?.inkLight ?? '#eee';
 
+type CalBrief = Pick<Brief, 'id' | 'code' | 'title' | 'category' | 'status' | 'start_date' | 'due_date'>;
+type CalEvent = { kind: 'Start' | 'Due' | 'InProgress'; brief: CalBrief };
+
+// InProgress spans every day of a brief's design window, so a solid fill every day reads
+// as too heavy — outline-only in the same category color keeps it visually lighter than
+// the single-day Start/Due markers. Completed jobs also get a checkmark badge on their
+// due-date chip, since otherwise the calendar gives no signal a due date was actually met.
+function CalendarChip({
+  e,
+  t,
+  catInk,
+  catLight,
+  catColor,
+}: {
+  e: CalEvent;
+  t: typeof en;
+  catInk: (category: string) => string;
+  catLight: (category: string) => string;
+  catColor: (category: string) => string;
+}) {
+  const ink = catInk(e.brief.category);
+  const kindLabel = e.kind === 'Start' ? t.calStart : e.kind === 'Due' ? t.calDue : t.calInProgress;
+  const isCompleted = e.kind === 'Due' && e.brief.status === 'Completed';
+  return (
+    <Link
+      href={`/projects/${e.brief.id}`}
+      className="relative rounded-lg px-1.5 py-1 flex flex-col gap-0.5 hover:brightness-95 transition"
+      style={{
+        background: e.kind === 'InProgress' ? 'transparent' : catLight(e.brief.category),
+        border: e.kind === 'Start' || e.kind === 'InProgress' ? `1.5px solid ${catColor(e.brief.category)}` : undefined,
+      }}
+    >
+      {isCompleted && (
+        <span
+          className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] text-white"
+          style={{ background: 'oklch(0.5 0.13 156)' }}
+          title={t.calCompleted}
+        >
+          ✓
+        </span>
+      )}
+      <span className="text-[9px] opacity-75" style={{ color: ink }}>
+        {kindLabel} · {e.brief.code}
+      </span>
+      <span className="text-[10.5px] font-semibold leading-snug truncate" style={{ color: ink }}>
+        {e.brief.title}
+      </span>
+    </Link>
+  );
+}
+
 export default async function CalendarPage({
   searchParams,
 }: {
@@ -74,7 +125,6 @@ export default async function CalendarPage({
     .neq('status', 'Cancelled')
     .returns<Pick<Brief, 'id' | 'code' | 'title' | 'category' | 'status' | 'start_date' | 'due_date'>[]>();
 
-  type CalEvent = { kind: 'Start' | 'Due' | 'InProgress'; brief: NonNullable<typeof rows>[number] };
   const byDate: Record<string, CalEvent[]> = {};
   for (const b of rows ?? []) {
     if (b.start_date && b.start_date >= rangeStart && b.start_date <= rangeEnd) {
@@ -162,7 +212,7 @@ export default async function CalendarPage({
             const inMonth = d.getMonth() === month;
             const events = byDate[iso] ?? [];
             const visible = events.slice(0, 3);
-            const overflow = events.length - visible.length;
+            const hidden = events.slice(3);
             return (
               <div
                 key={iso}
@@ -173,52 +223,20 @@ export default async function CalendarPage({
                 <span className={`text-xs font-medium ${inMonth ? 'text-[var(--ink2)]' : 'text-[var(--muted2)]'}`}>
                   {d.getDate()}
                 </span>
-                {visible.map((e, i) => {
-                  // InProgress spans every day of a brief's design window, so a solid
-                  // fill every day reads as too heavy — outline-only in the same category
-                  // color keeps it visually lighter than the single-day Start/Due markers.
-                  const ink = catInk(e.brief.category);
-                  const kindLabel =
-                    e.kind === 'Start' ? t.calStart : e.kind === 'Due' ? t.calDue : t.calInProgress;
-                  const isCompleted = e.kind === 'Due' && e.brief.status === 'Completed';
-                  return (
-                    <Link
-                      key={`${e.brief.id}-${e.kind}-${i}`}
-                      href={`/projects/${e.brief.id}`}
-                      className="relative rounded-lg px-1.5 py-1 flex flex-col gap-0.5 hover:brightness-95 transition"
-                      style={{
-                        background: e.kind === 'InProgress' ? 'transparent' : catLight(e.brief.category),
-                        border:
-                          e.kind === 'Start' || e.kind === 'InProgress'
-                            ? `1.5px solid ${catColor(e.brief.category)}`
-                            : undefined,
-                      }}
-                    >
-                      {/* Completed jobs get a checkmark badge on their due-date chip — the
-                          calendar otherwise gives no visual signal that a due date was
-                          actually met, just that one existed. */}
-                      {isCompleted && (
-                        <span
-                          className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] text-white"
-                          style={{ background: 'oklch(0.5 0.13 156)' }}
-                          title={t.calCompleted}
-                        >
-                          ✓
-                        </span>
-                      )}
-                      <span className="text-[9px] opacity-75" style={{ color: ink }}>
-                        {kindLabel} · {e.brief.code}
-                      </span>
-                      <span className="text-[10.5px] font-semibold leading-snug truncate" style={{ color: ink }}>
-                        {e.brief.title}
-                      </span>
-                    </Link>
-                  );
-                })}
-                {overflow > 0 && (
-                  <span className="text-[10px] text-[var(--muted)] px-1">
-                    +{overflow} {t.moreLabel}
-                  </span>
+                {visible.map((e, i) => (
+                  <CalendarChip key={`${e.brief.id}-${e.kind}-${i}`} e={e} t={t} catInk={catInk} catLight={catLight} catColor={catColor} />
+                ))}
+                {hidden.length > 0 && (
+                  <details>
+                    <summary className="text-[10px] text-[var(--muted)] px-1 cursor-pointer">
+                      +{hidden.length} {t.moreLabel}
+                    </summary>
+                    <div className="flex flex-col gap-1.5 mt-1.5">
+                      {hidden.map((e, i) => (
+                        <CalendarChip key={`${e.brief.id}-${e.kind}-${i}`} e={e} t={t} catInk={catInk} catLight={catLight} catColor={catColor} />
+                      ))}
+                    </div>
+                  </details>
                 )}
               </div>
             );

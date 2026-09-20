@@ -40,8 +40,15 @@ export default function CalendarChip({
       onDragEnd={onDragEnd}
       className={`relative rounded-lg px-1.5 py-1 flex flex-col gap-0.5 hover:brightness-95 transition ${draggable ? 'cursor-grab active:cursor-grabbing' : ''}`}
       style={{
-        background: e.kind === 'InProgress' ? 'transparent' : catLight(e.brief.category),
-        border: e.kind === 'Start' || e.kind === 'InProgress' ? `1.5px solid ${catColor(e.brief.category)}` : undefined,
+        // The calendar legend promises Start = outline only, Due = filled, In Progress =
+        // dashed outline — but Start was also getting Due's filled background on top of
+        // its border, so the two looked almost identical at a glance. Matching the legend
+        // for real makes Due (the one date that matters most) the only solid chip.
+        background: e.kind === 'Due' ? catLight(e.brief.category) : 'transparent',
+        border:
+          e.kind === 'Due'
+            ? undefined
+            : `1.5px ${e.kind === 'InProgress' ? 'dashed' : 'solid'} ${catColor(e.brief.category)}`,
       }}
     >
       {isCompleted && (

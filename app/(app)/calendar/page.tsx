@@ -90,6 +90,8 @@ export default async function CalendarPage({
       : (assignmentRows ?? []).map((a) => a.brief_id)
   );
 
+  const todayIso = toISO(now);
+
   // A requester ("Other Department") always sees the deadline frozen at whatever was
   // originally agreed, never the manager/designer's internal drag-to-reschedule working
   // date — see reschedule_brief (0031) vs original_due_date (0033).
@@ -102,15 +104,20 @@ export default async function CalendarPage({
     if (dueIso && dueIso >= rangeStart && dueIso <= rangeEnd) {
       (byDate[dueIso] ??= []).push({ kind: 'Due', brief: b });
     }
-    // Days strictly between start and due for a brief still being designed would
-    // otherwise sit empty even though work is actively happening that day.
-    if (b.status === 'Design' && b.start_date && dueIso && dueIso > b.start_date) {
-      for (const d of days) {
-        const iso = toISO(d);
-        if (iso > b.start_date && iso < dueIso) {
-          (byDate[iso] ??= []).push({ kind: 'InProgress', brief: b });
-        }
-      }
+    // Only mark today's cell as "in progress" (instead of every day in the start..due
+    // span) — one obvious marker for what's actively being worked on right now, rather
+    // than the same chip repeated across the whole month.
+    if (
+      b.status === 'Design' &&
+      b.start_date &&
+      dueIso &&
+      dueIso > b.start_date &&
+      todayIso > b.start_date &&
+      todayIso < dueIso &&
+      todayIso >= rangeStart &&
+      todayIso <= rangeEnd
+    ) {
+      (byDate[todayIso] ??= []).push({ kind: 'InProgress', brief: b });
     }
   }
 
@@ -120,8 +127,6 @@ export default async function CalendarPage({
   });
   const prev = month === 0 ? { y: year - 1, m: 12 } : { y: year, m: month };
   const next = month === 11 ? { y: year + 1, m: 1 } : { y: year, m: month + 2 };
-
-  const todayIso = toISO(now);
   const weeks = days.map((d) => {
     const iso = toISO(d);
     return { iso, date: d.getDate(), inMonth: d.getMonth() === month, events: byDate[iso] ?? [] };

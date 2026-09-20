@@ -28,7 +28,10 @@ export default function CalendarChip({
 }) {
   const ink = catInk(e.brief.category);
   const kindLabel = e.kind === 'Start' ? t.calStart : e.kind === 'Due' ? t.calDue : t.calInProgress;
-  const isCompleted = e.kind === 'Due' && e.brief.status === 'Completed';
+  // Previously only the "Due" chip got the checkmark, so a completed brief's "Design
+  // start" chip (visible whenever its start date is also on screen) looked unfinished
+  // even though the job is done — now every chip for a completed brief shows it.
+  const isCompleted = e.brief.status === 'Completed';
   return (
     <Link
       href={`/projects/${e.brief.id}`}

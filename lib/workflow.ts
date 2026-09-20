@@ -172,6 +172,9 @@ export function decorateBrief(
     canCancelHold,
     isMine,
     displayDueDate,
+    // Who's internally assigned to a job isn't something Other Department needs to know —
+    // they only care about their own request's progress, not the design team's staffing.
+    canSeeAssignee: viewer.role !== 'requester',
     designers,
     designerLabel: designers.length
       ? designers.map((d) => d.nickname || d.name).join(' + ')

@@ -97,7 +97,7 @@ export const th = {
   fDelivPh: 'เช่น ไฟล์รูป + Ai, Ps',
   fChannelPh: 'เช่น Online, Offline, ทั้งคู่',
   restrictedTitle: 'ดูรายละเอียดไม่ได้',
-  restrictedBody: 'คุณดูรายละเอียดของงานนี้ได้เฉพาะงานที่คุณเป็นผู้บรีฟเอง',
+  restrictedBody: 'คุณดูรายละเอียดของงานได้เฉพาะงานที่คุณเป็นผู้บรีฟเองเท่านั้น',
   backToWorks: '← กลับไปงานที่เลือก',
 };
 

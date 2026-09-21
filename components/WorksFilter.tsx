@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { CATS, type CategoryName, type DecoratedBrief } from '@/lib/workflow';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
@@ -58,7 +57,10 @@ export default function WorksFilter({ briefs, lang = 'en' }: { briefs: Decorated
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((b) => (
-            <Link
+            // A plain <a> (not next/link) forces a hard navigation, which bypasses the
+            // (.)projects intercepting route — Selected Works should open the real full
+            // project page, unlike the calendar's mini-modal preview.
+            <a
               key={b.id}
               href={`/projects/${b.id}`}
               className="rounded-2xl border border-black/[.08] bg-white overflow-hidden hover:-translate-y-[3px] hover:shadow-lg transition"
@@ -85,7 +87,7 @@ export default function WorksFilter({ briefs, lang = 'en' }: { briefs: Decorated
                   </span>
                 </div>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       )}

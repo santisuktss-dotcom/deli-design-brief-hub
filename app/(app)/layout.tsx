@@ -11,25 +11,23 @@ import NewBriefButton from '@/components/NewBriefButton';
 import NotificationBell from '@/components/NotificationBell';
 import NavLinks from '@/components/NavLinks';
 import HeaderControls from '@/components/HeaderControls';
-import { buildBusyDateColors } from '@/lib/calendar-events';
 
 export default async function AppLayout({ children, modal }: LayoutProps<'/'>) {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
 
   const supabase = await createClient();
-  const [{ data: holidayRows }, { data: notifications }, { data: briefRows }, lang] = await Promise.all([
-    supabase.from('company_holidays').select('holiday_date'),
+  // Holidays/busyDates used to be fetched here too (for the New Brief date picker), on
+  // every single page navigation — moved to lib/new-brief-data.ts, fetched on demand only
+  // when that modal actually opens, since most page views never touch it.
+  const [{ data: notifications }, lang] = await Promise.all([
     supabase
       .from('notifications')
       .select('id, brief_id, type, message, read, created_at')
       .order('created_at', { ascending: false })
       .limit(20),
-    supabase.from('briefs').select('category, status, start_date, due_date'),
     getLang(),
   ]);
-  const holidays = (holidayRows ?? []).map((h) => h.holiday_date);
-  const busyDates = buildBusyDateColors(briefRows ?? []);
   const t = lang === 'th' ? th : en;
 
   const displayName = user.nickname || user.name;
@@ -51,7 +49,7 @@ export default async function AppLayout({ children, modal }: LayoutProps<'/'>) {
           </div>
           <div className="flex items-center gap-3 min-w-0 flex-wrap lg:flex-1 lg:justify-end">
             <HeaderControls lang={lang} />
-            <NewBriefButton viewer={user} holidays={holidays} busyDates={busyDates} label={t.newBrief} lang={lang} />
+            <NewBriefButton viewer={user} label={t.newBrief} lang={lang} />
             <NotificationBell notifications={notifications ?? []} lang={lang} />
             <div className="text-sm text-[var(--ink2)] truncate max-w-[220px]">
               {displayName}

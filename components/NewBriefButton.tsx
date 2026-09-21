@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 import { createPortal } from 'react-dom';
 import { createBrief } from '@/lib/brief-actions';
+import { getNewBriefFormData } from '@/lib/new-brief-data';
 import { CATS, type CategoryName } from '@/lib/workflow';
 import type { CurrentUser } from '@/lib/current-user';
 import DatePicker from './DatePicker';
@@ -70,14 +71,10 @@ function clearDraft() {
 
 export default function NewBriefButton({
   viewer,
-  holidays,
-  busyDates,
   label,
   lang = 'en',
 }: {
   viewer: CurrentUser;
-  holidays: string[];
-  busyDates?: Record<string, string[]>;
   label?: string;
   lang?: Lang;
 }) {
@@ -88,13 +85,23 @@ export default function NewBriefButton({
   const [uploading, setUploading] = useState(false);
   const [pending, startTransition] = useTransition();
   const [draft, setDraftState] = useState<Draft>({});
+  // Fetched on demand when the modal opens (see lib/new-brief-data.ts) rather than on
+  // every page load — only this modal needs company_holidays/busyDates, most page views
+  // never open it. Blank until it resolves; is_blocked_date is still enforced server-side
+  // in create_brief either way, so this is a UX nicety, not the source of truth.
+  const [formData, setFormData] = useState<{ holidays: string[]; busyDates: Record<string, string[]> }>({
+    holidays: [],
+    busyDates: {},
+  });
   const t = lang === 'th' ? th : en;
 
   const isManager = viewer.role === 'manager';
+  const { holidays, busyDates } = formData;
 
   function openModal() {
     setDraftState(readDraft());
     setOpen(true);
+    getNewBriefFormData().then(setFormData);
   }
 
   function close() {

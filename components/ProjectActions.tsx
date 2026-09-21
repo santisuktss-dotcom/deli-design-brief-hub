@@ -154,9 +154,9 @@ export default function ProjectActions({
         <MetaRow label={t.fAssets} value={String(brief.assets)} />
       </div>
 
-      {deco.isMine && !['Completed', 'Cancelled'].includes(brief.status) && (
+      {(deco.isMine || viewer.role === 'manager') && !['Completed', 'Cancelled'].includes(brief.status) && (
         <div className="rounded-2xl border border-black/[.08] bg-white p-5 flex flex-col gap-3">
-          <h2 className="font-semibold text-sm">{t.editScopeTitle}</h2>
+          <h2 className="font-semibold text-sm">{deco.isMine ? t.editScopeTitle : t.editAssetsTitle}</h2>
           {!editScopeOpen ? (
             <button
               onClick={() => {
@@ -166,7 +166,7 @@ export default function ProjectActions({
               }}
               className="rounded-lg border border-black/10 text-sm font-semibold py-2"
             >
-              {t.editScopeBtn}
+              {deco.isMine ? t.editScopeBtn : t.editAssetsBtn}
             </button>
           ) : (
             <div className="flex flex-col gap-3">
@@ -180,16 +180,21 @@ export default function ProjectActions({
                   className="border border-black/[.12] rounded-[10px] px-3 py-2 text-sm w-full outline-none focus:border-[var(--color-brand)]"
                 />
               </label>
-              <DatePicker
-                name="scopeDueDate"
-                label={t.fDue}
-                defaultValue={brief.due_date ?? undefined}
-                holidays={holidays}
-                onChange={setScopeDueDate}
-                lang={lang}
-                key={brief.due_date}
-              />
-              <p className="text-xs text-[var(--muted)]">{t.editScopeHint}</p>
+              {/* Due date stays requester-only here — the manager already has a full,
+                  any-direction reschedule control above, so this panel only needs to
+                  cover the one thing they can't already do: editing the artwork count. */}
+              {deco.isMine && (
+                <DatePicker
+                  name="scopeDueDate"
+                  label={t.fDue}
+                  defaultValue={brief.due_date ?? undefined}
+                  holidays={holidays}
+                  onChange={setScopeDueDate}
+                  lang={lang}
+                  key={brief.due_date}
+                />
+              )}
+              <p className="text-xs text-[var(--muted)]">{deco.isMine ? t.editScopeHint : t.editAssetsHint}</p>
               <div className="flex gap-2">
                 <button
                   disabled={pending}
@@ -198,7 +203,7 @@ export default function ProjectActions({
                       () =>
                         updateBriefScope(
                           brief.id,
-                          scopeDueDate || null,
+                          deco.isMine ? scopeDueDate || null : null,
                           scopeAssets !== brief.assets ? scopeAssets : null
                         ),
                       () => setEditScopeOpen(false)

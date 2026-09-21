@@ -3,10 +3,13 @@ import { getCurrentUser } from '@/lib/current-user';
 import { getLang } from '@/lib/lang';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
-import { decorateBrief, type Brief } from '@/lib/workflow';
+import { decorateBrief, type BriefForDecoration } from '@/lib/workflow';
 import WorksFilter from '@/components/WorksFilter';
 
-type BriefRow = Brief & {
+// The grid only ever displays code/title/category/status/due date/assignee — no need to
+// pull brief_text, assets, requester contact info, or timestamps for every row here (those
+// only matter once you're actually on a project's detail page).
+type BriefRow = BriefForDecoration & {
   brief_assignments: { designer_id: string; profiles: { id: string; name: string; nickname: string | null; initials: string } | null }[];
 };
 
@@ -18,7 +21,9 @@ export default async function WorksPage() {
   const [{ data: rows }, lang] = await Promise.all([
     supabase
       .from('briefs')
-      .select('*, brief_assignments(designer_id, profiles(id, name, nickname, initials))')
+      .select(
+        'id, code, title, category, status, accepted, requester_id, due_date, original_due_date, created_at, brief_assignments(designer_id, profiles(id, name, nickname, initials))'
+      )
       .order('created_at', { ascending: false })
       .returns<BriefRow[]>(),
     getLang(),

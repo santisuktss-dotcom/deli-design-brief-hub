@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CATS, type CategoryName, type DecoratedBrief } from '@/lib/workflow';
+import { CATS, type CategoryName, type WorksBrief } from '@/lib/workflow';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
 import type { Lang } from '@/lib/lang';
@@ -12,7 +12,7 @@ import type { Lang } from '@/lib/lang';
 // them quickly. Filtering client-side with plain useState removes the server round-trip
 // (and that whole class of staleness) — the dataset here is small enough that shipping
 // every brief up front and filtering in the browser is cheap.
-export default function WorksFilter({ briefs, lang = 'en' }: { briefs: DecoratedBrief[]; lang?: Lang }) {
+export default function WorksFilter({ briefs, lang = 'en' }: { briefs: WorksBrief[]; lang?: Lang }) {
   const t = lang === 'th' ? th : en;
   const [active, setActive] = useState<CategoryName | 'All'>('All');
   const cats: (CategoryName | 'All')[] = ['All', ...CATS.map((c) => c.name)];

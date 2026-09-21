@@ -122,10 +122,19 @@ export type Brief = {
 
 export type AssignedDesigner = { id: string; name: string; nickname: string | null; initials: string };
 
+// Only the fields decorateBrief actually reads off `brief` itself — generic over this so a
+// caller that only fetched a lean column subset (e.g. the Works grid, which doesn't need
+// brief_text/assets/timestamps/etc.) gets an honestly-typed result back, while a caller
+// passing a full Brief (select('*')) still gets the full Brief spread as before.
+export type BriefForDecoration = Pick<
+  Brief,
+  'id' | 'code' | 'title' | 'status' | 'accepted' | 'requester_id' | 'category' | 'due_date' | 'original_due_date'
+>;
+
 // Ported from the prototype's deco() (index.html ~line 1927), simplified because our
 // RPCs make `status`/`accepted` server-authoritative — no client-side status override needed.
-export function decorateBrief(
-  brief: Brief,
+export function decorateBrief<B extends BriefForDecoration>(
+  brief: B,
   designers: AssignedDesigner[],
   viewer: { id: string; role: Role },
   lang: 'th' | 'en' = 'en'
@@ -183,7 +192,10 @@ export function decorateBrief(
   };
 }
 
-export type DecoratedBrief = ReturnType<typeof decorateBrief>;
+export type DecoratedBrief = ReturnType<typeof decorateBrief<Brief>>;
+// The Works grid only fetches the lean column subset (see app/(app)/works/page.tsx) —
+// this is what WorksFilter actually receives, not the full DecoratedBrief.
+export type WorksBrief = ReturnType<typeof decorateBrief<BriefForDecoration>>;
 
 // Ported from the prototype's capacity-level rows (index.html ~1473-1479), now used to
 // render the manually-set Department Status (no calculated % — manager clicks to change it).

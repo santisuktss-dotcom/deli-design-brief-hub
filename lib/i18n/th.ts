@@ -75,10 +75,10 @@ export const th = {
   fRound: 'รอบ · Round',
   fAssets: 'จำนวนชิ้นงาน · Number of artworks',
   editScopeTitle: 'ต้องการแก้ไขอะไรไหม · Need to change something?',
-  editScopeBtn: 'แก้ไขวันส่ง/จำนวนงาน · Edit deadline / artworks',
+  editScopeBtn: 'แก้ไขประเภทงาน/วันส่ง/จำนวนงาน · Edit category / deadline / artworks',
   editScopeHint: 'เลื่อนวันส่งได้เฉพาะไปข้างหน้าเท่านั้น ไม่สามารถเลื่อนให้เร็วขึ้นได้ Creative & Design Manager จะได้รับแจ้งเตือนทุกครั้งที่มีการแก้ไข',
-  editAssetsTitle: 'แก้ไขจำนวนชิ้นงาน · Edit number of artworks',
-  editAssetsBtn: 'แก้ไขจำนวนชิ้นงาน · Edit artwork count',
+  editAssetsTitle: 'แก้ไขประเภทงาน/จำนวนชิ้นงาน · Edit category / artworks',
+  editAssetsBtn: 'แก้ไขประเภทงาน/จำนวนชิ้นงาน · Edit category / artwork count',
   editAssetsHint: 'ผู้บรีฟจะได้รับแจ้งเตือนทุกครั้งที่มีการแก้ไข · The requester will be notified of any change.',
   saveChangesBtn: 'บันทึกการแก้ไข · Save changes',
   allLabel: 'ทั้งหมด · All',
@@ -99,6 +99,8 @@ export const th = {
   restrictedTitle: 'ดูรายละเอียดไม่ได้',
   restrictedBody: 'คุณดูรายละเอียดของงานได้เฉพาะงานที่คุณเป็นผู้บรีฟเองเท่านั้น',
   backToWorks: '← กลับไปงานที่เลือก',
+  editBtn: 'แก้ไข', deleteBtn: 'ลบ', replaceImageBtn: 'เปลี่ยนรูป', saveBtn: 'บันทึก',
+  confirmDeleteFile: 'ลบรายการนี้ใช่ไหม?', uploadFailed: 'อัปโหลดรูปไม่สำเร็จ — ลองใหม่อีกครั้ง',
 };
 
 export type Dict = typeof th;

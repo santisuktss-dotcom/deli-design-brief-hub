@@ -14,24 +14,16 @@ import {
   rescheduleBrief,
   deleteBrief,
   updateBriefScope,
+  updateBriefCategory,
   unassignDesigner,
 } from '@/lib/brief-actions';
-import type { Brief, DecoratedBrief } from '@/lib/workflow';
+import { CATS, type Brief, type CategoryName, type DecoratedBrief } from '@/lib/workflow';
 import type { CurrentUser } from '@/lib/current-user';
 import DatePicker from './DatePicker';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
 import type { Lang } from '@/lib/lang';
-import { createClient } from '@/lib/supabase/client';
-
-async function uploadImage(briefId: string, file: File): Promise<string> {
-  const supabase = createClient();
-  const ext = file.name.split('.').pop() || 'png';
-  const path = `${briefId}/${crypto.randomUUID()}.${ext}`;
-  const { error } = await supabase.storage.from('brief-uploads').upload(path, file);
-  if (error) throw error;
-  return supabase.storage.from('brief-uploads').getPublicUrl(path).data.publicUrl;
-}
+import { uploadImage } from '@/lib/upload-image';
 
 type DesignerOption = { id: string; name: string; nickname: string | null; initials: string };
 
@@ -61,11 +53,14 @@ export default function ProjectActions({
   const [submitOpen, setSubmitOpen] = useState(false);
   const [revisionOpen, setRevisionOpen] = useState(false);
   const [rescheduleOpen, setRescheduleOpen] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(false);
+  const [newCategory, setNewCategory] = useState<CategoryName>(brief.category);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [newDueDate, setNewDueDate] = useState(brief.due_date ?? '');
   const [editScopeOpen, setEditScopeOpen] = useState(false);
   const [scopeDueDate, setScopeDueDate] = useState(brief.due_date ?? '');
   const [scopeAssets, setScopeAssets] = useState(brief.assets);
+  const [scopeCategory, setScopeCategory] = useState<CategoryName>(brief.category);
   const [commentText, setCommentText] = useState('');
   const t = lang === 'th' ? th : en;
 
@@ -101,7 +96,49 @@ export default function ProjectActions({
     <aside className="flex flex-col gap-4">
       <div className="rounded-2xl border border-black/[.08] bg-white p-5 flex flex-col gap-3">
         <h2 className="font-semibold">{t.detailsLabel}</h2>
-        <MetaRow label={t.category} value={brief.category} />
+        {(viewer.role === 'manager' || deco.isMine) && !['Completed', 'Cancelled'].includes(brief.status) ? (
+          <div className="flex flex-col gap-2 py-1">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-[var(--muted)]">{t.category}</span>
+              <div className="flex items-center gap-2">
+                <span className="font-medium">{brief.category}</span>
+                <button
+                  onClick={() => {
+                    setNewCategory(brief.category);
+                    setCategoryOpen((v) => !v);
+                  }}
+                  className="text-xs px-2.5 py-1 rounded-full border border-black/10 hover:border-[var(--color-brand)] hover:text-[var(--color-brand)] transition"
+                >
+                  {categoryOpen ? t.cancel : t.editBtn}
+                </button>
+              </div>
+            </div>
+            {categoryOpen && (
+              <div className="flex flex-col gap-2">
+                <select
+                  value={newCategory}
+                  onChange={(e) => setNewCategory(e.target.value as CategoryName)}
+                  className="border border-black/[.12] rounded-[10px] px-3 py-2 text-sm w-full outline-none focus:border-[var(--color-brand)] bg-white"
+                >
+                  {CATS.map((c) => (
+                    <option key={c.name} value={c.name}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  disabled={pending || newCategory === brief.category}
+                  onClick={() => run(() => updateBriefCategory(brief.id, newCategory), () => setCategoryOpen(false))}
+                  className="self-end rounded-lg bg-[var(--color-brand)] text-white text-xs font-semibold px-4 py-1.5 disabled:opacity-60"
+                >
+                  {t.saveBtn}
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <MetaRow label={t.category} value={brief.category} />
+        )}
         <MetaRow label={t.statusLabel} value={deco.statusLabel} />
 
         {viewer.role === 'manager' && !['Completed', 'Cancelled'].includes(brief.status) ? (
@@ -162,6 +199,7 @@ export default function ProjectActions({
               onClick={() => {
                 setScopeDueDate(brief.due_date ?? '');
                 setScopeAssets(brief.assets);
+                setScopeCategory(brief.category);
                 setEditScopeOpen(true);
               }}
               className="rounded-lg border border-black/10 text-sm font-semibold py-2"
@@ -170,6 +208,20 @@ export default function ProjectActions({
             </button>
           ) : (
             <div className="flex flex-col gap-3">
+              <label className="flex flex-col gap-1 text-sm">
+                <span className="text-xs text-[var(--muted)]">{t.category}</span>
+                <select
+                  value={scopeCategory}
+                  onChange={(e) => setScopeCategory(e.target.value as CategoryName)}
+                  className="border border-black/[.12] rounded-[10px] px-3 py-2 text-sm w-full outline-none focus:border-[var(--color-brand)] bg-white"
+                >
+                  {CATS.map((c) => (
+                    <option key={c.name} value={c.name}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
               <label className="flex flex-col gap-1 text-sm">
                 <span className="text-xs text-[var(--muted)]">{t.fAssets}</span>
                 <input
@@ -200,12 +252,17 @@ export default function ProjectActions({
                   disabled={pending}
                   onClick={() =>
                     run(
-                      () =>
-                        updateBriefScope(
+                      async () => {
+                        if (scopeCategory !== brief.category) {
+                          const res = await updateBriefCategory(brief.id, scopeCategory);
+                          if ('error' in res) return res;
+                        }
+                        return updateBriefScope(
                           brief.id,
                           deco.isMine ? scopeDueDate || null : null,
                           scopeAssets !== brief.assets ? scopeAssets : null
-                        ),
+                        );
+                      },
                       () => setEditScopeOpen(false)
                     )
                   }

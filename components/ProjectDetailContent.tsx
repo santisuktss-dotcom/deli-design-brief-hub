@@ -7,6 +7,7 @@ import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
 import { decorateBrief, type Brief } from '@/lib/workflow';
 import ProjectActions from '@/components/ProjectActions';
+import { BriefFileItem, CommentImageItem } from '@/components/EditableAttachment';
 
 // Shared by the full-page route (app/(app)/projects/[id]/page.tsx) and the calendar's
 // modal preview (app/(app)/@modal/(.)projects/[id]/page.tsx) — one data-fetch + render
@@ -135,21 +136,16 @@ export default async function ProjectDetailContent({ id, compact }: { id: string
               <p className="text-sm text-[var(--muted)]">{t.noFiles}</p>
             ) : (
               <ul className="flex flex-col gap-3">
-                {(files ?? []).map((f) =>
-                  f.ext === 'IMG' ? (
-                    <li key={f.id}>
-                      <a href={f.url} target="_blank" rel="noreferrer">
-                        <img src={f.url} alt={f.name} className="rounded-lg max-h-64 border border-black/[.08]" />
-                      </a>
-                    </li>
-                  ) : (
-                    <li key={f.id} className="text-sm">
-                      <a href={f.url} target="_blank" rel="noreferrer" className="text-[var(--color-brand)] hover:underline">
-                        {f.name}
-                      </a>
-                    </li>
-                  )
-                )}
+                {(files ?? []).map((f) => (
+                  <li key={f.id}>
+                    <BriefFileItem
+                      briefId={brief.id}
+                      file={f}
+                      canEdit={viewer.role === 'manager' || f.uploaded_by === viewer.id}
+                      t={t}
+                    />
+                  </li>
+                ))}
               </ul>
             )}
           </section>
@@ -165,13 +161,13 @@ export default async function ProjectDetailContent({ id, compact }: { id: string
                     <div className="font-medium">{c.author_name}</div>
                     <div className="text-[var(--ink2)]">{c.text}</div>
                     {c.image_url && (
-                      <a href={c.image_url} target="_blank" rel="noreferrer">
-                        <img
-                          src={c.image_url}
-                          alt=""
-                          className="rounded-lg max-h-56 border border-black/[.08]"
-                        />
-                      </a>
+                      <CommentImageItem
+                        briefId={brief.id}
+                        commentId={c.id}
+                        imageUrl={c.image_url}
+                        canEdit={viewer.role === 'manager' || c.author_id === viewer.id}
+                        t={t}
+                      />
                     )}
                   </li>
                 ))}

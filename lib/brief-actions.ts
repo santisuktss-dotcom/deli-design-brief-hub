@@ -177,3 +177,39 @@ export async function addComment(briefId: string, text: string): Promise<ActionR
   revalidatePath(`/projects/${briefId}`);
   return { ok: true };
 }
+
+export async function updateBriefCategory(briefId: string, category: CategoryName): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('update_brief_category', { p_brief_id: briefId, p_category: category });
+  if (error) return { error: error.message };
+  revalidatePath(`/projects/${briefId}`);
+  revalidatePath('/');
+  revalidatePath('/works');
+  revalidatePath('/calendar');
+  return { ok: true };
+}
+
+export async function updateBriefFile(briefId: string, fileId: string, url: string): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('update_brief_file', { p_file_id: fileId, p_url: url });
+  if (error) return { error: error.message };
+  revalidatePath(`/projects/${briefId}`);
+  return { ok: true };
+}
+
+export async function deleteBriefFile(briefId: string, fileId: string): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('delete_brief_file', { p_file_id: fileId });
+  if (error) return { error: error.message };
+  revalidatePath(`/projects/${briefId}`);
+  return { ok: true };
+}
+
+// imageUrl null removes the image from the comment.
+export async function updateCommentImage(briefId: string, commentId: string, imageUrl: string | null): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('update_comment_image', { p_comment_id: commentId, p_image_url: imageUrl });
+  if (error) return { error: error.message };
+  revalidatePath(`/projects/${briefId}`);
+  return { ok: true };
+}

@@ -50,7 +50,10 @@ export default async function OverviewPage() {
     if (b.status in stageCounts) stageCounts[b.status] += 1;
   }
 
-  const catCounts = CATS.map((c) => ({ ...c, count: all.filter((b) => b.category === c.name).length }));
+  const catCounts = CATS.map((c) => {
+    const inCat = all.filter((b) => b.category === c.name);
+    return { ...c, count: inCat.length, artworkCount: inCat.reduce((s, b) => s + (b.assets ?? 0), 0) };
+  });
   const catTotal = catCounts.reduce((s, c) => s + c.count, 0);
   let acc = 0;
   const donutStops = catCounts
@@ -143,7 +146,12 @@ export default async function OverviewPage() {
               style={{ background: donutGradient }}
             />
             <div className="flex-1 flex flex-col gap-2">
-              <h2 className="font-semibold text-sm">{t.byCat}</h2>
+              <div className="flex items-baseline justify-between">
+                <h2 className="font-semibold text-sm">{t.byCat}</h2>
+                <span className="text-[10px] text-[var(--muted)]">
+                  {t.projUnit} / {t.assets}
+                </span>
+              </div>
               {catCounts.map((c) => (
                 <div key={c.name} className="flex items-center gap-2 text-xs">
                   <span className="w-2 h-2 rounded-full shrink-0" style={{ background: c.color }} />
@@ -154,7 +162,12 @@ export default async function OverviewPage() {
                       style={{ width: catTotal ? `${(c.count / catTotal) * 100}%` : '0%', background: c.color }}
                     />
                   </div>
-                  <span className="w-4 text-right text-[var(--muted)] tabular-nums">{c.count}</span>
+                  <span
+                    className="w-12 shrink-0 text-right text-[var(--muted)] tabular-nums"
+                    title={`${c.count} ${t.projUnit} / ${c.artworkCount} ${t.assets}`}
+                  >
+                    {c.count}/{c.artworkCount}
+                  </span>
                 </div>
               ))}
             </div>

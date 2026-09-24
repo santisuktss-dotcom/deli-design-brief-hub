@@ -213,3 +213,14 @@ export async function updateCommentImage(briefId: string, commentId: string, ima
   revalidatePath(`/projects/${briefId}`);
   return { ok: true };
 }
+
+export async function updateBriefTitle(briefId: string, title: string): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('update_brief_title', { p_brief_id: briefId, p_title: title });
+  if (error) return { error: error.message };
+  revalidatePath(`/projects/${briefId}`);
+  revalidatePath('/');
+  revalidatePath('/works');
+  revalidatePath('/calendar');
+  return { ok: true };
+}

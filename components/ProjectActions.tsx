@@ -15,6 +15,7 @@ import {
   deleteBrief,
   updateBriefScope,
   updateBriefCategory,
+  updateBriefTitle,
   unassignDesigner,
 } from '@/lib/brief-actions';
 import { CATS, type Brief, type CategoryName, type DecoratedBrief } from '@/lib/workflow';
@@ -55,6 +56,8 @@ export default function ProjectActions({
   const [rescheduleOpen, setRescheduleOpen] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [newCategory, setNewCategory] = useState<CategoryName>(brief.category);
+  const [titleOpen, setTitleOpen] = useState(false);
+  const [newTitle, setNewTitle] = useState(brief.title);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [newDueDate, setNewDueDate] = useState(brief.due_date ?? '');
   const [editScopeOpen, setEditScopeOpen] = useState(false);
@@ -98,6 +101,38 @@ export default function ProjectActions({
         <h2 className="font-semibold">{t.detailsLabel}</h2>
         {(viewer.role === 'manager' || deco.isMine) && !['Completed', 'Cancelled'].includes(brief.status) ? (
           <div className="flex flex-col gap-2 py-1">
+            <div className="flex items-center justify-between text-sm gap-3">
+              <span className="text-[var(--muted)] shrink-0">{t.fName}</span>
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="font-medium truncate">{brief.title}</span>
+                <button
+                  onClick={() => {
+                    setNewTitle(brief.title);
+                    setTitleOpen((v) => !v);
+                  }}
+                  className="text-xs px-2.5 py-1 rounded-full border border-black/10 hover:border-[var(--color-brand)] hover:text-[var(--color-brand)] transition shrink-0"
+                >
+                  {titleOpen ? t.cancel : t.editBtn}
+                </button>
+              </div>
+            </div>
+            {titleOpen && (
+              <div className="flex flex-col gap-2">
+                <input
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  className="border border-black/[.12] rounded-[10px] px-3 py-2 text-sm w-full outline-none focus:border-[var(--color-brand)]"
+                />
+                <button
+                  disabled={pending || !newTitle.trim() || newTitle.trim() === brief.title}
+                  onClick={() => run(() => updateBriefTitle(brief.id, newTitle.trim()), () => setTitleOpen(false))}
+                  className="self-end rounded-lg bg-[var(--color-brand)] text-white text-xs font-semibold px-4 py-1.5 disabled:opacity-60"
+                >
+                  {t.saveBtn}
+                </button>
+              </div>
+            )}
+
             <div className="flex items-center justify-between text-sm">
               <span className="text-[var(--muted)]">{t.category}</span>
               <div className="flex items-center gap-2">

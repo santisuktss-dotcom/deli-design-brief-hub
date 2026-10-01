@@ -12,11 +12,29 @@ import type { Lang } from '@/lib/lang';
 // them quickly. Filtering client-side with plain useState removes the server round-trip
 // (and that whole class of staleness) — the dataset here is small enough that shipping
 // every brief up front and filtering in the browser is cheap.
+// Keyed "YYYY-MM" off each brief's displayDueDate (already the right date per viewer role
+// — original_due_date for a requester, due_date otherwise, see decorateBrief) so the pill
+// a brief shows under matches the deadline the card itself displays.
+function monthKey(iso: string | null): string | null {
+  return iso ? iso.slice(0, 7) : null;
+}
+
 export default function WorksFilter({ briefs, lang = 'en' }: { briefs: WorksBrief[]; lang?: Lang }) {
   const t = lang === 'th' ? th : en;
   const [active, setActive] = useState<CategoryName | 'All'>('All');
+  const [activeMonth, setActiveMonth] = useState<string | 'All'>('All');
   const cats: (CategoryName | 'All')[] = ['All', ...CATS.map((c) => c.name)];
-  const filtered = active === 'All' ? briefs : briefs.filter((b) => b.category === active);
+
+  const months = Array.from(new Set(briefs.map((b) => monthKey(b.displayDueDate)).filter((m): m is string => !!m))).sort();
+  const monthLabel = (key: string) =>
+    new Date(`${key}-01T00:00:00`).toLocaleDateString(lang === 'th' ? 'th-TH' : 'en-US', {
+      month: 'short',
+      year: 'numeric',
+    });
+
+  const filtered = briefs.filter(
+    (b) => (active === 'All' || b.category === active) && (activeMonth === 'All' || monthKey(b.displayDueDate) === activeMonth)
+  );
 
   return (
     <>
@@ -49,6 +67,28 @@ export default function WorksFilter({ briefs, lang = 'en' }: { briefs: WorksBrie
           );
         })}
       </div>
+
+      {months.length > 1 && (
+        <div className="flex flex-wrap gap-2 -mt-2">
+          {(['All', ...months] as const).map((m) => {
+            const isActive = activeMonth === m;
+            return (
+              <button
+                key={m}
+                type="button"
+                onClick={() => setActiveMonth(m)}
+                className={`rounded-full px-3 py-1.5 text-sm border transition ${
+                  isActive
+                    ? 'bg-[var(--color-ink)] text-white border-[var(--color-ink)]'
+                    : 'border-black/10 text-[var(--ink2)] hover:bg-black/[.04]'
+                }`}
+              >
+                {m === 'All' ? t.allLabel : monthLabel(m)}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {filtered.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-black/[.12] p-10 text-center text-[var(--muted)]">

@@ -42,8 +42,8 @@ export const th = {
   guestNicknameLabel: 'ชื่อเล่น', guestNicknamePh: 'ชื่อเล่นของคุณ', guestDeptLabel: 'แผนก', guestDeptPh: 'เช่น Marketing, E-Commerce', guestEmailErr: 'กรุณาเข้าสู่ระบบด้วยอีเมล Gmail', guestDeptErr: 'กรุณากรอกแผนกของคุณ',
   nicknamePromptTitle: 'ตั้งชื่อเล่นของคุณ', nicknamePromptSub: 'ให้ทีมออกแบบรู้จักคุณง่ายขึ้น — ใส่ภายหลังได้เช่นกัน', nicknameSkip: 'ข้ามไปก่อน', nicknameSave: 'บันทึก',
   reportBtn: 'รายงานสรุป', reportTitle: 'รายงานสรุปประจำเดือน', reportProjects: 'โปรเจกต์', reportAssets: 'Artwork', reportLoad: 'ภาระงานแผนก',
-  reportDownload: 'ดาวน์โหลด CSV', reportReset: 'รีเซ็ตรอบเดือน', reportResetConfirm: 'ล้างข้อมูลบรีฟและภาระงานของรอบนี้ทั้งหมด?', reportResetYes: 'ยืนยันรีเซ็ต',
-  reportFoot: 'รีเซ็ตทุกต้นเดือน · ดาวน์โหลดรายงานได้เฉพาะ Creative & Design Manager',
+  reportDownload: 'ดาวน์โหลด CSV',
+  reportFoot: 'ดาวน์โหลดรายงานได้เฉพาะ Creative & Design Manager',
   othersBtn: 'เข้าสู่ระบบด้วย Google (แผนกอื่น)', logout: 'ออกจากระบบ', viewAll: 'ดูทั้งหมด →', portfolioAll: 'งานทั้งหมด →',
   activeSub: 'งานที่กำลังดำเนินการ',
 

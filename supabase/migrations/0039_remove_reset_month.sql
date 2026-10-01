@@ -1,0 +1,14 @@
+-- Removes the "Reset Month" capability entirely, not just its button. reset_month()
+-- (0005, fixed in 0012) did `delete from briefs where true` — an unconditional wipe of
+-- every brief and everything that cascades from it — gated only by is_manager(), with no
+-- confirmation beyond the client-side modal and no way back short of a database restore
+-- (which is what had to happen the one time this got clicked by mistake). Overview's hero
+-- stats now roll over to a new month on their own by filtering on due_date (see the
+-- Overview page), which was the actual need this button was serving — so the destructive
+-- path is no longer load-bearing for anything.
+--
+-- The function is left in place (dropping it would break `get_monthly_report`'s neighbor
+-- migrations' history and isn't necessary) but revoked from every client-facing role, so
+-- it can't be invoked via PostgREST/supabase-js even by someone who knows its name —
+-- only a direct database connection as an elevated Postgres role could still call it.
+revoke execute on function public.reset_month() from public, anon, authenticated;

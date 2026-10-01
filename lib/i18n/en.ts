@@ -44,8 +44,8 @@ export const en: Dict = {
   guestNicknameLabel: 'Nickname', guestNicknamePh: 'Your nickname', guestDeptLabel: 'Department', guestDeptPh: 'e.g. Marketing, E-Commerce', guestEmailErr: 'Please sign in with a Gmail address', guestDeptErr: 'Please enter your department',
   nicknamePromptTitle: 'Set your nickname', nicknamePromptSub: 'Helps the design team recognize you — you can add this later too', nicknameSkip: 'Skip for now', nicknameSave: 'Save',
   reportBtn: 'Monthly report', reportTitle: 'Monthly summary report', reportProjects: 'Projects', reportAssets: 'Artworks', reportLoad: 'Dept workload',
-  reportDownload: 'Download CSV', reportReset: 'Reset month', reportResetConfirm: 'Clear this month\'s briefs and workload data?', reportResetYes: 'Confirm reset',
-  reportFoot: 'Resets every month · downloadable by the Creative & Design Manager only',
+  reportDownload: 'Download CSV',
+  reportFoot: 'Downloadable by the Creative & Design Manager only',
   othersBtn: 'Sign in with Google (another department)', logout: 'Sign out', viewAll: 'View all →', portfolioAll: 'All work →',
   activeSub: 'Active projects',
 

@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { createPortal } from 'react-dom';
-import { getMonthlyReport, resetMonth, type MonthlyReport } from '@/lib/report-actions';
+import { getMonthlyReport, type MonthlyReport } from '@/lib/report-actions';
 import { ORDER, STATUS_NAME, STATUS, VIVID_STATUS_COLOR } from '@/lib/workflow';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
@@ -11,15 +11,11 @@ import type { Lang } from '@/lib/lang';
 export default function MonthlyReportButton({ label, lang = 'en' }: { label?: string; lang?: Lang }) {
   const [open, setOpen] = useState(false);
   const [report, setReport] = useState<MonthlyReport | null>(null);
-  const [confirming, setConfirming] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const t = lang === 'th' ? th : en;
 
   function openReport() {
     setOpen(true);
-    setConfirming(false);
-    setError(null);
     startTransition(async () => {
       const r = await getMonthlyReport();
       setReport(r);
@@ -28,7 +24,6 @@ export default function MonthlyReportButton({ label, lang = 'en' }: { label?: st
 
   function close() {
     setOpen(false);
-    setConfirming(false);
   }
 
   function downloadCsv() {
@@ -50,15 +45,6 @@ export default function MonthlyReportButton({ label, lang = 'en' }: { label?: st
     a.download = `deli-monthly-report-${new Date().toISOString().slice(0, 7)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-  }
-
-  function handleReset() {
-    setError(null);
-    startTransition(async () => {
-      const result = await resetMonth();
-      if ('error' in result) setError(result.error);
-      else close();
-    });
   }
 
   return (
@@ -118,8 +104,6 @@ export default function MonthlyReportButton({ label, lang = 'en' }: { label?: st
                   })()}
                 </div>
 
-                {error && <p className="text-xs text-[var(--color-brand)]">{error}</p>}
-
                 <div className="flex flex-col gap-2 pt-2 border-t border-black/[.06]">
                   <button
                     onClick={downloadCsv}
@@ -127,33 +111,6 @@ export default function MonthlyReportButton({ label, lang = 'en' }: { label?: st
                   >
                     {t.reportDownload}
                   </button>
-                  {!confirming ? (
-                    <button
-                      onClick={() => setConfirming(true)}
-                      className="rounded-lg border border-[var(--color-brand)] text-[var(--color-brand)] text-sm font-semibold py-2"
-                    >
-                      {t.reportReset}
-                    </button>
-                  ) : (
-                    <div className="flex flex-col gap-2 rounded-lg bg-red-50 border border-red-200 p-3">
-                      <p className="text-sm text-red-700">{t.reportResetConfirm}</p>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => setConfirming(false)}
-                          className="flex-1 rounded-lg border border-black/10 text-sm py-1.5"
-                        >
-                          {t.cancel}
-                        </button>
-                        <button
-                          disabled={pending}
-                          onClick={handleReset}
-                          className="flex-1 rounded-lg bg-[var(--color-brand)] text-white text-sm font-semibold py-1.5 disabled:opacity-60"
-                        >
-                          {t.reportResetYes}
-                        </button>
-                      </div>
-                    </div>
-                  )}
                   <p className="text-[11px] text-[var(--muted)] text-center">{t.reportFoot}</p>
                 </div>
               </>

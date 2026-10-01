@@ -5,7 +5,7 @@ export const th = {
   othersNote: 'Others Department · สร้างบรีฟและอนุมัติได้ · มอบหมายงานไม่ได้',
   heroBody: 'ศูนย์รวมงานออกแบบทั้งหมดของทีม ตั้งแต่รับบรีฟ ตรวจงาน แก้ไข จนถึงอนุมัติ — ดูสถานะและภาระงานได้ในที่เดียว',
   ctaAll: 'ดูงานทั้งหมด',
-  statAll: 'งานทั้งหมด', statDesign: 'กำลังออกแบบ', statReview: 'รอตรวจ', statLate: 'เกินกำหนด',
+  statAll: 'งานครบกำหนดเดือนนี้', statDesign: 'กำลังออกแบบ', statReview: 'รอตรวจ', statLate: 'เกินกำหนด',
   wfTitle: 'ขั้นตอนงาน', wfSub: 'ขั้นตอนงานมาตรฐาน 6 สเต็ป',
   jobs: 'งาน', assets: 'Artwork', jobsUnit: 'งาน', projUnit: 'project', assetsOf: 'assets done',
   deptTitle: 'สถานะแผนก', deptSub: 'ภาระงานรวม · Manager 20% + Designer A/B 40%',
@@ -51,7 +51,7 @@ export const th = {
   // Detail/New Brief/Monthly Report copy not covered by the prototype's original dict).
   clickToUpdate: 'คลิกเพื่ออัปเดต · Click to update',
   noBriefsYet: 'ยังไม่มีบรีฟ เมื่อมีการส่งบรีฟแรก ภาระงานของแผนก งานที่เลือก และไทม์ไลน์การส่งงานจะแสดงที่นี่',
-  totalArtworks: 'Artwork ทั้งหมด · Total Artworks',
+  totalArtworks: 'Artwork ครบกำหนดเดือนนี้ · Artworks due this month',
   detailsLabel: 'รายละเอียด · Details',
   statusLabel: 'สถานะ · Status',
   notSetYet: 'ยังไม่ได้กำหนด · Not set yet',

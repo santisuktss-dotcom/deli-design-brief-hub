@@ -44,6 +44,21 @@ export default async function OverviewPage() {
   const totalAssets = all.reduce((sum, b) => sum + (b.assets ?? 0), 0);
   const overdue = all.filter((b) => b.due_date && new Date(b.due_date) < new Date() && b.status !== 'Completed').length;
 
+  // Hero "Total projects"/"Total Artworks" used to be an all-time running tally that only
+  // ever grew (the old way to "start fresh" each month was the destructive Reset Month
+  // button, which wiped every brief outright). Scope these two tiles to deadline-in-the-
+  // current-month instead, so the hero naturally rolls over to a new set of numbers next
+  // month without deleting anything — everything else on this page (workflow stage
+  // counts, category donut, the Selected Works preview below) stays all-time.
+  const now_ = new Date();
+  const monthBriefs = all.filter((b) => {
+    if (!b.due_date) return false;
+    const d = new Date(b.due_date);
+    return d.getFullYear() === now_.getFullYear() && d.getMonth() === now_.getMonth();
+  });
+  const monthTotal = monthBriefs.length;
+  const monthAssets = monthBriefs.reduce((sum, b) => sum + (b.assets ?? 0), 0);
+
   const stageCounts: Record<string, number> = {};
   for (const name of ORDER) stageCounts[name] = 0;
   for (const b of all) {
@@ -92,9 +107,9 @@ export default async function OverviewPage() {
           </Link>
         </div>
         <div className="flex gap-6 sm:gap-8 flex-wrap">
-          <HeroStat value={total} label={t.statAll} />
+          <HeroStat value={monthTotal} label={t.statAll} />
           <HeroDivider />
-          <HeroStat value={totalAssets} label={t.totalArtworks} />
+          <HeroStat value={monthAssets} label={t.totalArtworks} />
           <HeroDivider />
           <HeroStat value={stageCounts.Design} label={t.statDesign} />
           <HeroDivider />

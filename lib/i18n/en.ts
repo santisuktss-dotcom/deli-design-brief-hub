@@ -7,7 +7,7 @@ export const en: Dict = {
   othersNote: 'Others Department · can brief & approve · cannot assign',
   heroBody: 'One place for every design job — from incoming brief through review, revision and sign-off, with live status and team workload.',
   ctaAll: 'Browse all work',
-  statAll: 'Total projects', statDesign: 'In design', statReview: 'In review', statLate: 'Overdue',
+  statAll: 'Projects due this month', statDesign: 'In design', statReview: 'In review', statLate: 'Overdue',
   wfTitle: 'Workflow', wfSub: 'The standard six-step flow',
   jobs: 'Jobs', assets: 'Artworks', jobsUnit: 'jobs', projUnit: 'projects', assetsOf: 'assets done',
   deptTitle: 'Department Status', deptSub: 'Combined · manager 20% + designers 40% each',
@@ -53,7 +53,7 @@ export const en: Dict = {
   // Detail/New Brief/Monthly Report copy not covered by the prototype's original dict).
   clickToUpdate: 'Click to update',
   noBriefsYet: 'No briefs yet. Once the first brief is submitted, department workload, selected works, and the delivery timeline will populate here.',
-  totalArtworks: 'Total Artworks',
+  totalArtworks: 'Artworks due this month',
   detailsLabel: 'Details',
   statusLabel: 'Status',
   notSetYet: 'Not set yet',

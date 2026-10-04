@@ -5,9 +5,10 @@ import { getDepartmentStatus } from '@/lib/department-actions';
 import { getLang } from '@/lib/lang';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
-import { ORDER, STATUS_NAME, STAGE_TXT, STATUS, CATS, VIVID_STATUS_COLOR, decorateBrief, type Brief } from '@/lib/workflow';
+import { ORDER, STATUS_NAME, STAGE_TXT, STATUS, VIVID_STATUS_COLOR, decorateBrief, type Brief } from '@/lib/workflow';
 import DepartmentStatusWidget from '@/components/DepartmentStatusWidget';
 import MonthlyReportButton from '@/components/MonthlyReportButton';
+import CategoryDonut from '@/components/CategoryDonut';
 
 const WF_ICON: Record<string, string> = {
   Brief: '/brand/wf-brief.png',
@@ -49,7 +50,7 @@ export default async function OverviewPage() {
   // button, which wiped every brief outright). Scope these two tiles to deadline-in-the-
   // current-month instead, so the hero naturally rolls over to a new set of numbers next
   // month without deleting anything — everything else on this page (workflow stage
-  // counts, category donut, the Selected Works preview below) stays all-time.
+  // counts, Selected Works preview below) stays all-time. The category donut has its own month picker (CategoryDonut).
   const now_ = new Date();
   const monthBriefs = all.filter((b) => {
     if (!b.due_date) return false;
@@ -64,24 +65,6 @@ export default async function OverviewPage() {
   for (const b of all) {
     if (b.status in stageCounts) stageCounts[b.status] += 1;
   }
-
-  const catCounts = CATS.map((c) => {
-    const inCat = all.filter((b) => b.category === c.name);
-    return { ...c, count: inCat.length, artworkCount: inCat.reduce((s, b) => s + (b.assets ?? 0), 0) };
-  });
-  const catTotal = catCounts.reduce((s, c) => s + c.count, 0);
-  let acc = 0;
-  const donutStops = catCounts
-    .filter((c) => c.count > 0)
-    .map((c) => {
-      const start = catTotal ? (acc / catTotal) * 360 : 0;
-      acc += c.count;
-      const end = catTotal ? (acc / catTotal) * 360 : 0;
-      return `${c.color} ${start}deg ${end}deg`;
-    });
-  const donutGradient = donutStops.length
-    ? `conic-gradient(${donutStops.join(',')})`
-    : 'conic-gradient(rgba(26,22,20,.1) 0deg 360deg)';
 
   const featured = all
     .filter((b) => b.status === 'Design' || b.status === 'Review')
@@ -155,38 +138,12 @@ export default async function OverviewPage() {
       {/* Workload donut + Department Status */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
         <div className="flex flex-col gap-3">
-          <div className="rounded-2xl border border-black/[.08] bg-white p-5 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <div
-              className="w-1/2 aspect-square rounded-full shrink-0 mx-auto sm:mx-0"
-              style={{ background: donutGradient }}
-            />
-            <div className="flex-1 flex flex-col gap-2">
-              <div className="flex items-baseline justify-between">
-                <h2 className="font-semibold text-sm">{t.byCat}</h2>
-                <span className="text-[10px] text-[var(--muted)]">
-                  {t.projUnit} / {t.assets}
-                </span>
-              </div>
-              {catCounts.map((c) => (
-                <div key={c.name} className="flex items-center gap-2 text-xs">
-                  <span className="w-2 h-2 rounded-full shrink-0" style={{ background: c.color }} />
-                  <span className="w-[92px] shrink-0 text-[var(--ink2)]">{c.name}</span>
-                  <div className="flex-1 h-1.5 rounded-full bg-black/[.06] overflow-hidden">
-                    <div
-                      className="h-full rounded-full"
-                      style={{ width: catTotal ? `${(c.count / catTotal) * 100}%` : '0%', background: c.color }}
-                    />
-                  </div>
-                  <span
-                    className="w-12 shrink-0 text-right text-[var(--muted)] tabular-nums"
-                    title={`${c.count} ${t.projUnit} / ${c.artworkCount} ${t.assets}`}
-                  >
-                    {c.count}/{c.artworkCount}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <CategoryDonut
+            rows={all.map((b) => ({ category: b.category, assets: b.assets, due_date: b.due_date }))}
+            currentMonth={`${now_.getFullYear()}-${String(now_.getMonth() + 1).padStart(2, '0')}`}
+            lang={lang}
+            labels={{ byCat: t.byCat, assets: t.assets, projUnit: t.projUnit }}
+          />
           {viewer.role === 'manager' && (
             <div className="flex justify-end">
               <MonthlyReportButton label={t.reportBtn} lang={lang} />

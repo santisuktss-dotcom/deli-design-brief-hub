@@ -36,7 +36,7 @@ export const th = {
   selectAccess: 'เลือกสิทธิ์เข้าใช้งาน', whoAmI: 'คุณเข้าใช้งานในฐานะใคร?',
   ownerName: 'Creative & Design Manager · เจ้าของงาน', ownerDesc: 'รับบรีฟ มอบหมายงาน อนุมัติ และแก้ไขสถานะได้ทั้งหมด',
   ownerBtn: 'เข้าสู่ระบบด้วย Google (Creative & Design Manager)',
-  othersName: 'แผนกอื่น · Others Department', othersDesc: 'ส่งบรีฟได้ · ได้รับแจ้งเตือนเมื่อ Creative & Design Manager อนุมัติงาน',
+  othersName: 'เข้าสู่ระบบ · Others Department', othersDesc: 'ส่งบรีฟได้ · ได้รับแจ้งเตือนเมื่อ Creative & Design Manager อนุมัติงาน',
   designerDesc: 'Designer เข้าระบบรับงาน', designerNote: 'ต้องได้รับเชิญจาก Creative & Design Manager ก่อน จึงจะเข้าระบบได้', designerBtn: 'เข้าสู่ระบบด้วย Google (Designer)',
   recommended: 'แนะนำ', titleOthers: 'Internal Department', permBrief: 'สร้างบรีฟใหม่', permApprove: 'อนุมัติงาน', permView: 'ดูงานและ Workflow', permNoAssign: 'Assign ดีไซเนอร์',
   guestNicknameLabel: 'ชื่อเล่น', guestNicknamePh: 'ชื่อเล่นของคุณ', guestDeptLabel: 'แผนก', guestDeptPh: 'เช่น Marketing, E-Commerce', guestEmailErr: 'กรุณาเข้าสู่ระบบด้วยอีเมล Gmail', guestDeptErr: 'กรุณากรอกแผนกของคุณ',

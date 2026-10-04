@@ -9,6 +9,16 @@ type Row = { category: string; assets: number | null; due_date: string | null };
 // Sized by artwork count (a project can be 1 artwork or 968), with the project count shown
 // alongside. Scoped to one month of deadlines at a time: starts on the current month and
 // the pills let you flip to any other month that has briefs.
+// Share of the month's artworks: whole numbers from 10% up, one decimal below that so the
+// small categories don't all collapse to "1%" / "0%".
+function pct(part: number, total: number): string {
+  if (!total || !part) return '0%';
+  const v = (part / total) * 100;
+  if (v >= 10) return `${Math.round(v)}%`;
+  if (v < 0.1) return '<0.1%';
+  return `${v.toFixed(1)}%`;
+}
+
 export default function CategoryDonut({
   rows,
   currentMonth,
@@ -81,9 +91,12 @@ export default function CategoryDonut({
                   style={{ width: catTotal ? `${(c.artworkCount / catTotal) * 100}%` : '0%', background: c.color }}
                 />
               </div>
+              <span className="w-11 shrink-0 text-right font-medium text-[var(--ink2)] tabular-nums">
+                {pct(c.artworkCount, catTotal)}
+              </span>
               <span
                 className="w-14 shrink-0 text-right text-[var(--muted)] tabular-nums"
-                title={`${c.artworkCount} ${labels.assets} / ${c.count} ${labels.projUnit}`}
+                title={`${pct(c.artworkCount, catTotal)} · ${c.artworkCount} ${labels.assets} / ${c.count} ${labels.projUnit}`}
               >
                 {c.artworkCount}/{c.count}
               </span>

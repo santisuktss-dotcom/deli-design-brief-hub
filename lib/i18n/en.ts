@@ -38,7 +38,7 @@ export const en: Dict = {
   selectAccess: 'Select access', whoAmI: 'Who are you signing in as?',
   ownerName: 'Creative & Design Manager · owner', ownerDesc: 'Accept briefs, assign, approve and change status',
   ownerBtn: 'Sign in with Google (Creative & Design Manager)',
-  othersName: 'Others Department', othersDesc: 'Can send briefs · gets notified once the Creative & Design Manager approves',
+  othersName: 'Sign in Others Department', othersDesc: 'Can send briefs · gets notified once the Creative & Design Manager approves',
   designerDesc: 'For designers with an assigned job', designerNote: 'Requires an invite from the Creative & Design Manager to sign in.', designerBtn: 'Sign in with Google (Designer)',
   recommended: 'Recommended', titleOthers: 'Internal Department', permBrief: 'New brief', permApprove: 'Approve work', permView: 'View work & Workflow', permNoAssign: 'Assign designer',
   guestNicknameLabel: 'Nickname', guestNicknamePh: 'Your nickname', guestDeptLabel: 'Department', guestDeptPh: 'e.g. Marketing, E-Commerce', guestEmailErr: 'Please sign in with a Gmail address', guestDeptErr: 'Please enter your department',

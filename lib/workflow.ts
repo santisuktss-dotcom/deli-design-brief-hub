@@ -83,6 +83,16 @@ export const TEAM_ROLE_LABEL = {
   designer: (label: string, pct: number) => `${label} · ${pct}%`,
 };
 
+// A brief is only overdue once its deadline *day* has fully passed — on the due date itself
+// it's still on time. due_date is a plain date (YYYY-MM-DD), so comparing it as a Date
+// (midnight UTC) flagged it from the first minute of the due day; compare calendar days
+// instead, using Thailand's calendar since that's where the team's days start and end.
+export function isPastDue(due: string | null | undefined): boolean {
+  if (!due) return false;
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok' }).format(new Date());
+  return due.slice(0, 10) < today;
+}
+
 export function stepBadge(status: BriefStatus): string {
   const i = ORDER.indexOf(status);
   return i > -1 ? `0${i + 1}/0${ORDER.length}` : status;
@@ -163,7 +173,7 @@ export function decorateBrief<B extends BriefForDecoration>(
     !!displayDueDate &&
     brief.status !== 'Completed' &&
     brief.status !== 'Cancelled' &&
-    new Date(displayDueDate) < new Date();
+    isPastDue(displayDueDate);
 
   return {
     ...brief,

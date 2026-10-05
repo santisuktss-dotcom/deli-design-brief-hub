@@ -5,7 +5,7 @@ import { getDepartmentStatus } from '@/lib/department-actions';
 import { getLang } from '@/lib/lang';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
-import { ORDER, STATUS_NAME, STAGE_TXT, STATUS, VIVID_STATUS_COLOR, decorateBrief, type Brief } from '@/lib/workflow';
+import { ORDER, STATUS_NAME, STAGE_TXT, STATUS, VIVID_STATUS_COLOR, decorateBrief, isPastDue, type Brief } from '@/lib/workflow';
 import DepartmentStatusWidget from '@/components/DepartmentStatusWidget';
 import MonthlyReportButton from '@/components/MonthlyReportButton';
 import CategoryDonut from '@/components/CategoryDonut';
@@ -43,7 +43,7 @@ export default async function OverviewPage() {
   const all = rows ?? [];
   const total = all.length;
   const totalAssets = all.reduce((sum, b) => sum + (b.assets ?? 0), 0);
-  const overdue = all.filter((b) => b.due_date && new Date(b.due_date) < new Date() && b.status !== 'Completed').length;
+  const overdue = all.filter((b) => isPastDue(b.due_date) && b.status !== 'Completed').length;
 
   // Hero "Total projects"/"Total Artworks" used to be an all-time running tally that only
   // ever grew (the old way to "start fresh" each month was the destructive Reset Month

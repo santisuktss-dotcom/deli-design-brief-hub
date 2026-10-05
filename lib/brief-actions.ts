@@ -140,6 +140,15 @@ export async function rescheduleBrief(briefId: string, dueDate: string): Promise
   return { ok: true };
 }
 
+export async function rescheduleBriefStart(briefId: string, startDate: string): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('reschedule_brief_start', { p_brief_id: briefId, p_start_date: startDate });
+  if (error) return { error: error.message };
+  revalidatePath(`/projects/${briefId}`);
+  revalidatePath('/calendar');
+  return { ok: true };
+}
+
 export async function updateBriefScope(
   briefId: string,
   dueDate: string | null,

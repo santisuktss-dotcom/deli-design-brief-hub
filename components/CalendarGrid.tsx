@@ -1,38 +1,41 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { rescheduleBrief } from '@/lib/brief-actions';
+import { rescheduleBrief, rescheduleBriefStart } from '@/lib/brief-actions';
 import CalendarChip, { type CalEvent } from './CalendarChip';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
 
 // Manager or the assigned designer can drag a "Due" chip onto a different day to re-plan
 // the deadline in either direction — e.g. a designer works out they can actually deliver
-// earlier than planned. Native HTML5 drag-and-drop, so no extra library.
+// earlier than planned. The manager can also drag a "Design start" chip. Native HTML5
+// drag-and-drop, so no extra library.
 export default function CalendarGrid({
   weeks,
   todayIso,
   t,
   canDragBriefIds,
+  canDragStartBriefIds,
 }: {
   weeks: { iso: string; date: number; inMonth: boolean; events: CalEvent[] }[];
   todayIso: string;
   t: typeof en | typeof th;
   canDragBriefIds: Set<string>;
+  canDragStartBriefIds: Set<string>;
 }) {
   const [, startTransition] = useTransition();
-  const [dragBriefId, setDragBriefId] = useState<string | null>(null);
+  const [drag, setDrag] = useState<{ id: string; kind: 'Start' | 'Due' } | null>(null);
   const [dragOverIso, setDragOverIso] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   function handleDrop(iso: string) {
     setDragOverIso(null);
-    const briefId = dragBriefId;
-    setDragBriefId(null);
-    if (!briefId) return;
+    const d = drag;
+    setDrag(null);
+    if (!d) return;
     setError(null);
     startTransition(async () => {
-      const result = await rescheduleBrief(briefId, iso);
+      const result = d.kind === 'Start' ? await rescheduleBriefStart(d.id, iso) : await rescheduleBrief(d.id, iso);
       if ('error' in result) setError(result.error);
     });
   }
@@ -51,7 +54,7 @@ export default function CalendarGrid({
             <div
               key={iso}
               onDragOver={(ev) => {
-                if (dragBriefId) {
+                if (drag) {
                   ev.preventDefault();
                   if (dragOverIso !== iso) setDragOverIso(iso);
                 }
@@ -73,7 +76,9 @@ export default function CalendarGrid({
                 {date}
               </span>
               {visible.map((e, i) => {
-                const draggable = e.kind === 'Due' && canDragBriefIds.has(e.brief.id);
+                const draggable =
+                  (e.kind === 'Due' && canDragBriefIds.has(e.brief.id)) ||
+                  (e.kind === 'Start' && canDragStartBriefIds.has(e.brief.id));
                 return (
                   <CalendarChip
                     key={`${e.brief.id}-${e.kind}-${i}`}
@@ -81,11 +86,11 @@ export default function CalendarGrid({
                     t={t}
                     draggable={draggable}
                     onDragStart={(ev) => {
-                      setDragBriefId(e.brief.id);
+                      setDrag({ id: e.brief.id, kind: e.kind === 'Start' ? 'Start' : 'Due' });
                       ev.dataTransfer.effectAllowed = 'move';
                     }}
                     onDragEnd={() => {
-                      setDragBriefId(null);
+                      setDrag(null);
                       setDragOverIso(null);
                     }}
                   />
@@ -98,7 +103,9 @@ export default function CalendarGrid({
                   </summary>
                   <div className="flex flex-col gap-1.5 mt-1.5">
                     {hidden.map((e, i) => {
-                      const draggable = e.kind === 'Due' && canDragBriefIds.has(e.brief.id);
+                      const draggable =
+                  (e.kind === 'Due' && canDragBriefIds.has(e.brief.id)) ||
+                  (e.kind === 'Start' && canDragStartBriefIds.has(e.brief.id));
                       return (
                         <CalendarChip
                           key={`${e.brief.id}-${e.kind}-${i}`}
@@ -106,11 +113,11 @@ export default function CalendarGrid({
                           t={t}
                           draggable={draggable}
                           onDragStart={(ev) => {
-                            setDragBriefId(e.brief.id);
+                            setDrag({ id: e.brief.id, kind: e.kind === 'Start' ? 'Start' : 'Due' });
                             ev.dataTransfer.effectAllowed = 'move';
                           }}
                           onDragEnd={() => {
-                            setDragBriefId(null);
+                            setDrag(null);
                             setDragOverIso(null);
                           }}
                         />

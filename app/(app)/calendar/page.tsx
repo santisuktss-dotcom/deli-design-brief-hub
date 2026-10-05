@@ -90,6 +90,9 @@ export default async function CalendarPage({
       : (assignmentRows ?? []).map((a) => a.brief_id)
   );
 
+  // Only the manager can move a "Design start" chip.
+  const canDragStartBriefIds = new Set<string>(viewer.role === 'manager' ? (rows ?? []).map((b) => b.id) : []);
+
   const todayIso = toISO(now);
 
   // A requester ("Other Department") always sees the deadline frozen at whatever was
@@ -184,7 +187,8 @@ export default async function CalendarPage({
             </div>
           ))}
         </div>
-        <CalendarGrid weeks={weeks} todayIso={todayIso} t={t} canDragBriefIds={canDragBriefIds} />
+        <CalendarGrid weeks={weeks} todayIso={todayIso} t={t} canDragBriefIds={canDragBriefIds}
+          canDragStartBriefIds={canDragStartBriefIds} />
       </div>
     </div>
   );

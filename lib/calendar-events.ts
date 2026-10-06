@@ -9,13 +9,17 @@ function toISO(d: Date) {
 }
 
 // Every ISO date a brief "occupies" for calendar-busy purposes: its start day, its due
-// day, and — for a brief actively in Design — every day strictly between the two. Shared
+// day, and — for a brief actively in Design — every working day strictly between the two. Shared
 // between the main Calendar page and the New Brief date picker so a requester picking a
 // due date sees the same picture of what the design team already has on its plate.
 export function buildBusyDateColors(briefs: BusyBrief[]): Record<string, string[]> {
   const byDate: Record<string, Set<string>> = {};
   const add = (iso: string | null, color: string) => {
     if (!iso) return;
+    // Weekends aren't working days (and can't be picked as a due date), so they carry no
+    // busy dots — a brief running Mon-Fri across a weekend used to paint Sat/Sun too.
+    const day = new Date(iso + 'T00:00:00').getDay();
+    if (day === 0 || day === 6) return;
     (byDate[iso] ??= new Set()).add(color);
   };
 

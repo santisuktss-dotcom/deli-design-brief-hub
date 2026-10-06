@@ -24,7 +24,8 @@ import DatePicker from './DatePicker';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
 import type { Lang } from '@/lib/lang';
-import { uploadImage } from '@/lib/upload-image';
+import { uploadImages } from '@/lib/upload-image';
+import ImagePicker from './ImagePicker';
 
 type DesignerOption = { id: string; name: string; nickname: string | null; initials: string };
 
@@ -484,8 +485,8 @@ export default function ProjectActions({
         <SubmitWorkModal
           briefId={brief.id}
           onClose={() => setSubmitOpen(false)}
-          onSubmit={(link, imageUrl) =>
-            run(() => submitWork(brief.id, link, imageUrl), () => setSubmitOpen(false))
+          onSubmit={(link, imageUrls) =>
+            run(() => submitWork(brief.id, link, imageUrls), () => setSubmitOpen(false))
           }
           pending={pending}
           t={t}
@@ -496,8 +497,8 @@ export default function ProjectActions({
         <RevisionModal
           briefId={brief.id}
           onClose={() => setRevisionOpen(false)}
-          onSubmit={(note, imageUrl) =>
-            run(() => requestRevision(brief.id, note, imageUrl), () => setRevisionOpen(false))
+          onSubmit={(note, imageUrls) =>
+            run(() => requestRevision(brief.id, note, imageUrls), () => setRevisionOpen(false))
           }
           pending={pending}
           t={t}
@@ -547,39 +548,6 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
   );
 }
 
-function ImagePicker({
-  file,
-  onChange,
-  label,
-  t,
-}: {
-  file: File | null;
-  onChange: (f: File | null) => void;
-  label: string;
-  t: typeof th;
-}) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <span className="text-xs text-[var(--muted)]">{label}</span>
-      {file ? (
-        <div className="flex items-center gap-2 text-sm border border-black/[.12] rounded-[10px] px-3 py-2">
-          <span className="flex-1 truncate">{file.name}</span>
-          <button type="button" onClick={() => onChange(null)} className="text-xs text-[var(--color-brand)]">
-            {t.removeImg}
-          </button>
-        </div>
-      ) : (
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => onChange(e.target.files?.[0] ?? null)}
-          className="text-sm"
-        />
-      )}
-    </div>
-  );
-}
-
 function SubmitWorkModal({
   briefId,
   onClose,
@@ -589,22 +557,22 @@ function SubmitWorkModal({
 }: {
   briefId: string;
   onClose: () => void;
-  onSubmit: (link: string, imageUrl: string | null) => void;
+  onSubmit: (link: string, imageUrls: string[]) => void;
   pending: boolean;
   t: typeof th;
 }) {
   const [link, setLink] = useState('');
-  const [image, setImage] = useState<File | null>(null);
+  const [images, setImages] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleConfirm() {
     setError(null);
-    let imageUrl: string | null = null;
-    if (image) {
+    let imageUrls: string[] = [];
+    if (images.length > 0) {
       setUploading(true);
       try {
-        imageUrl = await uploadImage(briefId, image);
+        imageUrls = await uploadImages(briefId, images);
       } catch {
         setUploading(false);
         setError('Image upload failed — please try again.');
@@ -612,7 +580,7 @@ function SubmitWorkModal({
       }
       setUploading(false);
     }
-    onSubmit(link, imageUrl);
+    onSubmit(link, imageUrls);
   }
 
   return (
@@ -623,7 +591,7 @@ function SubmitWorkModal({
         placeholder={t.submitWorkLinkPh}
         className="border border-black/[.12] rounded-[10px] px-3 py-2 text-sm"
       />
-      <ImagePicker file={image} onChange={setImage} label={t.submitWorkImgLabel} t={t} />
+      <ImagePicker files={images} onChange={setImages} label={t.submitWorkImgLabel} t={t} />
       {error && <p className="text-xs text-[var(--color-brand)]">{error}</p>}
       <button
         disabled={pending || uploading}
@@ -645,22 +613,22 @@ function RevisionModal({
 }: {
   briefId: string;
   onClose: () => void;
-  onSubmit: (note: string, imageUrl: string | null) => void;
+  onSubmit: (note: string, imageUrls: string[]) => void;
   pending: boolean;
   t: typeof th;
 }) {
   const [note, setNote] = useState('');
-  const [image, setImage] = useState<File | null>(null);
+  const [images, setImages] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleConfirm() {
     setError(null);
-    let imageUrl: string | null = null;
-    if (image) {
+    let imageUrls: string[] = [];
+    if (images.length > 0) {
       setUploading(true);
       try {
-        imageUrl = await uploadImage(briefId, image);
+        imageUrls = await uploadImages(briefId, images);
       } catch {
         setUploading(false);
         setError('Image upload failed — please try again.');
@@ -668,7 +636,7 @@ function RevisionModal({
       }
       setUploading(false);
     }
-    onSubmit(note, imageUrl);
+    onSubmit(note, imageUrls);
   }
 
   return (
@@ -680,7 +648,7 @@ function RevisionModal({
         placeholder={t.revisionPh}
         className="border border-black/[.12] rounded-[10px] px-3 py-2 text-sm resize-none"
       />
-      <ImagePicker file={image} onChange={setImage} label={t.revisionImgLabel} t={t} />
+      <ImagePicker files={images} onChange={setImages} label={t.revisionImgLabel} t={t} />
       {error && <p className="text-xs text-[var(--color-brand)]">{error}</p>}
       <button
         disabled={pending || uploading}

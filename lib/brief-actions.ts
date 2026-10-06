@@ -6,6 +6,16 @@ import type { CategoryName } from '@/lib/workflow';
 
 type ActionResult = { ok: true } | { error: string };
 
+// The RPCs that already take a single image keep doing so (first image); any further images
+// are appended as attachments in one call (add_brief_images, 0043). Returns an error result
+// only if that follow-up fails, since the main action has already gone through by then.
+async function addExtraImages(briefId: string | undefined, urls: string[] | undefined, name: string): Promise<ActionResult | null> {
+  if (!briefId || !urls || urls.length === 0) return null;
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('add_brief_images', { p_brief_id: briefId, p_urls: urls, p_name: name });
+  return error ? { error: `Saved, but the extra images failed: ${error.message}` } : null;
+}
+
 export async function createBrief(input: {
   title: string;
   category: CategoryName;
@@ -19,9 +29,10 @@ export async function createBrief(input: {
   requesterEmail?: string;
   referenceLink?: string | null;
   referenceImageUrl?: string | null;
+  extraImageUrls?: string[];
 }): Promise<ActionResult> {
   const supabase = await createClient();
-  const { error } = await supabase.rpc('create_brief', {
+  const { data, error } = await supabase.rpc('create_brief', {
     p_title: input.title,
     p_category: input.category,
     p_brief_text: input.briefText,
@@ -36,9 +47,10 @@ export async function createBrief(input: {
     p_reference_image_url: input.referenceImageUrl || null,
   });
   if (error) return { error: error.message };
+  const extra = await addExtraImages((data as { id: string } | null)?.id, input.extraImageUrls, 'Reference image');
   revalidatePath('/');
   revalidatePath('/works');
-  return { ok: true };
+  return extra ?? { ok: true };
 }
 
 export async function acceptBrief(briefId: string): Promise<ActionResult> {
@@ -71,12 +83,14 @@ export async function unassignDesigner(briefId: string, designerId: string): Pro
   return { ok: true };
 }
 
-export async function submitWork(briefId: string, link: string, imageUrl: string | null): Promise<ActionResult> {
+export async function submitWork(briefId: string, link: string, imageUrls: string[]): Promise<ActionResult> {
   const supabase = await createClient();
-  const { error } = await supabase.rpc('submit_work', { p_brief_id: briefId, p_link: link || null, p_image_url: imageUrl });
+  const [first, ...rest] = imageUrls;
+  const { error } = await supabase.rpc('submit_work', { p_brief_id: briefId, p_link: link || null, p_image_url: first ?? null });
   if (error) return { error: error.message };
+  const extra = await addExtraImages(briefId, rest, 'Submitted image');
   revalidatePath(`/projects/${briefId}`);
-  return { ok: true };
+  return extra ?? { ok: true };
 }
 
 export async function approveBrief(briefId: string): Promise<ActionResult> {
@@ -89,14 +103,16 @@ export async function approveBrief(briefId: string): Promise<ActionResult> {
   return { ok: true };
 }
 
-export async function requestRevision(briefId: string, note: string, imageUrl: string | null): Promise<ActionResult> {
+export async function requestRevision(briefId: string, note: string, imageUrls: string[]): Promise<ActionResult> {
   const supabase = await createClient();
-  const { error } = await supabase.rpc('request_revision', { p_brief_id: briefId, p_note: note, p_image_url: imageUrl });
+  const [first, ...rest] = imageUrls;
+  const { error } = await supabase.rpc('request_revision', { p_brief_id: briefId, p_note: note, p_image_url: first ?? null });
   if (error) return { error: error.message };
+  const extra = await addExtraImages(briefId, rest, 'Revision image');
   revalidatePath(`/projects/${briefId}`);
   revalidatePath('/');
   revalidatePath('/works');
-  return { ok: true };
+  return extra ?? { ok: true };
 }
 
 export async function cancelBrief(briefId: string): Promise<ActionResult> {

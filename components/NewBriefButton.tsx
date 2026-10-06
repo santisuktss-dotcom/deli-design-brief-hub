@@ -7,6 +7,7 @@ import { getNewBriefFormData } from '@/lib/new-brief-data';
 import { CATS, type CategoryName } from '@/lib/workflow';
 import type { CurrentUser } from '@/lib/current-user';
 import DatePicker from './DatePicker';
+import ImagePicker from './ImagePicker';
 import { th } from '@/lib/i18n/th';
 import { en } from '@/lib/i18n/en';
 import type { Lang } from '@/lib/lang';
@@ -81,7 +82,7 @@ export default function NewBriefButton({
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dateError, setDateError] = useState<string | null>(null);
-  const [refImage, setRefImage] = useState<File | null>(null);
+  const [refImages, setRefImages] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [pending, startTransition] = useTransition();
   const [draft, setDraftState] = useState<Draft>({});
@@ -108,7 +109,7 @@ export default function NewBriefButton({
     setOpen(false);
     setError(null);
     setDateError(null);
-    setRefImage(null);
+    setRefImages([]);
   }
 
   function handleSubmit(formData: FormData) {
@@ -130,11 +131,11 @@ export default function NewBriefButton({
     const referenceLink = String(formData.get('referenceLink') ?? '').trim();
 
     startTransition(async () => {
-      let referenceImageUrl: string | null = null;
-      if (refImage) {
+      let referenceImageUrls: string[] = [];
+      if (refImages.length > 0) {
         setUploading(true);
         try {
-          referenceImageUrl = await uploadReferenceImage(refImage);
+          referenceImageUrls = await Promise.all(refImages.map(uploadReferenceImage));
         } catch {
           setUploading(false);
           setError('Image upload failed — please try again.');
@@ -155,7 +156,8 @@ export default function NewBriefButton({
         requesterName: requesterName || undefined,
         requesterEmail: isManager ? String(formData.get('requesterEmail') ?? '').trim() || undefined : undefined,
         referenceLink: referenceLink || undefined,
-        referenceImageUrl: referenceImageUrl || undefined,
+        referenceImageUrl: referenceImageUrls[0] || undefined,
+        extraImageUrls: referenceImageUrls.slice(1),
       });
       if ('error' in result) {
         setError(result.error);
@@ -226,28 +228,7 @@ export default function NewBriefButton({
                 <input name="referenceLink" type="url" defaultValue={draft.referenceLink} placeholder={t.linkPh} className={inputClass} />
               </Field>
 
-              <div className="flex flex-col gap-1.5">
-                <span className="text-xs text-[var(--muted)]">{t.revisionImgLabel}</span>
-                {refImage ? (
-                  <div className="flex items-center gap-2 text-sm border border-black/[.12] rounded-[10px] px-3 py-2">
-                    <span className="flex-1 truncate">{refImage.name}</span>
-                    <button
-                      type="button"
-                      onClick={() => setRefImage(null)}
-                      className="text-xs text-[var(--color-brand)]"
-                    >
-                      {t.removeImg}
-                    </button>
-                  </div>
-                ) : (
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => setRefImage(e.target.files?.[0] ?? null)}
-                    className="text-sm"
-                  />
-                )}
-              </div>
+              <ImagePicker files={refImages} onChange={setRefImages} label={t.revisionImgLabel} t={t} />
 
               <div className="grid grid-cols-2 gap-3">
                 <Field label={t.fDeliv}>

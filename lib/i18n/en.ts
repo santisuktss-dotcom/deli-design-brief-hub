@@ -66,6 +66,8 @@ export const en: Dict = {
   noHistoryYet: 'No history yet.',
   calSub: 'Projects plotted by design-start and deadline date',
   calStart: 'Design start',
+  calHoliday: 'Company holiday',
+  pickBlockedWeekend: 'Weekend — this date can’t be selected', pickBlockedHoliday: 'Company holiday — this date can’t be selected', pickBlockedHint: 'Weekends and company holidays can’t be selected.',
   calDue: 'Due',
   calInProgress: 'In progress',
   calCompleted: 'Completed on this date',

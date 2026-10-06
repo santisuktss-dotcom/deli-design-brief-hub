@@ -66,7 +66,7 @@ export default async function CalendarPage({
   // filter also has to catch a brief whose start/due span the whole visible month without
   // either endpoint falling inside it, which the previous exact-match version missed.
   const supabase = await createClient();
-  const [{ data: rows }, { data: assignmentRows }] = await Promise.all([
+  const [{ data: rows }, { data: assignmentRows }, { data: holidayRows }] = await Promise.all([
     supabase
       .from('briefs')
       .select('id, code, title, category, status, start_date, due_date, original_due_date')
@@ -79,7 +79,9 @@ export default async function CalendarPage({
     viewer.role === 'designer'
       ? supabase.from('brief_assignments').select('brief_id').eq('designer_id', viewer.id)
       : Promise.resolve({ data: null as { brief_id: string }[] | null }),
+    supabase.from('company_holidays').select('holiday_date').gte('holiday_date', rangeStart).lte('holiday_date', rangeEnd),
   ]);
+  const holidaySet = new Set((holidayRows ?? []).map((h) => h.holiday_date as string));
 
   // Manager can drag any brief's due date; a designer only the briefs assigned to them;
   // a requester can't drag at all (they get update_brief_scope's forward-only editor
@@ -132,7 +134,7 @@ export default async function CalendarPage({
   const next = month === 11 ? { y: year + 1, m: 1 } : { y: year, m: month + 2 };
   const weeks = days.map((d) => {
     const iso = toISO(d);
-    return { iso, date: d.getDate(), inMonth: d.getMonth() === month, events: byDate[iso] ?? [] };
+    return { iso, date: d.getDate(), inMonth: d.getMonth() === month, events: byDate[iso] ?? [], holiday: holidaySet.has(iso) };
   });
 
   return (
@@ -151,6 +153,9 @@ export default async function CalendarPage({
         </span>
         <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
           <span className="w-3 h-3 rounded border-2 border-dashed border-black/30" /> {t.calInProgress}
+        </span>
+        <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
+          <span className="w-3 h-3 rounded bg-[repeating-linear-gradient(135deg,rgba(26,22,20,.22)_0_2px,transparent_2px_5px)] border border-black/20" /> {t.calHoliday}
         </span>
         <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
           <span

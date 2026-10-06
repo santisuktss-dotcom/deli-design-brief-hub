@@ -17,7 +17,7 @@ export default function CalendarGrid({
   canDragBriefIds,
   canDragStartBriefIds,
 }: {
-  weeks: { iso: string; date: number; inMonth: boolean; events: CalEvent[] }[];
+  weeks: { iso: string; date: number; inMonth: boolean; events: CalEvent[]; holiday: boolean }[];
   todayIso: string;
   t: typeof en | typeof th;
   canDragBriefIds: Set<string>;
@@ -46,7 +46,7 @@ export default function CalendarGrid({
         <div className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-3 py-2">{error}</div>
       )}
       <div className="grid grid-cols-5 gap-2">
-        {weeks.map(({ iso, date, inMonth, events }) => {
+        {weeks.map(({ iso, date, inMonth, events, holiday }) => {
           const visible = events.slice(0, 3);
           const hidden = events.slice(3);
           const isDragOver = dragOverIso === iso;
@@ -70,10 +70,19 @@ export default function CalendarGrid({
                   : iso === todayIso
                     ? 'border-[var(--color-brand)]'
                     : 'border-black/[.06]'
-              } ${inMonth ? 'bg-[var(--wash,rgba(26,22,20,.02))]' : 'bg-black/[.015]'}`}
+              } ${inMonth ? 'bg-[var(--wash,rgba(26,22,20,.02))]' : 'bg-black/[.015]'} ${
+                holiday ? 'bg-[repeating-linear-gradient(135deg,rgba(26,22,20,.07)_0_3px,transparent_3px_9px)]' : ''
+              }`}
             >
-              <span className={`text-xs font-medium ${inMonth ? 'text-[var(--ink2)]' : 'text-[var(--muted2)]'}`}>
-                {date}
+              <span className="flex items-center justify-between gap-2">
+                <span className={`text-xs font-medium ${inMonth ? 'text-[var(--ink2)]' : 'text-[var(--muted2)]'}`}>
+                  {date}
+                </span>
+                {holiday && (
+                  <span className="text-[10px] font-medium rounded-full bg-black/[.07] px-2 py-0.5 text-[var(--ink2)]">
+                    {t.calHoliday}
+                  </span>
+                )}
               </span>
               {visible.map((e, i) => {
                 const draggable =

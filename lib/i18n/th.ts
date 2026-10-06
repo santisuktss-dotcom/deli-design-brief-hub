@@ -64,6 +64,8 @@ export const th = {
   noHistoryYet: 'ยังไม่มีประวัติ · No history yet',
   calSub: 'งานตามวันเริ่มดีไซน์และวันกำหนดส่ง',
   calStart: 'เริ่มดีไซน์ · Design start',
+  calHoliday: 'วันหยุดบริษัท',
+  pickBlockedWeekend: 'วันเสาร์-อาทิตย์ เลือกวันนี้ไม่ได้', pickBlockedHoliday: 'วันหยุดบริษัท เลือกวันนี้ไม่ได้', pickBlockedHint: 'ไม่สามารถเลือกวันเสาร์-อาทิตย์และวันหยุดบริษัทได้',
   calDue: 'วันกำหนดส่ง · Due',
   calInProgress: 'กำลังดีไซน์ · In progress',
   calCompleted: 'เสร็จสมบูรณ์ · Completed',

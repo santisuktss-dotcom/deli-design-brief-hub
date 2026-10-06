@@ -19,6 +19,11 @@ function isBlocked(iso: string, holidays: string[]) {
   const day = d.getDay();
   return day === 0 || day === 6 || holidays.includes(iso);
 }
+function blockReason(iso: string, holidays: string[]): 'holiday' | 'weekend' | null {
+  if (holidays.includes(iso)) return 'holiday';
+  const day = new Date(iso + 'T00:00:00').getDay();
+  return day === 0 || day === 6 ? 'weekend' : null;
+}
 function buildMonthGrid(year: number, month: number) {
   const first = new Date(year, month, 1);
   const startDow = first.getDay();
@@ -62,6 +67,7 @@ export default function DatePicker({
   const DOW = lang === 'th' ? DOW_TH : DOW_EN;
   const [value, setValue] = useState(defaultValue ?? '');
   const [open, setOpen] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const initial = value ? new Date(value + 'T00:00:00') : new Date();
   const [viewYear, setViewYear] = useState(initial.getFullYear());
   const [viewMonth, setViewMonth] = useState(initial.getMonth());
@@ -88,8 +94,15 @@ export default function DatePicker({
       setViewMonth(viewMonth + 1);
     }
   }
+  function say(iso: string) {
+    const reason = blockReason(iso, holidays);
+    if (!reason) return setNotice(null);
+    const d = new Date(iso + 'T00:00:00').toLocaleDateString(lang === 'th' ? 'th-TH' : 'en-US', { day: 'numeric', month: 'short' });
+    setNotice(`${d}: ${reason === 'holiday' ? t.pickBlockedHoliday : t.pickBlockedWeekend}`);
+  }
   function pick(iso: string) {
-    if (isBlocked(iso, holidays)) return;
+    if (isBlocked(iso, holidays)) return say(iso);
+    setNotice(null);
     setValue(iso);
     onChange?.(iso);
     setOpen(false);
@@ -147,13 +160,16 @@ export default function DatePicker({
                 <button
                   key={iso}
                   type="button"
-                  disabled={blocked}
+                  aria-disabled={blocked}
+                  title={blocked ? (blockReason(iso, holidays) === 'holiday' ? t.pickBlockedHoliday : t.pickBlockedWeekend) : undefined}
                   onClick={() => pick(iso)}
+                  onMouseEnter={() => (blocked ? say(iso) : setNotice(null))}
+                  onFocus={() => (blocked ? say(iso) : setNotice(null))}
                   className={`aspect-square rounded-lg text-xs flex flex-col items-center justify-center gap-0.5 transition ${
                     selected
                       ? 'bg-[var(--color-brand)] text-white font-semibold'
                       : blocked
-                        ? 'text-black/20 cursor-not-allowed'
+                        ? `text-black/25 cursor-not-allowed ${blockReason(iso, holidays) === 'holiday' ? 'line-through decoration-[var(--color-brand)]/60 bg-black/[.04]' : ''}`
                         : inMonth
                           ? 'hover:bg-black/[.06] text-[var(--ink)]'
                           : 'text-black/25 hover:bg-black/[.04]'
@@ -174,7 +190,13 @@ export default function DatePicker({
               );
             })}
           </div>
-          <div className="flex items-center justify-between mt-3 pt-3 border-t border-black/[.06]">
+          <p
+            role="status"
+            className={`mt-2 text-[11px] leading-snug min-h-[28px] ${notice ? 'text-[var(--color-brand)] font-medium' : 'text-[var(--muted)]'}`}
+          >
+            {notice ?? t.pickBlockedHint}
+          </p>
+          <div className="flex items-center justify-between mt-1 pt-3 border-t border-black/[.06]">
             <button
               type="button"
               onClick={() => {

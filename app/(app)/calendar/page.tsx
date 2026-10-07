@@ -155,7 +155,7 @@ export default async function CalendarPage({
           <span className="w-3 h-3 rounded border-2 border-dashed border-black/30" /> {t.calInProgress}
         </span>
         <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
-          <span className="w-3 h-3 rounded bg-[repeating-linear-gradient(135deg,rgba(26,22,20,.22)_0_2px,transparent_2px_5px)] border border-black/20" /> {t.calHoliday}
+          <span className="w-3 h-3 rounded bg-[repeating-linear-gradient(135deg,rgba(227,32,43,.55)_0_2px,rgba(227,32,43,.15)_2px_5px)] border border-[var(--color-brand)]" /> {t.calHoliday}
         </span>
         <span className="flex items-center gap-1.5 text-xs text-[var(--ink2)]">
           <span

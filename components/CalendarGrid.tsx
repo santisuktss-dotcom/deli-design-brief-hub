@@ -71,7 +71,7 @@ export default function CalendarGrid({
                     ? 'border-[var(--color-brand)]'
                     : 'border-black/[.06]'
               } ${inMonth ? 'bg-[var(--wash,rgba(26,22,20,.02))]' : 'bg-black/[.015]'} ${
-                holiday ? 'bg-[repeating-linear-gradient(135deg,rgba(26,22,20,.07)_0_3px,transparent_3px_9px)]' : ''
+                holiday ? '!border-[var(--color-brand)] bg-[repeating-linear-gradient(135deg,rgba(227,32,43,.12)_0_3px,rgba(227,32,43,.04)_3px_9px)]' : ''
               }`}
             >
               <span className="flex items-center justify-between gap-2">
@@ -79,7 +79,7 @@ export default function CalendarGrid({
                   {date}
                 </span>
                 {holiday && (
-                  <span className="text-[10px] font-medium rounded-full bg-black/[.07] px-2 py-0.5 text-[var(--ink2)]">
+                  <span className="text-[10px] font-semibold rounded-full bg-[var(--color-brand)] px-2 py-0.5 text-white">
                     {t.calHoliday}
                   </span>
                 )}

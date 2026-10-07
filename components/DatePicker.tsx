@@ -169,7 +169,7 @@ export default function DatePicker({
                     selected
                       ? 'bg-[var(--color-brand)] text-white font-semibold'
                       : blocked
-                        ? `text-black/25 cursor-not-allowed ${blockReason(iso, holidays) === 'holiday' ? 'line-through decoration-[var(--color-brand)]/60 bg-black/[.04]' : ''}`
+                        ? `text-black/25 cursor-not-allowed ${blockReason(iso, holidays) === 'holiday' ? 'line-through decoration-[var(--color-brand)] !text-[var(--color-brand)] bg-[var(--color-brand)]/10 font-semibold' : ''}`
                         : inMonth
                           ? 'hover:bg-black/[.06] text-[var(--ink)]'
                           : 'text-black/25 hover:bg-black/[.04]'

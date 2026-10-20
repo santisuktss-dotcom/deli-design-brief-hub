@@ -93,6 +93,18 @@ export function isPastDue(due: string | null | undefined): boolean {
   return due.slice(0, 10) < today;
 }
 
+// Overdue = deadline day passed AND the ball is still with the design side. Once work has
+// been submitted (or the manager already approved it, or it's done/cancelled/on hold) the
+// deadline no longer applies, so the brief stops showing as overdue.
+export function isOverdue(
+  b: { status: BriefStatus; submitted_at?: string | null },
+  due: string | null | undefined
+): boolean {
+  if (['Completed', 'Cancelled', 'OnHold', 'Approved'].includes(b.status)) return false;
+  if (b.submitted_at) return false;
+  return isPastDue(due);
+}
+
 export function stepBadge(status: BriefStatus): string {
   const i = ORDER.indexOf(status);
   return i > -1 ? `0${i + 1}/0${ORDER.length}` : status;
@@ -123,6 +135,9 @@ export type Brief = {
   start_date: string | null;
   due_date: string | null;
   original_due_date: string | null;
+  // Set when the designer submits work, cleared by a revision request (migration 0044) —
+  // while it's set the brief is waiting on review, not on the designer.
+  submitted_at?: string | null;
   delivery_timing: 'early' | 'ontime' | 'late' | null;
   accepted: boolean;
   accepted_at: string | null;
@@ -139,7 +154,7 @@ export type AssignedDesigner = { id: string; name: string; nickname: string | nu
 export type BriefForDecoration = Pick<
   Brief,
   'id' | 'code' | 'title' | 'status' | 'accepted' | 'requester_id' | 'category' | 'due_date' | 'original_due_date'
->;
+> & { submitted_at?: string | null };
 
 // Ported from the prototype's deco() (index.html ~line 1927), simplified because our
 // RPCs make `status`/`accepted` server-authoritative — no client-side status override needed.
@@ -169,11 +184,7 @@ export function decorateBrief<B extends BriefForDecoration>(
   const displayDueDate = viewer.role === 'requester' ? brief.original_due_date ?? brief.due_date : brief.due_date;
   // "Late" styling follows whichever date this viewer actually sees, so a requester's
   // red/muted color always matches the frozen date shown next to it.
-  const late =
-    !!displayDueDate &&
-    brief.status !== 'Completed' &&
-    brief.status !== 'Cancelled' &&
-    isPastDue(displayDueDate);
+  const late = !!displayDueDate && isOverdue(brief, displayDueDate);
 
   return {
     ...brief,

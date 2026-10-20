@@ -22,7 +22,7 @@ export default async function WorksPage() {
     supabase
       .from('briefs')
       .select(
-        'id, code, title, category, status, accepted, requester_id, due_date, original_due_date, created_at, brief_assignments(designer_id, profiles(id, name, nickname, initials))'
+        'id, code, title, category, status, accepted, requester_id, due_date, original_due_date, submitted_at, created_at, brief_assignments(designer_id, profiles(id, name, nickname, initials))'
       )
       .order('created_at', { ascending: false })
       .returns<BriefRow[]>(),

@@ -18,16 +18,17 @@ export default async function WorksPage() {
   if (!viewer) return null;
 
   const supabase = await createClient();
-  const [{ data: rows }, lang] = await Promise.all([
+  const cols =
+    'id, code, title, category, status, accepted, requester_id, due_date, original_due_date, created_at, brief_assignments(designer_id, profiles(id, name, nickname, initials))';
+  const load = (withSubmitted: boolean) =>
     supabase
       .from('briefs')
-      .select(
-        'id, code, title, category, status, accepted, requester_id, due_date, original_due_date, submitted_at, created_at, brief_assignments(designer_id, profiles(id, name, nickname, initials))'
-      )
+      .select(withSubmitted ? cols.replace('created_at', 'submitted_at, created_at') : cols)
       .order('created_at', { ascending: false })
-      .returns<BriefRow[]>(),
-    getLang(),
-  ]);
+      .returns<BriefRow[]>();
+  let [{ data: rows, error: rowsErr }, lang] = await Promise.all([load(true), getLang()]);
+  // migration 0044 adds briefs.submitted_at: until it has been run, fall back to the old column list
+  if (rowsErr) rows = (await load(false)).data;
   const t = lang === 'th' ? th : en;
 
   const all = rows ?? [];
